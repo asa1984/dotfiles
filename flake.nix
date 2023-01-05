@@ -18,6 +18,7 @@
           programs.home-manager.enable = true;
           home.stateVersion = "22.11";
           imports = [
+            ./modules/fonts.nix
             ./modules/zsh
             ./modules/git
           ];
