@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ colorscheme, ... }:
 {
   programs.alacritty = {
     enable = true;
@@ -8,7 +8,7 @@
       };
 
       font = {
-        size = 14;
+        size = 12;
 
         normal.family = "Hack Nerd Font Mono";
         normal.style = "Regular";
@@ -18,6 +18,24 @@
         italic.style = "Italic";
         bold_italic.family = "Hack Nerd Font Mono";
         bold_italic.style = "Bold Italic";
+      };
+
+      colors = {
+        primary = {
+          background = colorscheme.bg-primary;
+          foreground = colorscheme.fg-primary;
+        };
+
+        normal = {
+          inherit (colorscheme) black;
+          inherit (colorscheme) red;
+          inherit (colorscheme) green;
+          inherit (colorscheme) yellow;
+          inherit (colorscheme) blue;
+          inherit (colorscheme) magenta;
+          inherit (colorscheme) cyan;
+          inherit (colorscheme) white;
+        };
       };
     };
   };

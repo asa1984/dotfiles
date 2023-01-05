@@ -15,6 +15,10 @@
     let
       home-common = { lib, ... }:
         {
+          _module.args = {
+            colorscheme = import ./colorschemes/dracula.nix;
+	  };
+
           programs.home-manager.enable = true;
           home.stateVersion = "22.11";
           imports = [
