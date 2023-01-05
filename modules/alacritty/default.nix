@@ -10,9 +10,9 @@
       font = {
         size = 12;
 
-        normal.family = "Hack Nerd Font Mono";
+        normal.family = "HackGen35 Console NF";
         normal.style = "Regular";
-        bold.family = "Hack Nerd Font Mono";
+        bold.family = "HackGen35 Console NF";
         bold.style = "Bold";
         italic.family = "Hack Nerd Font Mono";
         italic.style = "Italic";
