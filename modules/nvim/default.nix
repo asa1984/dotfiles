@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  programs.nvim = {
+  programs.neovim = {
     enable = true;
     vimAlias = true;
   };
