@@ -21,6 +21,7 @@
             ./modules/fonts.nix
             ./modules/zsh
             ./modules/git
+            ./modules/nvim
             ./modules/alacritty
           ];
         };
