@@ -34,6 +34,9 @@
       home-linux = {
         home.homeDirectory = "/home/asahi";
         home.username = "asahi";
+	imports = [
+          ./modules/unfree.nix
+	];
       };
     in
     {
