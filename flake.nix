@@ -27,6 +27,7 @@
             ./modules/git
             ./modules/nvim
             ./modules/alacritty
+	    ./modules/kitty
           ];
         };
 
