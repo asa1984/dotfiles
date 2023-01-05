@@ -4,10 +4,12 @@
   programs.kitty = {
     enable = true;
     settings = {
-      font_size = 10;
+      font_size = 12;
       shell = "zsh";
       scrollback_lines = 10000;
       input_delay = 1;
+
+      window_padding_width = 5;
 
       foreground = "${colorscheme.fg-primary}";
       background = "${colorscheme.bg-primary}";
