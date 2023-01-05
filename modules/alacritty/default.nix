@@ -10,7 +10,7 @@
       font = {
         size = 12;
 
-        normal.family = "HackGen Console NF";
+        normal.family = "HackGen35 Console NFJ";
       };
 
       colors = {
