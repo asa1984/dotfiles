@@ -19,6 +19,12 @@
             colorscheme = import ./colorschemes/dracula.nix;
 	  };
 
+	  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+            "slack"
+	    "discord"
+	    "brave"
+	  ];
+
           programs.home-manager.enable = true;
           home.stateVersion = "22.11";
           imports = [
