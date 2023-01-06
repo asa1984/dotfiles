@@ -19,6 +19,8 @@
             colorscheme = import ./colorschemes/dracula.nix;
 	  };
 
+	  nixpkgs.config.allowUnfree = true;
+
 	  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
             "slack"
 	    "discord"
