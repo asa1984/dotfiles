@@ -21,11 +21,11 @@
 
 	  nixpkgs.config.allowUnfree = true;
 
-	  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-            "slack"
-	    "discord"
-	    "brave"
-	  ];
+#	  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+#            "slack"
+#	    "discord"
+#	    "brave"
+#	  ];
 
           programs.home-manager.enable = true;
           home.stateVersion = "22.11";
