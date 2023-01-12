@@ -8,5 +8,6 @@
 
   programs.gh = {
     enable = true;
+    editor = "nvim";
   };
 }
