@@ -12,4 +12,6 @@
   # Git
   g = "git";
   cdg = "cd $(git rev-parse --show-toplevel)"; # cd to git root directory
+  gitc = "git add . && git commit";
+  gitp = "git add . && git commit && git push";
 }
