@@ -1,4 +1,3 @@
-
 { colorscheme, ... }:
 {
   programs.kitty = {

@@ -17,34 +17,36 @@
         {
           _module.args = {
             colorscheme = import ./colorschemes/dracula.nix;
-	  };
+          };
 
-	  nixpkgs.config.allowUnfree = true;
-
-#	  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-#            "slack"
-#	    "discord"
-#	    "brave"
-#	  ];
+          nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+            "slack"
+            "discord"
+            "brave"
+            "parsec-bin"
+            "vscode"
+          ];
 
           programs.home-manager.enable = true;
           home.stateVersion = "22.11";
           imports = [
             ./modules/fonts.nix
-            ./modules/zsh
             ./modules/git
             ./modules/nvim
-            ./modules/alacritty
-	    ./modules/kitty
+	    ./modules/shell
+            ./modules/tools
+            ./modules/dev
+            ./modules/virtualizations
           ];
         };
 
       home-linux = {
         home.homeDirectory = "/home/asahi";
         home.username = "asahi";
-	imports = [
+        imports = [
+          ./modules/applications
           ./modules/unfree.nix
-	];
+        ];
       };
     in
     {

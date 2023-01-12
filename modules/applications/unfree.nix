@@ -4,5 +4,7 @@
     discord
     slack
     brave
+    parsec-bin
+    vscode
   ];
 }
