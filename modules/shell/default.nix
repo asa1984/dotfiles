@@ -8,9 +8,10 @@
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
     shellAliases = import ./aliases.nix;
-    sessionVariables = {
-      #      EDITOR = "nvim";
-    };
+    initExtra = ''
+      ${builtins.readFile ./session_variables.zsh}
+      ${builtins.readFile ./functions.zsh}
+    '';
     plugins = [
       {
         name = "zsh-nix-shell";
