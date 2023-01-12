@@ -35,8 +35,8 @@
             ./modules/nvim
 	    ./modules/shell
             ./modules/tools
-            ./modules/dev
-            ./modules/virtualizations
+            ./modules/development
+            ./modules/virtualization
           ];
         };
 
