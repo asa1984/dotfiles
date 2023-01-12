@@ -9,7 +9,7 @@
     enableSyntaxHighlighting = true;
     shellAliases = import ./aliases.nix;
     sessionVariables = {
-      EDITOR = "nvim";
+      #      EDITOR = "nvim";
     };
     plugins = [
       {

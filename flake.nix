@@ -41,8 +41,13 @@
         };
 
       home-linux = {
-        home.homeDirectory = "/home/asahi";
-        home.username = "asahi";
+        home = {
+          homeDirectory = "/home/asahi";
+          username = "asahi";
+          sessionVariables = {
+            EDITOR = "nvim";
+          };
+        };
         imports = [
           ./modules/applications
         ];
