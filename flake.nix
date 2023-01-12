@@ -33,7 +33,7 @@
             ./modules/fonts.nix
             ./modules/git
             ./modules/nvim
-	    ./modules/shell
+            ./modules/shell
             ./modules/tools
             ./modules/development
             ./modules/virtualization
