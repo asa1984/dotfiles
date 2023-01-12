@@ -45,7 +45,6 @@
         home.username = "asahi";
         imports = [
           ./modules/applications
-          ./modules/unfree.nix
         ];
       };
     in
