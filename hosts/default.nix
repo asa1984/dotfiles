@@ -11,10 +11,12 @@ in
   desktop_home = lib.nixosSystem
     {
       inherit system;
+      specialArgs = { inherit user; };
       modules = [
         ./desktop_home
         ./system.nix
         hyprland.nixosModules.default
+        home-manager.nixosModules.home-manager
         {
           home-manager = {
             extraSpecialArgs = { inherit user; };
