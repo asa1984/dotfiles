@@ -2,7 +2,11 @@
 {
   imports = [
     ../../modules/shell
+    ../../modules/git
+    ../../modules/nvim
     ../../modules/tools
+    ../../modules/alacritty
+    ../../modules/applications
   ];
   home = {
     username = user;
