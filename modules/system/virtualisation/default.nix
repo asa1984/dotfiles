@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  virualisation = {
+  virtualisation = {
     docker.enable = true;
   };
 }
