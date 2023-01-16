@@ -1,4 +1,4 @@
-{ lib, user, ... }:
+{ lib, user, nixpkgs, home-manager, hyprland, ... }:
 let
   system = "x86_84-linux";
   pkgs = import nixpkgs {

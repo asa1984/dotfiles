@@ -5,7 +5,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
-      ../../modules/hyprland
+      ../../modules/desktop/hyprland
     ];
 
   users.users.${user} = {
@@ -22,18 +22,6 @@
 
   # Hostname
   networking.hostName = "nixos-desktop"; # Define your hostname.
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Time zone.
-  time.timeZone = "Asia/Tokyo";
-
-  # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = defaultLanguage;
 
   i18n.inputMethod = {
     enabled = "fcitx5";
@@ -59,9 +47,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-
-
-  environment.shells = with pkgs; [ zsh ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
