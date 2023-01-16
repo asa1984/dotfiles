@@ -3,9 +3,8 @@
   imports = [
     ../../modules/shell
     ../../modules/git
-    ../../modules/nvim
+    ../../modules/editors
     ../../modules/tools
-    ../../modules/alacritty
     ../../modules/applications
   ];
   home = {

@@ -13,23 +13,6 @@
         normal.family = "HackGen35 Console NFJ";
       };
 
-      colors = {
-        primary = {
-          background = colorscheme.bg-primary;
-          foreground = colorscheme.fg-primary;
-        };
-
-        normal = {
-          inherit (colorscheme) black;
-          inherit (colorscheme) red;
-          inherit (colorscheme) green;
-          inherit (colorscheme) yellow;
-          inherit (colorscheme) blue;
-          inherit (colorscheme) magenta;
-          inherit (colorscheme) cyan;
-          inherit (colorscheme) white;
-        };
-      };
     };
   };
 }

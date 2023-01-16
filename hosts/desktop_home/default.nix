@@ -5,7 +5,9 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
-      ../../modules/desktop/hyprland
+      ../../modules/system/desktop/hyprland
+      ../../modules/system/fonts
+      ../../modules/system/virtualisation
     ];
 
   users.users.${user} = {

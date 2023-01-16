@@ -19,6 +19,7 @@ in
         home-manager.nixosModules.home-manager
         {
           home-manager = {
+            useGlobalPkgs = true;
             extraSpecialArgs = { inherit user; };
             users.${user} = {
               imports = [ (import ./desktop_home/home.nix) ];
