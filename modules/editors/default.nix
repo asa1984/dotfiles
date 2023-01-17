@@ -1,3 +1,3 @@
 { pkgs, ... }: {
-  imports = [ ./helix.nix ./nvim.nix ];
+  imports = [ ./helix.nix ./neovim.nix ];
 }
