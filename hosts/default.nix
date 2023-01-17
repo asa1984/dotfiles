@@ -13,7 +13,7 @@ in
       inherit system;
       specialArgs = { inherit user; };
       modules = [
-        ./desktop_home
+        ./desktop_home/configuration.nix
         ./system.nix
         hyprland.nixosModules.default
         home-manager.nixosModules.home-manager
