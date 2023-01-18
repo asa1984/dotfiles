@@ -16,6 +16,9 @@
     shell = pkgs.zsh;
   };
 
+  programs = {
+    dconf.enable = true;
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -31,7 +34,7 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  #  services.printing.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;

@@ -15,6 +15,8 @@
     shells = with pkgs; [ zsh ];
   };
 
+  services = { dbus.enable = true; };
+
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
