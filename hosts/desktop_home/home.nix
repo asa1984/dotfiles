@@ -1,4 +1,4 @@
-{ user, ... }:
+{ user, pkgs, ... }:
 {
   imports = [
     ../../modules/shell
@@ -13,5 +13,6 @@
   };
   # manage itself
   programs.home-manager.enable = true;
+  home.packages = with pkgs; [ deno nixpkgs-fmt ];
   home.stateVersion = "22.11";
 }

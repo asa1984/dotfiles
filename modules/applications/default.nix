@@ -1,7 +1,7 @@
-{ pkgs, ... }: {
+_: {
   imports = [
     ./alacritty.nix
-    ./kitty.nix 
+    ./kitty.nix
     ./unfree.nix
   ];
 }
