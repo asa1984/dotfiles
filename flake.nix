@@ -11,7 +11,7 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #    xremap-flake.url="github:xremap/flake";
+    xremap-flake.url = "github:xremap/flake";
   };
 
   outputs =
@@ -19,17 +19,18 @@
     , nixpkgs
     , home-manager
     , hyprland
-    , #xremap,
-      ...
+    , xremap-flake
+    , ...
     }:
     let
       user = "asahi";
+      stateVersion = "22.11";
     in
     {
       nixosConfigurations = (
-        import ./hosts {
+        import ./nixos {
           inherit (nixpkgs) lib;
-          inherit inputs user nixpkgs home-manager hyprland;
+          inherit inputs user stateVersion nixpkgs home-manager hyprland xremap-flake;
         }
       );
       #      homeConfigurations = (
