@@ -16,7 +16,7 @@
     tokei
     fzf
 
-    # joke
+    # fun
     pingu
     figlet
     lolcat

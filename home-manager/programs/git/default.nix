@@ -10,4 +10,8 @@
     enable = true;
     settings.editor = "nvim";
   };
+
+  home.packages = with pkgs; [
+    nodePackages.gitmoji-cli
+  ];
 }

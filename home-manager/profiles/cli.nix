@@ -1,9 +1,9 @@
-_:{
+_: {
   # For CLI environment profile
-  imports=[
+  imports = [
     ../programs/development
     ../programs/git
-    ../programs/shell
+    ../programs/shells
     ../progrmas/tools
   ];
 }

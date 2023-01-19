@@ -1,10 +1,10 @@
 _: {
   # For Linux Desktop profile
-  imports=[
+  imports = [
     ../programs/applications
     ../programs/development
     ../programs/git
-    ../programs/shell
+    ../programs/shells
     ../programs/tools
   ];
 }
