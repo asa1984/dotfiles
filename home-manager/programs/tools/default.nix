@@ -4,6 +4,7 @@
     bottom # top alternative
     exa # ls alternative
     du-dust # du alternative
+    duf # df alternative
     fd # find alternative
     httpie # http client
     jq # json parser
