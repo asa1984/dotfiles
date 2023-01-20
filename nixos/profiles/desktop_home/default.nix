@@ -4,13 +4,13 @@ _: {
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
-      ../modules/sound
+      ../../modules/sound
 
-      ../modules/desktop/hyprland
+      ../../modules/desktop/hyprland
 
-      ../modules/fonts
-      ../modules/services
-      ../modules/virtualisation
+      ../../modules/fonts
+      ../../modules/services
+      ../../modules/virtualisation
     ];
 
   # Hostname

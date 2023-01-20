@@ -1,13 +1,12 @@
-{ lib, user, stateVersion, pkgs, nixpkgs, home-manager, hyprland, xremap-flake, ... }:
+{ lib, user, stateVersion, system, pkgs, nixpkgs, hyprland, xremap-flake, ... }:
 {
   # Desktop on my home profile
-  desktop_home = lib.nixosSystem
-    {
+  desktop_home = lib.nixosSystem {
       inherit system;
       specialArgs = { inherit user stateVersion; };
       modules = [
         ./profiles/desktop_home
-        ./system.nix
+        ./configuration.nix
         hyprland.nixosModules.default
         xremap-flake.nixosModules.default
       ];

@@ -11,7 +11,7 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xremap-flake.url = "github:xremap/flake";
+    xremap-flake.url = "github:xremap/nix-flake";
   };
 
   outputs =
@@ -35,13 +35,13 @@
       nixosConfigurations = (
         import ./nixos {
           inherit (nixpkgs) lib;
-          inherit inputs user stateVersion pkgs nixpkgs hyprland xremap-flake;
+          inherit inputs user stateVersion system pkgs nixpkgs hyprland xremap-flake;
         }
       );
       homeConfigurations = (
         import ./home-manager {
           inherit (nixpkgs) lib;
-          inherit inputs user stateVersion pkgs nixpkgs home-manager;
+          inherit inputs user stateVersion system pkgs nixpkgs home-manager;
         }
       );
     };

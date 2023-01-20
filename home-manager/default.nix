@@ -1,4 +1,4 @@
-{ user, stateVersion, pkgs, ... }:
+{ user, stateVersion, pkgs, home-manager, ... }:
 let
   home-common = {
     home = {

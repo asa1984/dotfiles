@@ -3,7 +3,7 @@ _: {
 
   services = {
     # Flatpak is sandbox environment to execute desktop applications
-    flatpak.enabel = true;
+    flatpak.enable = true;
     tailscale.enable = true;
   };
 }

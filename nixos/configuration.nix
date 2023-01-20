@@ -24,13 +24,13 @@
   };
 
   users.users.${user} = {
-    isNormalUser = user;
+    isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" "audio" ];
   };
 
-  environmant = {
-    shell = pkgs.zsh;
+  environment = {
+    shells = pkgs.zsh;
     systemPackages = with pkgs; [
       zsh
       git
