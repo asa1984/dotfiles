@@ -30,7 +30,7 @@
   };
 
   environment = {
-    shells = pkgs.zsh;
+    shells = [ pkgs.zsh ];
     systemPackages = with pkgs; [
       zsh
       git

@@ -1,4 +1,4 @@
-{ profilePath, user, stateVersion, pkgs, home-manager, ... }:
+{ profilePath, user, stateVersion, system, nixpkgs, home-manager, ... }:
 let
   home-common = {
     home = {
@@ -10,7 +10,12 @@ let
   };
 in
 home-manager.lib.homeManagerConfiguration {
-  inherit pkgs;
+  # Allow proprietary software
+  # Watch home-manager issue#2942
+  pkgs = import nixpkgs {
+    inherit system;
+    config.allowUnfree = true;
+  };
   extraSpecialArgs =
     { inherit user stateVersion; };
   modules = [

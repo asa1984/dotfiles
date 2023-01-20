@@ -1,4 +1,10 @@
-{ lib, user, stateVersion, system, pkgs, nixpkgs, hyprland, xremap-flake, ... }:
+{ lib, user, stateVersion, system, nixpkgs, hyprland, xremap-flake, ... }:
+let
+  pkgs = import nixpkgs {
+    inherit system;
+    config.allowUnfree = true; # Allow proprietary software
+  };
+in
 {
   # Desktop on my home profile
   desktop_home = lib.nixosSystem {

@@ -1,8 +1,8 @@
-_: {
+{ user, ... }: {
   services.xremap = {
+    userName = user;
     serviceMode = "user";
     withHypr = true;
-    # userName =
     config = {
       modMap = [
         {
@@ -16,7 +16,7 @@ _: {
         {
           name = "Ctrl+H should be enabled on all apps as BackSpace";
           remap = {
-            C-h = "BackSpace";
+            C-h = "Backspace";
           };
           application = {
             not = [ "Alacritty" "Kitty" "Wezterm" ];

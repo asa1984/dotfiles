@@ -26,22 +26,18 @@
       user = "asahi";
       stateVersion = "22.11";
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.alllowUnfree = true; # Allow proprietary software
-      };
     in
     {
       nixosConfigurations = (
         import ./nixos {
           inherit (nixpkgs) lib;
-          inherit inputs user stateVersion system pkgs nixpkgs hyprland xremap-flake;
+          inherit inputs user stateVersion system nixpkgs hyprland xremap-flake;
         }
       );
       homeConfigurations = (
         import ./home-manager {
           inherit (nixpkgs) lib;
-          inherit inputs user stateVersion system pkgs nixpkgs home-manager;
+          inherit inputs user stateVersion system nixpkgs home-manager;
         }
       );
     };
