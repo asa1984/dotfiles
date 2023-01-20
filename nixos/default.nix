@@ -1,17 +1,10 @@
-{ lib, user, stateVersion, nixpkgs, home-manager, hyprland, xremap-flake, ... }:
-let
-  system = "x86_84-linux";
-  pkgs = import nixpkgs {
-    inherit system;
-    config.allowUnfree = true; # Allow proprietary software
-  };
-in
+{ lib, user, stateVersion, pkgs, nixpkgs, home-manager, hyprland, xremap-flake, ... }:
 {
   # Desktop on my home profile
   desktop_home = lib.nixosSystem
     {
       inherit system;
-      specialArgs = { inherit user; inherit stateVersion; };
+      specialArgs = { inherit user stateVersion; };
       modules = [
         ./profiles/desktop_home
         ./system.nix
