@@ -1,8 +1,8 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; {
+  home.packages = with pkgs; [
     brave
-      chromium
-      firefox
-      google-chrome
-      };
-      }
+    chromium
+    firefox
+    google-chrome
+  ];
+}

@@ -1,19 +1,7 @@
-{ user, stateVersion, pkgs, home-manager, ... }:
+{ user, stateVersion, system, pkgs, nixpkgs, home-manager, ... }:
 let
-  home-common = {
-    home = {
-      username = user;
-      homeDirectory = "/home/${user}";
-    };
-  };
+  home-profile = import ./home.nix;
 in
 {
-  nixos = home-manager.lib.homeManagerConfiguration {
-    inherit pkgs;
-    modules = [
-      home-common
-      import
-      ./profiles/desktop.nix
-    ];
-  };
+  nixos = home-profile { profilePath = ./profiles/desktop.nix; inherit user stateVersion system pkgs nixpkgs home-manager; };
 }

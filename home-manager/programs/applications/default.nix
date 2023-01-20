@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    ./browser.nix
+    ./browsers.nix
     ./chat.nix
     ./terminals
     ./vscode

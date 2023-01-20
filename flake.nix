@@ -25,7 +25,7 @@
     let
       user = "asahi";
       stateVersion = "22.11";
-      system = "x86_84-linux";
+      system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         config.alllowUnfree = true; # Allow proprietary software
