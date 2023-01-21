@@ -12,7 +12,6 @@
     lazydocker # docker tui
     lazygit # git tui
     neofetch # system info
-    pmutils # power managiment utility
     procs # ps alternative
     ranger # file viewer
     ripgrep # grep alternative
