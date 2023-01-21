@@ -1,6 +1,13 @@
 ## Setup
 ```shell
-gh repo clone ASA1984/dotfiles ~/.dotfiles
+nix-shell -p git
+git clone https://github.com/ASA1984/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-home-manager switch --flake "./#nixos"
+
+# home-manager
+nix run home-manager -- switch --flake "./#nixos"
+
+# NixOS modules
+sudo nixos-rebuild switch --flake './#desktop_home'
+reboot
 ```
