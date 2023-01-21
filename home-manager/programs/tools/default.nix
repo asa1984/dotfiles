@@ -8,6 +8,7 @@
     fd # find alternative
     httpie # http client
     jq # json parser
+    killall # process killer
     lazydocker # docker tui
     lazygit # git tui
     neofetch # system info
