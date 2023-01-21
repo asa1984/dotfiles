@@ -13,6 +13,7 @@
   networking = {
     networkmanager.enable = true;
   };
+  systemd.services.NetworkManager-wait-online.enable = false; # nixpkgs issue#180175
   time.timeZone = "Asia/Tokyo";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.inputMethod = {

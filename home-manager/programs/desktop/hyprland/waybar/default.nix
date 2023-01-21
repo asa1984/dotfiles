@@ -6,5 +6,6 @@ _: {
       position = "top";
       modules-center = [ "clock" ];
     }];
+    style = builtins.readFile ./style.css;
   };
 }
