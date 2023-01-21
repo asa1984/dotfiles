@@ -11,12 +11,24 @@
   ll = "exa --long --all --git --icons";
   tree = "exa --icons --classify --tree";
 
+  # cd
+  ".." = "cd ..";
+  "..." = "cd ../..";
+  "...." = "cd ../../..";
+  "....." = "cd ../../../..";
+  cdg = "cd $(git rev-parse --show-toplevel)"; # cd to git root directory
+  
   # Git
   g = "git";
-  cdg = "cd $(git rev-parse --show-toplevel)"; # cd to git root directory
-  gcommit = "git add . && git commit";
-  gpush = "git add . && git commit && git push";
+  ga = "git add .";
+  gc = "git commit";
+  gco = "git checkout";
+  gac = "git add . && git commit";
+  gacp = "git add . && git commit && git push";
 
   # Nix-Shell
   nix-shell-unfree = "NIXPKGS_ALLOW_UNFREE=1 nix-shell";
+
+  # Microsoft Teams
+  teams = "teams-for-linux";
 }
