@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  imports = [ ./waybar ];
+  imports = [ ../share ./waybar ];
 
   home.packages = with pkgs;[
     mako
