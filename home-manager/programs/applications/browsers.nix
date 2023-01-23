@@ -1,16 +1,9 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [
-    brave
-    chromium
-    firefox
-    google-chrome
-  ];
+  home.packages = with pkgs;[ firefox ];
 
-  # Launch chromium apps on XWayland
-  home.file = {
-    ".config/chromium-flags.conf".text=''
-      --enable-features=UseOzonePlatform
-      --ozone-platform=x11
-    '';
+  programs.brave = {
+    enable = true;
+    # Launch on XWayland because fcitx5 doesn't work on chromium apps with wayland native
+    commandLineArgs = [ "--enable-features=UseOzonePlatfor" "--ozone-platform=x11" ];
   };
 }

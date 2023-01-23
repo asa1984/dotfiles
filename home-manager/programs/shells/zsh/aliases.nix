@@ -17,7 +17,7 @@
   "...." = "cd ../../..";
   "....." = "cd ../../../..";
   cdg = "cd $(git rev-parse --show-toplevel)"; # cd to git root directory
-  
+
   # Git
   g = "git";
   ga = "git add .";
