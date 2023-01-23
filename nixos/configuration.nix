@@ -9,6 +9,7 @@
         efiSysMountPoint = "/boot/efi";
       };
     };
+    kernelPackages = pkgs.linuxPackages_latest;
   };
   networking = {
     networkmanager.enable = true;
