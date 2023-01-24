@@ -1,5 +1,5 @@
 _: {
-  imports = [ ./xremap.nix ];
+  imports = [./xremap.nix];
 
   services = {
     # Flatpak is sandbox environment to execute desktop applications

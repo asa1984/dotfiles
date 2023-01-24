@@ -1,7 +1,5 @@
-with builtins;
-{
-  transparentify = color:
-    "#00${substring 1 (stringLength color - 1) color}";
+with builtins; {
+  transparentify = color: "#00${substring 1 (stringLength color - 1) color}";
 
   # TODO: Implemet a version that makes a color brighter
   # Possible algo

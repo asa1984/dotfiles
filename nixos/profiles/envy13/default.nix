@@ -1,15 +1,17 @@
-{ config, pkgs, ... }:
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-      ../../modules/sound
-      ../../modules/fonts
-      ../../modules/services
-      ../../modules/virtualisation
-    ];
+    ../../modules/sound
+    ../../modules/fonts
+    ../../modules/services
+    ../../modules/virtualisation
+  ];
 
   networking.hostName = "nixos-laptop-hp"; # Define your hostname.
 

@@ -1,8 +1,13 @@
-{ username, features, ... }: {
-  imports = [
-    ../programs/cli
-  ]
-  ++ builtins.filter builtins.pathExists (map (feature: ../programs/${feature}) features);
+{
+  username,
+  features,
+  ...
+}: {
+  imports =
+    [
+      ../programs/cli
+    ]
+    ++ builtins.filter builtins.pathExists (map (feature: ../programs/${feature}) features);
 
   programs = {
     home-manager.enable = true;

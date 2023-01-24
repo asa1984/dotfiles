@@ -1,6 +1,0 @@
-{
-  gtk = {
-    enable = true;
-
-  };
-}
