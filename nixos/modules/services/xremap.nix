@@ -2,7 +2,8 @@
   services.xremap = {
     userName = user;
     serviceMode = "user";
-    withHypr = true;
+    #withHypr = true;
+    withGnome = true;
     config = {
       modMap = [
         {

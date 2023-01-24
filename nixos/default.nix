@@ -19,7 +19,15 @@ in
   };
 
   # HP laptop profile
-  # laptop_hp = lib.nixosSystem {};
+  laptop_hp = lib.nixosSystem {
+    inherit system;
+    specialArgs = { inherit user stateVersion; };
+    modules = [
+      ./profiles/laptop_hp
+      ./configuration.nix
+      xremap-flake.nixosModules.default
+    ];
+  };
 
   # ROG laptop profile
   # laptop_rog = lib.nixosSystem {};
