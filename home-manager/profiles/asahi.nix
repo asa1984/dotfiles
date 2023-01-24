@@ -1,4 +1,4 @@
-_: {
+{
   # For Linux Desktop profile
   imports = [
     # Desktop environment
