@@ -36,7 +36,7 @@
         # Desktop
         prime = mkSystem {
           hostname = "prime";
-          pkgs = import {
+          pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
@@ -44,7 +44,7 @@
         # HP Laptop
         envy13 = mkSystem {
           hostname = "envy13";
-          pkgs = import {
+          pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
