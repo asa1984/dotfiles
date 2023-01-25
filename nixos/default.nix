@@ -1,22 +1,23 @@
-{
-  lib,
-  user,
-  stateVersion,
-  system,
-  nixpkgs,
-  hyprland,
-  xremap-flake,
-  ...
-}: let
+{ lib
+, user
+, stateVersion
+, system
+, nixpkgs
+, hyprland
+, xremap-flake
+, ...
+}:
+let
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true; # Allow proprietary software
   };
-in {
+in
+{
   # Desktop on my home profile
   desktop_home = lib.nixosSystem {
     inherit system;
-    specialArgs = {inherit user stateVersion;};
+    specialArgs = { inherit user stateVersion; };
     modules = [
       ./profiles/desktop_home
       ./configuration.nix
@@ -28,7 +29,7 @@ in {
   # HP laptop profile
   laptop_hp = lib.nixosSystem {
     inherit system;
-    specialArgs = {inherit user stateVersion;};
+    specialArgs = { inherit user stateVersion; };
     modules = [
       ./profiles/laptop_hp
       ./configuration.nix

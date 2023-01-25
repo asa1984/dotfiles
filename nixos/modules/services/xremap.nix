@@ -1,4 +1,4 @@
-{user, ...}: {
+{ user, ... }: {
   services.xremap = {
     userName = user;
     serviceMode = "user";
@@ -20,7 +20,7 @@
             C-h = "Backspace";
           };
           application = {
-            not = ["Alacritty" "Kitty" "Wezterm"];
+            not = [ "Alacritty" "Kitty" "Wezterm" ];
           };
         }
       ];

@@ -1,7 +1,6 @@
-{
-  username,
-  features,
-  ...
+{ username
+, features
+, ...
 }: {
   imports =
     [

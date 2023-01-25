@@ -1,9 +1,8 @@
-{
-  pkgs,
-  nixpkgs,
-  user,
-  stateVersion,
-  ...
+{ pkgs
+, nixpkgs
+, user
+, stateVersion
+, ...
 }: {
   # General and minimal system configurations
 
@@ -25,7 +24,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [fcitx5-mozc];
+    fcitx5.addons = with pkgs; [ fcitx5-mozc ];
   };
   services = {
     openssh.enable = true;
@@ -34,11 +33,11 @@
   users.users.${user} = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = ["networkmanager" "wheel" "docker" "audio"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "audio" ];
   };
 
   environment = {
-    shells = [pkgs.zsh];
+    shells = [ pkgs.zsh ];
     systemPackages = with pkgs; [
       zsh
       git
@@ -49,7 +48,7 @@
   nix = {
     settings = {
       auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [ "nix-command" "flakes" ];
     };
     gc = {
       automatic = true;

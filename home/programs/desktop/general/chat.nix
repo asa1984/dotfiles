@@ -1,5 +1,5 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [discord discord-ptb slack teams-for-linux];
+{ pkgs, ... }: {
+  home.packages = with pkgs; [ discord discord-ptb slack teams-for-linux ];
 
   # Disable discord autoupdate
   home.file = {

@@ -1,3 +1,3 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [deno];
+{ pkgs, ... }: {
+  home.packages = with pkgs; [ deno ];
 }

@@ -1,3 +1,11 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [nixfmt nixpkgs-fmt];
+{ pkgs, ... }: {
+  home.packages = with pkgs; [
+    alejandra # formatter
+    deadnix # scan dead code
+    statix # linter
+  ];
+
+  # programs.direnv={
+  #   enable=true;
+  # };
 }

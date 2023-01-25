@@ -5,7 +5,7 @@ _: {
       {
         layer = "top";
         position = "top";
-        modules-center = ["clock"];
+        modules-center = [ "clock" ];
       }
     ];
     style = builtins.readFile ./style.css;
