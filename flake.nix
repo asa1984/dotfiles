@@ -2,7 +2,6 @@
   description = "NixOS & homa-manager flake of ASA1984";
 
   inputs = {
-    # Nix ecosystem
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -27,55 +26,42 @@
     , kmonad
     , ...
     }:
-    let
-      utils = import ./utils { inherit inputs; };
-      inherit (utils) mkSystem mkHome;
-    in
     {
       nixosConfigurations = {
         # Desktop
-        prime = mkSystem {
-          hostname = "prime";
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
+        prime = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [ ./hosts/prime ];
         };
         # HP Laptop
-        envy13 = mkSystem {
-          hostname = "envy13";
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-        };
+        # envy13 = nixpkgs.lib.nixosSystem {
+        #   specialArgs = { inherit inputs; };
+        #   modules = [ ];
+        # };
       };
 
       homeConfigurations = {
         # Desktop
-        "asahi@prime" = mkHome {
-          username = "asahi";
-          hostname = "prime";
+        "asahi@prime" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
-          features = [
-            "desktop/hyprland"
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            hyprland.homeManagerModules.default
+            ./home/prime.nix
           ];
         };
         # HP Laptop
-        "asahi@envy13" = mkHome {
-          username = "asahi";
-          hostname = "envy13";
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-          features = [
-            "desktop/gnome"
-          ];
-        };
+        # "asahi@envy13" = home-manager.lib.homeManagerConfiguration {
+        #   pkgs = import nixpkgs {
+        #     system = "x86_64-linux";
+        #     config.allowUnfree = true;
+        #   };
+        #   extraSpecialArgs = { inherit inputs; };
+        #   modules = [ ];
+        # };
       };
     };
 }

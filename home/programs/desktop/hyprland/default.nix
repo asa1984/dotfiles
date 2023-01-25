@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [ ../share ./waybar ];
 
+  wayland.windowManager.hyprland.enable = true;
   home.packages = with pkgs; [
     mako
     wofi
