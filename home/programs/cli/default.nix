@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   improts = [
     ./helix
     ./neovim
@@ -8,12 +8,14 @@
   ];
 
   home.packages = with pkgs; [
+    # utils
     bat # cat alternative
     bottom # top alternative
     exa # ls alternative
     du-dust # du alternative
     duf # df alternative
     fd # find alternative
+    fzf # fazzy finder
     httpie # http client
     jq # json parser
     killall # process killer
@@ -23,9 +25,14 @@
     procs # ps alternative
     ranger # file viewer
     ripgrep # grep alternative
-    fzf # fazzy finder
+    silicon # code to image
 
-    # funny
+    # archives
+    zip
+    unzip
+    unrar
+
+    # joke
     pingu
     figlet
     lolcat
