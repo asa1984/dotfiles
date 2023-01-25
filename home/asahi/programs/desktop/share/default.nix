@@ -1,7 +1,9 @@
 { pkgs, ... }: {
   imports = [
-    ./browsers.nix
     ./chat.nix
+    ./gtk.nix
+    ./xdg.nix
+    ./browsers
     ./terminals
     ./vscode
   ];

@@ -4,8 +4,4 @@
     deadnix # scan dead code
     statix # linter
   ];
-
-  # programs.direnv={
-  #   enable=true;
-  # };
 }

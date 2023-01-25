@@ -1,0 +1,5 @@
+{
+  progrms.wezterm = {
+    enable = true;
+  };
+}

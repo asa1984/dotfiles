@@ -5,13 +5,9 @@
     ./rust.nix
   ];
   home.packages = with pkgs; [
-    # C lang
+    # C
     gcc
-
     # Deno runtime
     deno
-
-    # Nix
-    alejandra # formatter
   ];
 }
