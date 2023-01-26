@@ -1,6 +1,7 @@
-{ pkgs
-, nixpkgs
-, ...
+{
+  pkgs,
+  nixpkgs,
+  ...
 }: {
   imports = [
     ./nix.nix
@@ -12,10 +13,10 @@
   users.users.asahi = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "docker" "audio" "video" ];
+    extraGroups = ["networkmanager" "wheel" "docker" "audio" "video"];
   };
   environment = {
-    shells = [ pkgs.zsh ];
+    shells = [pkgs.zsh];
     systemPackages = with pkgs; [
       zsh
       git
@@ -34,7 +35,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [ fcitx5-mozc ];
+    fcitx5.addons = with pkgs; [fcitx5-mozc];
   };
 
   # allow proprietary software
