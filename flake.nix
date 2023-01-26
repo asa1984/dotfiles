@@ -69,5 +69,7 @@
       #   modules = [ ./home/envy13.nix ];
       # };
     };
+
+    formatter."x86_64-linux" = (import nixpkgs {system = "x86_64-linux";}).alejandra;
   };
 }
