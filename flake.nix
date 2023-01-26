@@ -36,7 +36,7 @@
         # HP Laptop
         # envy13 = nixpkgs.lib.nixosSystem {
         #   specialArgs = { inherit inputs; };
-        #   modules = [ ];
+        #   modules = [ ./hosts/envy13 ];
         # };
       };
 
@@ -60,7 +60,7 @@
         #     config.allowUnfree = true;
         #   };
         #   extraSpecialArgs = { inherit inputs; };
-        #   modules = [ ];
+        #   modules = [ ./home/envy13.nix ];
         # };
       };
     };

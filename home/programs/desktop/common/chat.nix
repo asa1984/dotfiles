@@ -1,7 +1,8 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [ discord discord-ptb slack teams-for-linux ];
 
-  # Disable discord autoupdate
+  # discord setting
+  # - disable auto update
   home.file = {
     ".config/discord/settings.json".text = ''
       {
