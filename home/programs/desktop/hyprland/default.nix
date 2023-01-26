@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  imports = [../share ./waybar];
+  imports = [../common ./waybar];
 
   wayland.windowManager.hyprland.enable = true;
   home.packages = with pkgs; [
