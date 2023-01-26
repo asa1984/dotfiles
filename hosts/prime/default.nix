@@ -26,5 +26,5 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  networking.hostName = "nixos@prime"; # define your hostname
+  networking.hostName = "nixos-prime"; # define your hostname
 }
