@@ -1,12 +1,16 @@
-{pkgs, ...}: {
-  imports = [../common ./waybar];
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  imports = [../common ./waybar inputs.hyprland.homeManagerModules.default];
 
-  wayland.windowManager.hyprland.enable = true;
   home.packages = with pkgs; [
     mako
     wofi
   ];
- home.file = {
-   ".config/hypr/hyprland.conf".text = builtins.readFile ./hyprland.conf;
- };
+  wayland.windowManager.hyprland = {
+    enable = true;
+    extraConfig = builtins.readFile ./hyprland.conf;
+  };
 }

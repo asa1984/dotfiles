@@ -57,7 +57,6 @@
         };
         extraSpecialArgs = {inherit inputs colorscheme;};
         modules = [
-          hyprland.homeManagerModules.default
           ./home/prime.nix
         ];
       };
