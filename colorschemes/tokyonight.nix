@@ -1,4 +1,7 @@
 {
+  bg = "#24283b";
+  fg = "#c0caf5";
+  
   black = "#15161E";
   red = "#f7768e";
   green = "#9ece6a";

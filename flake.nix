@@ -32,7 +32,11 @@
     hyprland,
     kmonad,
     ...
-  }: {
+  }: 
+  let
+    colorscheme=import ./colorschemes/tokyonight.nix;
+  in
+  {
     nixosConfigurations = {
       # Desktop
       prime = nixpkgs.lib.nixosSystem {
@@ -53,7 +57,7 @@
           system = "x86_64-linux";
           config.allowUnfree = true;
         };
-        extraSpecialArgs = {inherit inputs;};
+        extraSpecialArgs = {inherit inputs colorscheme;};
         modules = [
           hyprland.homeManagerModules.default
           ./home/prime.nix
