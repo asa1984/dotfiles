@@ -3,10 +3,14 @@
   pkgs,
   ...
 }: {
-  imports = [../common ./waybar inputs.hyprland.homeManagerModules.default];
+  imports = [
+    ../common
+    ./waybar
+    ./mako.nix
+    inputs.hyprland.homeManagerModules.default
+  ];
 
   home.packages = with pkgs; [
-    mako
     wofi
   ];
   wayland.windowManager.hyprland = {
