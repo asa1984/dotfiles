@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  improts = [
+  imports = [
     ./helix
     ./neovim
     ./zsh

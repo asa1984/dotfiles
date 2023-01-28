@@ -1,5 +1,5 @@
 {
-  progrms.wezterm = {
+  programs.wezterm = {
     enable = true;
   };
 }

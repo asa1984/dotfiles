@@ -32,11 +32,9 @@
     hyprland,
     kmonad,
     ...
-  }: 
-  let
-    colorscheme=import ./colorschemes/tokyonight.nix;
-  in
-  {
+  }: let
+    colorscheme = import ./colorschemes/tokyonight.nix;
+  in {
     nixosConfigurations = {
       # Desktop
       prime = nixpkgs.lib.nixosSystem {
