@@ -1,8 +1,11 @@
-{
+{colorscheme, ...}: {
   programs.mako = {
     enable = true;
-    defaultTimeout = 4000;
+    defaultTimeout = 5000;
     font = "HackGen35 Console NFJ";
-    borderRadius = 16;
+    borderRadius = 8;
+    borderSize = 0;
+
+    backgroundColor = colorscheme.bg;
   };
 }
