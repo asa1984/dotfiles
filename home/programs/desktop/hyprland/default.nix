@@ -1,4 +1,5 @@
 {
+  colorscheme,
   inputs,
   pkgs,
   ...
@@ -12,9 +13,10 @@
 
   home.packages = with pkgs; [
     wofi
+    wofi-emoji
   ];
   wayland.windowManager.hyprland = {
     enable = true;
-    extraConfig = builtins.readFile ./hyprland.conf;
+    extraConfig = import ./config.nix {inherit colorscheme;};
   };
 }

@@ -33,7 +33,7 @@
     kmonad,
     ...
   }: let
-    colorscheme = import ./colorschemes/tokyonight-moon.nix;
+    colorscheme = (import ./colorschemes) "tokyonight-moon";
   in {
     nixosConfigurations = {
       # Desktop

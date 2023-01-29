@@ -1,4 +1,6 @@
-{colorscheme, ...}: {
+{colorscheme, ...}: let
+  inherit (colorscheme) hashrgb;
+in {
   programs.mako = {
     enable = true;
     defaultTimeout = 5000;
@@ -6,6 +8,6 @@
     borderRadius = 8;
     borderSize = 0;
 
-    backgroundColor = colorscheme.bg;
+    backgroundColor = hashrgb.bg;
   };
 }

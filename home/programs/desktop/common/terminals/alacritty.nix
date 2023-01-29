@@ -1,4 +1,6 @@
-{colorscheme, ...}: {
+{colorscheme, ...}: let
+  inherit (colorscheme) hashrgb;
+in {
   programs.alacritty = {
     enable = true;
     settings = {
@@ -16,18 +18,18 @@
 
       colors = {
         primary = {
-          background = colorscheme.bg;
-          foreground = colorscheme.fg;
+          background = hashrgb.bg;
+          foreground = hashrgb.fg;
         };
         normal = {
-          inherit (colorscheme) black;
-          inherit (colorscheme) red;
-          inherit (colorscheme) green;
-          inherit (colorscheme) yellow;
-          inherit (colorscheme) blue;
-          inherit (colorscheme) magenta;
-          inherit (colorscheme) cyan;
-          inherit (colorscheme) white;
+          inherit (hashrgb) black;
+          inherit (hashrgb) red;
+          inherit (hashrgb) green;
+          inherit (hashrgb) yellow;
+          inherit (hashrgb) blue;
+          inherit (hashrgb) magenta;
+          inherit (hashrgb) cyan;
+          inherit (hashrgb) white;
         };
       };
     };
