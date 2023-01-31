@@ -1,17 +1,29 @@
 {
-  config,
+  inputs,
   pkgs,
   ...
 }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
 
-    ../../modules/sound
-    ../../modules/fonts
-    ../../modules/services
-    ../../modules/virtualisation
+    ../modules/minimal
+    ../modules/fonts.nix
+    ../modules/sound.nix
   ];
+
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
   networking.hostName = "nixos-laptop-hp"; # Define your hostname.
 

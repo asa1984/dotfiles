@@ -42,10 +42,10 @@
         modules = [./hosts/prime];
       };
       # HP Laptop
-      # envy13 = nixpkgs.lib.nixosSystem {
-      #   specialArgs = { inherit inputs; };
-      #   modules = [ ./hosts/envy13 ];
-      # };
+      envy13 = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [./hosts/envy13];
+      };
     };
 
     homeConfigurations = {
@@ -61,14 +61,14 @@
         ];
       };
       # HP Laptop
-      # "asahi@envy13" = home-manager.lib.homeManagerConfiguration {
-      #   pkgs = import nixpkgs {
-      #     system = "x86_64-linux";
-      #     config.allowUnfree = true;
-      #   };
-      #   extraSpecialArgs = { inherit inputs; };
-      #   modules = [ ./home/envy13.nix ];
-      # };
+      "asahi@envy13" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        extraSpecialArgs = {inherit inputs colorscheme;};
+        modules = [./home/envy13.nix];
+      };
     };
 
     formatter."x86_64-linux" = (import nixpkgs {system = "x86_64-linux";}).alejandra;
