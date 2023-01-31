@@ -1,3 +1,3 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs;[ vscode ];
+{pkgs, ...}: {
+  home.packages = with pkgs; [vscode];
 }
