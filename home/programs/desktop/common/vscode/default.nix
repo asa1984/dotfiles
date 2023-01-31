@@ -1,6 +1,3 @@
-{pkgx, ...}: {
-  programs.vscode = {
-    enable = true;
-    enableUpdateCheck = false;
-  };
+{ pkgs, ... }: {
+  home.packages = with pkgs;[ vscode ];
 }
