@@ -12,6 +12,7 @@
     ../modules/minimal
     ../modules/desktop.nix
     ../modules/fonts.nix
+    ../modules/services.nix
     ../modules/sound.nix
   ];
 

@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [discord discord-ptb slack teams-for-linux];
+  home.packages = with pkgs; [discord discord-ptb slack teams-for-linux zoom-us];
 
   # discord setting
   # - disable auto update
