@@ -1,10 +1,11 @@
 {pkgs, ...}: {
   imports = [
+    ./audio.nix
     ./browsers.nix
     ./chat.nix
     ./gtk.nix
-    ./music.nix
     ./remote.nix
+    ./trust.nix
     ./xdg.nix
     ./terminals
     ./vscode

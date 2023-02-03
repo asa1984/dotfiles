@@ -1,9 +1,9 @@
 {pkgs, ...}: {
   gtk = {
     enable = true;
-    font = {
-      name = "HackGen35 Console NFJ";
-      size = 12;
+    theme = {
+      package = pkgs.gnome.gnome-themes-extra;
+      name = "Adwaita-dark";
     };
   };
 }
