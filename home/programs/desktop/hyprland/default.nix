@@ -16,9 +16,7 @@
     wofi-emoji
     wtype
   ];
-  wayland.windowManager.hyprland = {
-    enable = true;
-    disableAutoreload = true;
-    extraConfig = import ./config.nix {inherit colorscheme;};
+  home.file = {
+    ".config/hypr/hyprland.conf".text = import ./config.nix {inherit colorscheme;};
   };
 }
