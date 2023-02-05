@@ -13,6 +13,7 @@
     ../modules/fonts.nix
     ../modules/services.nix
     ../modules/sound.nix
+    ../modules/xremap.nix
 
     ../modules/hyprland.nix
   ];

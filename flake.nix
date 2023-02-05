@@ -23,6 +23,10 @@
       url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    xremap = {
+      url = "github:xremap/nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -31,6 +35,7 @@
     home-manager,
     hyprland,
     kmonad,
+    xremap,
     ...
   }: let
     colorscheme = (import ./colorschemes) "tokyonight-moon";
