@@ -18,6 +18,8 @@
     ../modules/hyprland.nix
   ];
 
+  programs.noisetorch.enable = true;
+
   programs.hyprland.enable = true;
 
   boot = {

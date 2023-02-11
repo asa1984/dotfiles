@@ -29,6 +29,12 @@
   # Nix-Shell
   nix-shell-unfree = "NIXPKGS_ALLOW_UNFREE=1 nix-shell";
 
+  # Docker
+  dci = "docker --rm -it";
+
+  # VS Code - enable IME
+  code = "code --enable-features=UseOzonePlatform --ozone-platform=x11";
+
   # Microsoft Teams
   teams = "teams-for-linux";
 }
