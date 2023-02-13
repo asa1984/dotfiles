@@ -19,10 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Others
-    kmonad = {
-      url = "github:kmonad/kmonad?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     xremap = {
       url = "github:xremap/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,7 +30,6 @@
     nixpkgs,
     home-manager,
     hyprland,
-    kmonad,
     xremap,
     ...
   }: let
