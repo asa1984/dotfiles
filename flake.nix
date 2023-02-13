@@ -26,11 +26,8 @@
   };
 
   outputs = inputs @ {
-    self,
     nixpkgs,
     home-manager,
-    hyprland,
-    xremap,
     ...
   }: let
     colorscheme = (import ./colorschemes) "tokyonight-moon";

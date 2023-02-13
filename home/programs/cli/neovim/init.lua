@@ -1,10 +1,17 @@
 -----------------
 -- Vim Options --
 -----------------
+-- UI
 vim.opt.number = true
+-- Input
+vim.opt.smartindent = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
+-- Search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+-- Misc
 vim.opt.hidden = true
 
 ---------
@@ -12,8 +19,44 @@ vim.opt.hidden = true
 ---------
 local lspconfig = require("lspconfig")
 lspconfig.tsserver.setup({})
-lspconfig.sumneko_lua.setup({})
+lspconfig.sumneko_lua.setup({
+	cmd = { "lua-language-server" },
+	settings = { Lua = { diagnostics = { globals = { "vim" } } } },
+})
 lspconfig.nil_ls.setup({})
+
+------------------------
+-- Formatter & Linter --
+------------------------
+local null_ls = require("null-ls")
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+null_ls.setup({
+	sources = {
+		-- Lua
+		null_ls.builtins.formatting.stylua,
+		-- Nix
+		null_ls.builtins.diagnostics.deadnix,
+		null_ls.builtins.formatting.alejandra,
+	},
+	-- format on save
+	on_attach = function(client, bufnr)
+		if client.supports_method("textDocument/formatting") then
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = augroup,
+				buffer = bufnr,
+				callback = function()
+					vim.lsp.buf.format({
+						bufnr = bufnr,
+						filter = function(fmt_client)
+							return fmt_client.name == "null-ls"
+						end,
+					})
+				end,
+			})
+		end
+	end,
+})
 
 ----------------
 -- Treesitter --

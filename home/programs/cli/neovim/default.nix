@@ -20,6 +20,9 @@
       nvim-lspconfig
       lspkind-nvim
 
+      # Formatter & Linter
+      null-ls-nvim
+
       # Treesitter
       (nvim-treesitter.withPlugins (plugins:
         with plugins; [
@@ -60,6 +63,7 @@
 
       # Nix
       nil
+      deadnix
       alejandra
     ];
 
