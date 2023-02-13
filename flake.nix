@@ -1,44 +1,76 @@
 {
-  description = "Homa manager flake of ASA1984";
+  description = "NixOS & homa-manager flake of ASA1984";
 
   inputs = {
+    # Nix
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    # Hyprland
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xremap-flake.url = "github:xremap/nix-flake";
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # Others
+    xremap = {
+      url = "github:xremap/nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    inputs @ { self
-    , nixpkgs
-    , home-manager
-    , hyprland
-    , xremap-flake
-    , ...
-    }:
-    let
-      user = "asahi";
-      stateVersion = "22.11";
-      system = "x86_64-linux";
-    in
-    {
-      nixosConfigurations = (
-        import ./nixos {
-          inherit (nixpkgs) lib;
-          inherit inputs user stateVersion system nixpkgs hyprland xremap-flake;
-        }
-      );
-      homeConfigurations = (
-        import ./home-manager {
-          inherit (nixpkgs) lib;
-          inherit inputs user stateVersion system nixpkgs home-manager;
-        }
-      );
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
+    hyprland,
+    xremap,
+    ...
+  }: let
+    colorscheme = (import ./colorschemes) "tokyonight-moon";
+  in {
+    nixosConfigurations = {
+      # Desktop
+      prime = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [./hosts/prime];
+      };
+      # HP Laptop
+      envy13 = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [./hosts/envy13];
+      };
     };
+
+    homeConfigurations = {
+      # Desktop
+      "asahi@prime" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        extraSpecialArgs = {inherit inputs colorscheme;};
+        modules = [
+          ./home/prime.nix
+        ];
+      };
+      # HP Laptop
+      "asahi@envy13" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        extraSpecialArgs = {inherit inputs colorscheme;};
+        modules = [./home/envy13.nix];
+      };
+    };
+
+    formatter."x86_64-linux" = (import nixpkgs {system = "x86_64-linux";}).alejandra;
+  };
 }
