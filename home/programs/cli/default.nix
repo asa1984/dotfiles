@@ -8,7 +8,7 @@
   ];
 
   home.packages = with pkgs; [
-    # utils
+    # Utils
     bat # cat alternative
     bottom # top alternative
     exa # ls alternative
@@ -21,18 +21,22 @@
     killall # process killer
     lazydocker # docker tui
     lazygit # git tui
-    neofetch # system info
     procs # ps alternative
     ranger # file viewer
     ripgrep # grep alternative
     silicon # code to image
 
-    # archives
+    # Archives
     zip
     unzip
     unrar
 
-    # joke
+    # Rice
+    neofetch
+    pfetch
+    nitch
+
+    # Joke
     pingu
     figlet
     lolcat

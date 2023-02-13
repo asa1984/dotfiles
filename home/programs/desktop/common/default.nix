@@ -1,11 +1,11 @@
-{pkgs, ...}: {
+{
   imports = [
-    ./browsers.nix
+    ./browser.nix
     ./chat.nix
     ./gtk.nix
     ./media.nix
     ./remote.nix
-    ./trust.nix
+    ./utility.nix
     ./xdg.nix
     ./terminals
     ./vscode
