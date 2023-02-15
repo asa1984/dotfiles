@@ -53,9 +53,7 @@
           config.allowUnfree = true;
         };
         extraSpecialArgs = {inherit inputs colorscheme;};
-        modules = [
-          ./home/prime.nix
-        ];
+        modules = [./home/prime.nix];
       };
       # HP Laptop
       "asahi@envy13" = home-manager.lib.homeManagerConfiguration {
