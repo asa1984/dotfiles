@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -12,6 +11,7 @@
     ../modules/minimal
     ../modules/fonts.nix
     ../modules/sound.nix
+    ../modules/xremap.nix
   ];
 
   boot = {
@@ -25,7 +25,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  networking.hostName = "nixos-laptop-hp"; # Define your hostname.
+  networking.hostName = "nixos-envy13"; # Define your hostname.
 
   # Enable the X11 windowing system.
   services.xserver = {

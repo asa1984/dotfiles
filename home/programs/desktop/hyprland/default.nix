@@ -8,7 +8,6 @@
     ../common
     ./waybar
     ./mako.nix
-    inputs.hyprland.homeManagerModules.default
   ];
 
   home.packages = with pkgs; [
