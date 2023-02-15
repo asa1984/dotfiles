@@ -5,8 +5,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
 
     ../modules/minimal
@@ -15,6 +14,7 @@
     ../modules/sound.nix
     ../modules/xremap.nix
 
+    # Desktop environment
     ../modules/desktop/hyprland.nix
   ];
 
@@ -29,5 +29,5 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  networking.hostName = "nixos-prime"; # define your hostname
+  networking.hostName = "nixos-envy13"; # define your hostname
 }
