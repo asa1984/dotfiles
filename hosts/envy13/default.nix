@@ -10,8 +10,12 @@
 
     ../modules/minimal
     ../modules/fonts.nix
+    ../modules/services.nix
     ../modules/sound.nix
     ../modules/xremap.nix
+
+    # Desktop environment
+    ../modules/desktop/hyprland.nix
   ];
 
   boot = {
@@ -25,26 +29,5 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  networking.hostName = "nixos-envy13"; # Define your hostname.
-
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-  };
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "jp";
-    xkbVariant = "";
-  };
-
-  # Configure console keymap
-  console.keyMap = "jp106";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  networking.hostName = "nixos-envy13"; # define your hostname
 }

@@ -5,6 +5,6 @@
 
     ./programs/cli
     ./programs/development
-    ./programs/desktop/common
+    ./programs/desktop/hyprland
   ];
 }
