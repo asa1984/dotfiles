@@ -1,17 +1,13 @@
 -----------------
 -- Vim Options --
 -----------------
--- UI
 vim.opt.number = true
--- Input
-vim.opt.smartindent = true
+vim.opt.cindent = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
--- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
--- Misc
 vim.opt.hidden = true
 
 ---------
