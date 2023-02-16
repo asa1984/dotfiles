@@ -47,12 +47,25 @@ in ''
   # Switch workspaces
   bind = $mainMod, mouse_down, workspace, e+1
   bind = $mainMod, mouse_up, workspace, e-1
-  # bind = $mainMod CONTROL, right, workspace, e+1
-  # bind = $mainMod CONTROL, left, workspace, e-1
+  bind = $mainMod CTRL, right, workspace, e+1
+  bind = $mainMod CTRL, left, workspace, e-1
 
   # Move/resize windows with mainMod + LMB/RMB and dragging
   bindm = $mainMod, mouse:272, movewindow
   bindm = $mainMod, mouse:273, resizewindow
+
+  # Monitor backlight
+  bind = , XF86MonBrightnessUp, exec, brightnessctl set +10%
+  bind = , XF86MonBrightnessDown, exec, brightnessctl set 10%-
+
+  # Audio
+  bind = , XF86AudioRaiseVolume, exec, pamixer -i 10
+  bind = , XF86AudioLowerVolume, exec, pamixer -d 10
+  bind = , XF86AudioMute, exec, pamixer -t
+
+  # Screenshot
+  bind = , Print, exec, grimblast --notify copy output
+  bind = $mainMod, Print, exec, grimblast --notify save output "$HOME/Screenshots/$(date +%Y-%m-%dT%H:%M:%S).png"
 
   #---------#
   # Monitor #
@@ -152,9 +165,9 @@ in ''
   #-----------#
   # Autostart #
   #-----------#
-  #exec-once = waybar &
   exec-once = mako &
   exec-once = fcitx5 -d &
+  exec-once = systemctl start --user xremap.service
 
   exec-once = discord --start-minimized &
   exec-once = slack -u &
