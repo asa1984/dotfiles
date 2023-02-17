@@ -6,6 +6,5 @@
     ./programs/cli
     ./programs/development
     ./programs/desktop/hyprland
-    ./programs/desktop/eww
   ];
 }

@@ -77,7 +77,7 @@ in ''
   #---------------#
   input {
       kb_layout = us
-      repeat_delay = 250
+      repeat_delay = 400
       repeat_rate = 15
       follow_mouse = 1
       sensitivity = -0.5 # -1.0 - 1.0, 0 means no modification.

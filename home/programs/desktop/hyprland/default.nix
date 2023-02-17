@@ -6,6 +6,7 @@
 }: {
   imports = [
     ../common
+    ./eww
     ./waybar
     ./mako.nix
   ];
