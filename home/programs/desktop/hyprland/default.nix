@@ -7,7 +7,6 @@
   imports = [
     ../common
     ./eww
-    ./waybar
     ./mako.nix
   ];
 
@@ -22,5 +21,6 @@
   ];
   home.file = {
     ".config/hypr/hyprland.conf".text = import ./config.nix {inherit colorscheme;};
+    ".config/wofi/style.css".text = builtins.readFile ./wofi.css;
   };
 }
