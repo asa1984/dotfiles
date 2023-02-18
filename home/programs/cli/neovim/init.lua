@@ -14,12 +14,24 @@ vim.opt.hidden = true
 -- LSP --
 ---------
 local lspconfig = require("lspconfig")
+-- JavaScript/TypeScript
 lspconfig.tsserver.setup({})
+
+-- Lua
 lspconfig.sumneko_lua.setup({
 	cmd = { "lua-language-server" },
 	settings = { Lua = { diagnostics = { globals = { "vim" } } } },
 })
+
+-- Nix
 lspconfig.nil_ls.setup({})
+
+-- Rust
+local rust_tools = require("rust-tools")
+rust_tools.setup({
+	tools = { autoSetHints = true },
+})
+require("crates").setup({})
 
 ------------------------
 -- Formatter & Linter --
@@ -30,11 +42,18 @@ null_ls.setup({
 	sources = {
 		-- Lua
 		null_ls.builtins.formatting.stylua,
+		-- Markdown
+		null_ls.builtins.diagnostics.markdownlint,
+		null_ls.builtins.formatting.markdownlint,
 		-- Nix
+		null_ls.builtins.code_actions.statix,
 		null_ls.builtins.diagnostics.deadnix,
 		null_ls.builtins.formatting.alejandra,
+		-- Rust
+		null_ls.builtins.formatting.rustfmt,
 	},
-	-- format on save
+
+	-- Format on save
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
