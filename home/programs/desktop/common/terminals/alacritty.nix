@@ -13,7 +13,7 @@ in {
 
       font = {
         size = 12;
-        normal.family = "HackGen35 Console NFJ";
+        normal.family = "JetBrainsMono Nerd Font";
       };
 
       colors = {
