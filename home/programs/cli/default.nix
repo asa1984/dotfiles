@@ -3,6 +3,7 @@
     ./helix
     ./neovim
     ./zsh
+    ./direnv.nix
     ./gh.nix
     ./git.nix
   ];
