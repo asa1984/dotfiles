@@ -2,13 +2,29 @@
 -- Vim Options --
 -----------------
 vim.opt.number = true
-vim.opt.cindent = true
+vim.opt.cmdheight = 1
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.smarttab = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
+vim.opt.breakindent = true
+vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hidden = true
+vim.opt.backup = false
+
+------------
+-- Keymap --
+------------
+vim.g.mapleader = " "
+vim.keymap.set("i", "<C-s>", "<Cmd>w<CR>")
+vim.keymap.set("n", "<C-s>", "<Cmd>w<CR>")
+vim.keymap.set("i", "jj", "<ESC>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-b>", "<Cmd>NvimTreeToggle<CR>")
+vim.keymap.set("n", "<leader>f", "<Cmd>Telescope find_files<CR>")
 
 ---------
 -- LSP --
@@ -32,6 +48,12 @@ rust_tools.setup({
 	tools = { autoSetHints = true },
 })
 require("crates").setup({})
+
+-- LSP: Signature
+require("lsp_signature").setup()
+
+-- LSP: UI
+require("fidget").setup({})
 
 ------------------------
 -- Formatter & Linter --
@@ -100,6 +122,7 @@ cmp.setup({
 		end,
 	},
 	window = {
+		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
 	mapping = cmp.mapping.preset.insert({
@@ -132,7 +155,47 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
-----------
--- Misc --
-----------
-require("nvim-autopairs").setup({})
+---------
+-- IDE --
+---------
+require("nvim-autopairs").setup({
+	map_c_h = true,
+})
+require("nvim_comment").setup({
+	line_mapping = "<C-_>",
+})
+require("colorizer").setup({})
+
+-- Indent
+vim.opt.list = true
+vim.opt.listchars:append("eol:↴")
+require("indent_blankline").setup({
+	show_end_of_line = true,
+})
+
+----------------
+-- Navigation --
+----------------
+require("which-key").setup({})
+require("nvim-tree").setup()
+require("hlslens").setup()
+
+--------
+-- UI --
+--------
+require("mini.starter").setup({})
+require("lualine").setup({
+	options = {
+		component_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
+	},
+	sections = {
+		lualine_a = { "mode" },
+		lualine_b = { "branch" },
+		lualine_c = { "filename" },
+		lualine_x = { "" },
+		lualine_y = { "filetype" },
+		lualine_z = { "location" },
+	},
+})
+require("nvim-web-devicons").setup({})

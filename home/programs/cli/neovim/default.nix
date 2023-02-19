@@ -6,16 +6,19 @@
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
+      # Vim plugins
+      quick-scope
+      yuck-vim
+
       # Theme
       tokyonight-nvim
 
-      # Fuzzy Finder
-      telescope-nvim
-
       # LSP
       nvim-lspconfig
+      lsp_signature-nvim
       lspkind-nvim
-      # Rust
+      fidget-nvim
+      # LSP: Rust
       rust-tools-nvim
       crates-nvim
 
@@ -56,9 +59,22 @@
       vim-vsnip
       cmp-vsnip
 
-      # Misc
+      # IDE
+      indent-blankline-nvim
+      mini-nvim
       nvim-autopairs
+      nvim-colorizer-lua
       nvim-comment
+
+      # Navigation
+      nvim-hlslens
+      nvim-tree-lua
+      telescope-nvim
+      which-key-nvim
+
+      # UI
+      lualine-nvim
+      nvim-web-devicons
     ];
 
     extraPackages = with pkgs; [
