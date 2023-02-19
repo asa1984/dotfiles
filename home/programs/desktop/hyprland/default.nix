@@ -14,13 +14,19 @@
     wofi
     wofi-emoji
     wtype
+    wev
+
+    swaybg
+    swayidle
+    swaylock
 
     inputs.hyprland-contrib.packages.x86_64-linux.grimblast
     brightnessctl
     pamixer
   ];
   home.file = {
-    ".config/hypr/hyprland.conf".text = import ./config.nix {inherit colorscheme;};
-    ".config/wofi/style.css".text = builtins.readFile ./wofi.css;
+    ".config/hypr/hyprland.conf".text = (import ./hypr-config.nix) colorscheme;
+    ".config/hypr/wallpapers".source = ./wallpapers;
+    ".config/wofi/style.css".text = (import ./wofi-style.nix) colorscheme;
   };
 }

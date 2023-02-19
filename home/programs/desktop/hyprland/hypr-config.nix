@@ -1,4 +1,4 @@
-{colorscheme, ...}: let
+colorscheme: let
   inherit (colorscheme) colors;
 in ''
   #----------#
@@ -85,8 +85,6 @@ in ''
       touchpad {
           natural_scroll = true
       }
-
-
   }
 
   #------------#
@@ -97,7 +95,7 @@ in ''
       gaps_out = 5
       border_size = 2
       col.active_border = rgb(${colors.blue})
-      col.inactive_border = rgba(595959aa)
+      col.inactive_border = rgb(${colors.bg})
       cursor_inactive_timeout
       layout = dwindle
   }
@@ -163,11 +161,12 @@ in ''
   #-----------#
   # Autostart #
   #-----------#
-  exec-once = mako &
-  exec-once = fcitx5 -d &
+  exec-once = mako
+  exec-once = fcitx5 -D
   exec-once = systemctl start --user xremap.service
+  exec-once = swaybg --image ~/.config/hypr/wallpapers/solar_system.jpg --mode fill
 
-  exec-once = discord --start-minimized &
-  exec-once = slack -u &
-  exec-once = teams-for-linux --minimized &
+  exec-once = discord --start-minimized
+  exec-once = slack -u
+  exec-once = teams-for-linux --minimized
 ''
