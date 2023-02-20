@@ -5,7 +5,7 @@ in ''
   flowboxchild { outline-width: 0; }
   #outer-box {
     background: ${hashrgb.bg};
-    border: 2px solid ${hashrgb.blue};
+    border: 3px solid ${hashrgb.blue};
     border-radius: 24px;
     box-shadow: 0 2px 3px #151b16;
     margin: 5px 5px 10px;

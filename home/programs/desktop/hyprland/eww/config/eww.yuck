@@ -1,3 +1,48 @@
+(include "./modules/bluetooth.yuck")
+(include "./modules/bright.yuck")
+(include "./modules/clock.yuck")
+(include "./modules/music.yuck")
+(include "./modules/net.yuck")
+(include "./modules/sys.yuck")
+(include "./modules/variables.yuck")
+(include "./modules/volume.yuck")
+(include "./modules/workspaces.yuck")
+
+(include "./windows/calendar.yuck")
+(include "./windows/music.yuck")
+(include "./windows/osd.yuck")
+(include "./windows/system-menu.yuck")
+
+(defwidget left []
+  (box
+    :space-evenly false
+    :halign "start"
+    (workspaces)))
+
+(defwidget right []
+  (box
+    :space-evenly false
+    :halign "end"
+    (bright)
+    (volume-module)
+    (bluetooth)
+    (net)
+    (sys)
+    (clock_module)))
+
+(defwidget center []
+  (box
+    :space-evenly false
+    :halign "center"
+    (music-module)))
+
+(defwidget bar []
+  (centerbox
+    :class "bar"
+    (left)
+    (center)
+    (right)))
+
 (defwindow bar
     :monitor 0
     :geometry (geometry :x "0%"
@@ -7,4 +52,4 @@
       :anchor "top center")
     :stacking "fg"
     :exclusive true
-  "bar")
+  (bar))
