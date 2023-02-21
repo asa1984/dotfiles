@@ -7,6 +7,7 @@
     ./remote.nix
     ./utility.nix
     ./xdg.nix
+    ./discord
     ./terminals
     ./vscode
   ];
