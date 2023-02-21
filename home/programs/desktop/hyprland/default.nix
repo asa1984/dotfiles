@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ../common
     ./eww
     ./mako.nix
   ];
