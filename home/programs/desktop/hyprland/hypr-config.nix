@@ -12,7 +12,7 @@ in ''
   bind = $mainMod SHIFT, M, exit
   bind = $mainMod, F, fullscreen
 
-  # Move focus with mainMod + arrow keys
+  # Move focus
   bind = $mainMod, left, movefocus, l
   bind = $mainMod, right, movefocus, r
   bind = $mainMod, up, movefocus, u
@@ -20,7 +20,7 @@ in ''
   bind = $subMod, Tab, cyclenext
   bind = $subMod SHIFT, Tab, cyclenext, prev
 
-  # Switch workspaces with mainMod + [0-9]
+  # Switch workspaces
   bind = $mainMod, 1, workspace, 1
   bind = $mainMod, 2, workspace, 2
   bind = $mainMod, 3, workspace, 3
@@ -31,8 +31,12 @@ in ''
   bind = $mainMod, 8, workspace, 8
   bind = $mainMod, 9, workspace, 9
   bind = $mainMod, 0, workspace, 10
+  bind = $mainMod, mouse_down, workspace, e+1
+  bind = $mainMod, mouse_up, workspace, e-1
+  bind = $mainMod CTRL, right, workspace, e+1
+  bind = $mainMod CTRL, left, workspace, e-1
 
-  # Move active window to a workspace with mainMod + SHIFT + [0-9]
+  # Move active window to a workspace
   bind = $mainMod SHIFT, 1, movetoworkspace, 1
   bind = $mainMod SHIFT, 2, movetoworkspace, 2
   bind = $mainMod SHIFT, 3, movetoworkspace, 3
@@ -43,29 +47,55 @@ in ''
   bind = $mainMod SHIFT, 8, movetoworkspace, 8
   bind = $mainMod SHIFT, 9, movetoworkspace, 9
   bind = $mainMod SHIFT, 0, movetoworkspace, 10
+  bind = $mainMod SHIFT, right, movetoworkspace, e+1
+  bind = $mainMod SHIFT, left, movetoworkspace, e-1
 
-  # Switch workspaces
-  bind = $mainMod, mouse_down, workspace, e+1
-  bind = $mainMod, mouse_up, workspace, e-1
-  bind = $mainMod CTRL, right, workspace, e+1
-  bind = $mainMod CTRL, left, workspace, e-1
-
-  # Move/resize windows with mainMod + LMB/RMB and dragging
+  # Move/resize windows
   bindm = $mainMod, mouse:272, movewindow
   bindm = $mainMod, mouse:273, resizewindow
 
+  # Window resize mode
+  bind = $mainMod, Tab, submap, resize
+  submap = resize
+  binde = , right, resizeactive, 10 0
+  binde = , left, resizeactive, -10 0
+  binde = , up, resizeactive, 0 -10
+  binde = , down, resizeactive, 0 10
+  bind = , escape, submap, reset
+  submap = reset
+
+  # Media
+  bindl = , XF86AudioPlay, exec, playerctl play-pause
+  bindl = , XF86AudioPrev, exec, playerctl previous
+  bindl = , XF86AudioNext, exec, playerctl next
+
+  # Volume
+  bindle = , XF86AudioRaiseVolume, exec, pamixer -i 10
+  bindle = , XF86AudioLowerVolume, exec, pamixer -d 10
+  bindl = , XF86AudioMute, exec, pamixer -t
+
   # Monitor backlight
-  bind = , XF86MonBrightnessUp, exec, brightnessctl set +10%
-  bind = , XF86MonBrightnessDown, exec, brightnessctl set 10%-
+  bindle = , XF86MonBrightnessUp, exec, brightnessctl set +10%
+  bindle = , XF86MonBrightnessDown, exec, brightnessctl set 10%-
 
-  # Audio
-  bind = , XF86AudioRaiseVolume, exec, pamixer -i 10
-  bind = , XF86AudioLowerVolume, exec, pamixer -d 10
-  bind = , XF86AudioMute, exec, pamixer -t
-
+  #-------------------#
+  # Key Bind: Utility #
+  #-------------------#
   # Screenshot
   bind = , Print, exec, grimblast --notify copy output
   bind = $mainMod, Print, exec, grimblast --notify save output "$HOME/Screenshots/$(date +%Y-%m-%dT%H:%M:%S).png"
+
+  # Launcher
+  bind = $mainMod, s, exec, wofi --show=drun -I
+
+  # Emoji picker
+  bind = $mainMod, period, exec, wofi-emoji
+
+  # Color picker
+  bind = $mainMod SHIFT, c, exec, hyprpicker --autocopy
+
+  # Screenlock
+  bind = $mainMod, l, exec, swaylock -f
 
   #---------#
   # Monitor #
@@ -81,7 +111,6 @@ in ''
       repeat_rate = 15
       follow_mouse = 1
       sensitivity = -0.5 # -1.0 - 1.0, 0 means no modification.
-
       touchpad {
           natural_scroll = true
       }
@@ -149,14 +178,6 @@ in ''
   # Example windowrule v2
   # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
   # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-
-  #--------------#
-  # Applications #
-  #--------------#
-  # Launcher
-  bind = $mainMod, s, exec, wofi --show=drun -I
-  # Emoji
-  bind = $mainMod, period, exec, wofi-emoji
 
   #-----------#
   # Autostart #

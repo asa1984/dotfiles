@@ -7,6 +7,7 @@
   imports = [
     ./eww
     ./mako.nix
+    ./swaylock.nix
   ];
 
   home.packages = with pkgs; [
@@ -17,11 +18,13 @@
 
     swaybg
     swayidle
-    swaylock
 
     inputs.hyprland-contrib.packages.x86_64-linux.grimblast
+    inputs.hyprpicker.packages.x86_64-linux.hyprpicker
+    wl-clipboard
     brightnessctl
     pamixer
+    playerctl
   ];
   home.file = {
     ".config/hypr/hyprland.conf".text = (import ./hypr-config.nix) colorscheme;
