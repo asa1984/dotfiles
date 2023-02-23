@@ -26,8 +26,8 @@
   gac = "git add . && git commit";
   gacp = "git add . && git commit && git push";
 
-  # Nix-Shell
-  nix-shell-unfree = "NIXPKGS_ALLOW_UNFREE=1 nix-shell";
+  # Nix
+  flake = "nix flake";
 
   # Docker
   dci = "docker --rm -it";
