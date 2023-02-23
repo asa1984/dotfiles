@@ -2,6 +2,7 @@
 -- Vim Options --
 -----------------
 vim.opt.number = true
+vim.opt.termguicolors = true
 vim.opt.cmdheight = 1
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -23,15 +24,53 @@ vim.g.mapleader = " "
 vim.keymap.set("i", "<C-s>", "<Cmd>w<CR>")
 vim.keymap.set("n", "<C-s>", "<Cmd>w<CR>")
 vim.keymap.set("i", "jj", "<ESC>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-b>", "<Cmd>NvimTreeToggle<CR>")
-vim.keymap.set("n", "<leader>f", "<Cmd>Telescope find_files<CR>")
 
 ---------
 -- LSP --
 ---------
 local lspconfig = require("lspconfig")
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- Bash
+lspconfig.bashls.setup({})
+
+-- CSS
+lspconfig.cssls.setup({ capabilities = capabilities })
+
+-- Deno
+lspconfig.denols.setup({
+	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+	init_options = {
+		lint = true,
+		unstable = true,
+		suggest = {
+			imports = {
+				hosts = {
+					["https://deno.land"] = true,
+					["https://cdn.nest.land"] = true,
+					["https://crux.land"] = true,
+				},
+			},
+		},
+	},
+})
+vim.g.markdown_fenced_languages = { "ts=typescript" }
+
+-- Docker
+lspconfig.dockerls.setup({})
+
+-- HTML
+lspconfig.html.setup({ capabilities = capabilities })
+
 -- JavaScript/TypeScript
-lspconfig.tsserver.setup({})
+lspconfig.tsserver.setup({
+	root_dir = lspconfig.util.root_pattern("package.json"),
+	single_file_support = false,
+})
+
+-- JSON
+lspconfig.jsonls.setup({ capabilities = capabilities })
 
 -- Lua
 lspconfig.sumneko_lua.setup({
@@ -42,12 +81,22 @@ lspconfig.sumneko_lua.setup({
 -- Nix
 lspconfig.nil_ls.setup({})
 
+-- Python
+lspconfig.pyright.setup({})
+
 -- Rust
 local rust_tools = require("rust-tools")
 rust_tools.setup({
 	tools = { autoSetHints = true },
 })
+-- Rust: complete ctate versions
 require("crates").setup({})
+
+-- Svelte
+lspconfig.svelte.setup({})
+
+-- Zig
+lspconfig.zls.setup({})
 
 -- LSP: Signature
 require("lsp_signature").setup()
@@ -71,10 +120,15 @@ null_ls.setup({
 		null_ls.builtins.code_actions.statix,
 		null_ls.builtins.diagnostics.deadnix,
 		null_ls.builtins.formatting.alejandra,
+		-- Python
+		null_ls.builtins.formatting.black,
 		-- Rust
 		null_ls.builtins.formatting.rustfmt,
+		-- Zig
+		null_ls.builtins.formatting.zigfmt,
 	},
 
+	-- disable netrw
 	-- Format on save
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
@@ -164,9 +218,11 @@ require("nvim-autopairs").setup({
 require("nvim_comment").setup({
 	line_mapping = "<C-_>",
 })
+require("nvim-ts-autotag").setup({})
 require("colorizer").setup({})
+require("gitsigns").setup({})
 
--- Indent
+-- indent
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
 require("indent_blankline").setup({
@@ -176,9 +232,43 @@ require("indent_blankline").setup({
 ----------------
 -- Navigation --
 ----------------
-require("which-key").setup({})
-require("nvim-tree").setup()
+-- highlight search result
 require("hlslens").setup()
+
+-- which-key
+vim.opt.timeout = true
+vim.opt.timeoutlen = 500
+require("which-key").setup()
+
+-- telescope
+local actions = require("telescope.actions")
+local builtin = require("telescope.builtin")
+require("telescope").setup({
+	defaults = {
+		mappings = {
+			n = {
+				["q"] = actions.close,
+			},
+		},
+	},
+})
+vim.keymap.set("n", ";f", function()
+	builtin.find_files()
+end)
+vim.keymap.set("n", ";r", function()
+	builtin.live_grep()
+end)
+
+-- nvim-tree
+require("nvim-tree").setup({
+	view = {
+		width = 25,
+	},
+})
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.keymap.set("n", "<C-b>", "<Cmd>NvimTreeToggle<CR>")
+vim.keymap.set("n", ";b", "<Cmd>NvimTreeFocus<CR>")
 
 --------
 -- UI --

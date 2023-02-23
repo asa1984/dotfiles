@@ -32,6 +32,7 @@
           tree-sitter-c
           tree-sitter-css
           tree-sitter-dockerfile
+          tree-sitter-haskell
           tree-sitter-html
           tree-sitter-javascript
           tree-sitter-json
@@ -45,9 +46,11 @@
           tree-sitter-scss
           tree-sitter-sql
           tree-sitter-sql
+          tree-sitter-toml
           tree-sitter-tsx
           tree-sitter-typescript
           tree-sitter-yaml
+          tree-sitter-zig
         ]))
 
       # Completion
@@ -60,11 +63,13 @@
       cmp-vsnip
 
       # IDE
+      gitsigns-nvim
       indent-blankline-nvim
       mini-nvim
       nvim-autopairs
       nvim-colorizer-lua
       nvim-comment
+      nvim-ts-autotag
 
       # Navigation
       nvim-hlslens
@@ -78,6 +83,18 @@
     ];
 
     extraPackages = with pkgs; [
+      # for telescope-nvim
+      ripgrep
+
+      # Bash
+      nodePackages.bash-language-server
+
+      # Docker
+      nodePackages.dockerfile-language-server-nodejs
+
+      # HTML/CSS
+      nodePackages.vscode-langservers-extracted
+
       # JavaScript/TypeScript
       nodePackages.typescript-language-server
 
@@ -94,9 +111,19 @@
       nil
       statix
 
+      # Python
+      black
+      pyright
+
       # Rust
       rust-analyzer
       rustfmt
+
+      # Svelte
+      nodePackages.svelte-language-server
+
+      # Zig
+      zls
     ];
 
     extraConfig = ''
