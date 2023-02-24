@@ -65,7 +65,6 @@
       # IDE
       gitsigns-nvim
       indent-blankline-nvim
-      mini-nvim
       nvim-autopairs
       nvim-colorizer-lua
       nvim-comment
@@ -78,6 +77,8 @@
       which-key-nvim
 
       # UI
+      alpha-nvim
+      bufferline-nvim
       lualine-nvim
       nvim-web-devicons
     ];

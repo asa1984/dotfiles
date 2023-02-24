@@ -111,6 +111,8 @@ local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
 	sources = {
+		-- Deno
+		null_ls.builtins.formatting.deno_fmt,
 		-- Lua
 		null_ls.builtins.formatting.stylua,
 		-- Markdown
@@ -273,7 +275,13 @@ vim.keymap.set("n", ";b", "<Cmd>NvimTreeFocus<CR>")
 --------
 -- UI --
 --------
-require("mini.starter").setup({})
+-- nerd font icons
+require("nvim-web-devicons").setup({})
+
+-- startup page
+require("alpha").setup(require("alpha.themes.startify").config)
+
+-- statusline
 require("lualine").setup({
 	options = {
 		component_separators = { left = "", right = "" },
@@ -288,4 +296,9 @@ require("lualine").setup({
 		lualine_z = { "location" },
 	},
 })
-require("nvim-web-devicons").setup({})
+
+-- tab
+require("bufferline").setup({})
+vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>")
+vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>")
+vim.keymap.set("n", ";q", ":bprevious<CR> :bdelete #<CR>") -- delete tab
