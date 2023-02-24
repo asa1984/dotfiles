@@ -11,6 +11,7 @@ in ''
   bind = $mainMod SHIFT, Q, killactive
   bind = $mainMod SHIFT, M, exit
   bind = $mainMod, F, fullscreen
+  bind = $mainMod SHIFT, F, togglefloating
 
   # Move focus
   bind = $mainMod, left, movefocus, l
@@ -87,6 +88,7 @@ in ''
 
   # Launcher
   bind = $mainMod, s, exec, wofi --show=drun -I
+  bind = $mainMod, r, exec, wofi --show=run
 
   # Emoji picker
   bind = $mainMod, period, exec, wofi-emoji
@@ -96,6 +98,11 @@ in ''
 
   # Screenlock
   bind = $mainMod, l, exec, swaylock -f
+
+  #--------------#
+  # Window Rules #
+  #--------------#
+  windowrule = tile, ^(Spotify)$
 
   #---------#
   # Monitor #

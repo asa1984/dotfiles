@@ -8,6 +8,7 @@
     ./eww
     ./mako.nix
     ./swaylock.nix
+    ./wofi.nix
   ];
 
   programs = {
