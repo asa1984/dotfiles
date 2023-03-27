@@ -1,4 +1,9 @@
 -----------------
+-- Performance --
+-----------------
+require("impatient")
+
+-----------------
 -- Vim Options --
 -----------------
 vim.opt.number = true
@@ -16,6 +21,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hidden = true
 vim.opt.backup = false
+vim.opt.updatetime = 1000
 
 ------------
 -- Keymap --
@@ -29,15 +35,20 @@ vim.keymap.set("i", "jj", "<ESC>", { noremap = true, silent = true })
 -- LSP --
 ---------
 local lspconfig = require("lspconfig")
+
+require("lspsaga").init_lsp_saga({
+	border_style = "round",
+})
+require("lsp_signature").setup()
+require("fidget").setup()
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Bash
 lspconfig.bashls.setup({})
-
 -- CSS
 lspconfig.cssls.setup({ capabilities = capabilities })
-
 -- Deno
 lspconfig.denols.setup({
 	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
@@ -56,53 +67,54 @@ lspconfig.denols.setup({
 	},
 })
 vim.g.markdown_fenced_languages = { "ts=typescript" }
-
 -- Docker
 lspconfig.dockerls.setup({})
-
 -- HTML
 lspconfig.html.setup({ capabilities = capabilities })
-
 -- JavaScript/TypeScript
 lspconfig.tsserver.setup({
 	root_dir = lspconfig.util.root_pattern("package.json"),
 	single_file_support = false,
 })
-
 -- JSON
 lspconfig.jsonls.setup({ capabilities = capabilities })
-
 -- Lua
-lspconfig.sumneko_lua.setup({
-	cmd = { "lua-language-server" },
-	settings = { Lua = { diagnostics = { globals = { "vim" } } } },
+lspconfig.lua_ls.setup({
+	settings = {
+		Lua = {
+			diagnostics = { globals = { "vim" } },
+		},
+	},
 })
-
 -- Nix
 lspconfig.nil_ls.setup({})
-
 -- Python
 lspconfig.pyright.setup({})
-
 -- Rust
 local rust_tools = require("rust-tools")
 rust_tools.setup({
 	tools = { autoSetHints = true },
 })
 -- Rust: complete ctate versions
-require("crates").setup({})
-
+require("crates").setup()
 -- Svelte
 lspconfig.svelte.setup({})
-
 -- Zig
 lspconfig.zls.setup({})
 
--- LSP: Signature
-require("lsp_signature").setup()
+-- holding cursor, show diagnostics
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
+	pattern = { "*" },
+	callback = function()
+		require("lspsaga.diagnostic").show_cursor_diagnostics()
+	end,
+})
 
--- LSP: UI
-require("fidget").setup({})
+vim.keymap.set("n", "m", "<Plug>(lsp)")
+vim.keymap.set("n", "K", require("lspsaga.hover").render_hover_doc)
+vim.keymap.set("n", "<Plug>(lsp)d", vim.lsp.buf.definition)
+vim.keymap.set("n", "<Plug>(lsp)a", require("lspsaga.codeaction").code_action)
+vim.keymap.set("n", "<Plug>(lsp)rn", require("lspsaga.rename").rename)
 
 ------------------------
 -- Formatter & Linter --
@@ -112,7 +124,9 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
 	sources = {
 		-- Deno
-		null_ls.builtins.formatting.deno_fmt,
+		null_ls.builtins.formatting.deno_fmt.with({
+			filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescriptreact" },
+		}),
 		-- Lua
 		null_ls.builtins.formatting.stylua,
 		-- Markdown
@@ -156,7 +170,6 @@ null_ls.setup({
 ----------------
 require("nvim-treesitter.configs").setup({
 	highlight = { enable = true },
-	indent = { enable = true },
 })
 
 ----------------
@@ -168,8 +181,7 @@ local lspkind = require("lspkind")
 cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format({
-			mode = "symbol",
-			maxwidth = 50,
+			mode = "text",
 		}),
 	},
 	snippet = {
@@ -182,6 +194,8 @@ cmp.setup({
 		documentation = cmp.config.window.bordered(),
 	},
 	mapping = cmp.mapping.preset.insert({
+		["<C-u>"] = cmp.mapping.scroll_docs(-4),
+		["<C-d>"] = cmp.mapping.scroll_docs(4),
 		["<S-Tab>"] = cmp.mapping.select_prev_item(),
 		["<Tab>"] = cmp.mapping.select_next_item(),
 		["<C-l>"] = cmp.mapping.complete(),
@@ -231,7 +245,20 @@ require("indent_blankline").setup({
 	show_end_of_line = true,
 })
 
-----------------
+-- tab
+require("bufferline").setup({})
+vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>")
+vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>")
+vim.keymap.set("n", ";q", ":bprevious<CR> :bdelete #<CR>") -- delete tab
+
+-- hover info
+-- vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>")
+-- vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
+-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+-- 	border = "rounded",
+-- })
+-- vim.cmd("highlight! link FloatBorder NormalFloat")
+--
 -- Navigation --
 ----------------
 -- highlight search result
@@ -296,9 +323,3 @@ require("lualine").setup({
 		lualine_z = { "location" },
 	},
 })
-
--- tab
-require("bufferline").setup({})
-vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>")
-vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>")
-vim.keymap.set("n", ";q", ":bprevious<CR> :bdelete #<CR>") -- delete tab

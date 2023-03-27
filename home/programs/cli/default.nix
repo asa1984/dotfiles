@@ -9,6 +9,14 @@
   ];
 
   home.packages = with pkgs; [
+    # development
+    deno
+    nodejs
+    nodePackages.pnpm
+    nodePackages.wrangler
+    python312
+    rust-bin.stable.latest.default
+
     # Utils
     bat # cat alternative
     bottom # top alternative

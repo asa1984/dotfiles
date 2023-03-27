@@ -6,17 +6,19 @@
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
-      # Vim plugins
-      quick-scope
-      yuck-vim
-
       # Theme
       tokyonight-nvim
 
+      # Performance
+      impatient-nvim
+
+      # AI - good neither
+      copilot-vim
+
       # LSP
       nvim-lspconfig
+      lspsaga-nvim
       lsp_signature-nvim
-      lspkind-nvim
       fidget-nvim
       # LSP: Rust
       rust-tools-nvim
@@ -61,6 +63,7 @@
       cmp-cmdline
       vim-vsnip
       cmp-vsnip
+      lspkind-nvim
 
       # IDE
       gitsigns-nvim
@@ -81,6 +84,10 @@
       bufferline-nvim
       lualine-nvim
       nvim-web-devicons
+
+      # Vim plugins
+      quick-scope
+      yuck-vim
     ];
 
     extraPackages = with pkgs; [
