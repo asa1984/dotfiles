@@ -23,6 +23,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Others
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     xremap = {
       url = "github:xremap/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,6 +59,7 @@
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = true;
+          overlays = [(import inputs.rust-overlay)];
         };
         extraSpecialArgs = {inherit inputs colorscheme;};
         modules = [./home/prime.nix];
@@ -64,6 +69,7 @@
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = true;
+          overlays = [(import inputs.rust-overlay)];
         };
         extraSpecialArgs = {inherit inputs colorscheme;};
         modules = [./home/envy13.nix];

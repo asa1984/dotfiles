@@ -10,6 +10,7 @@
           name = "CapsLock is dead";
           remap = {
             CapsLock = "Ctrl_L";
+            Ctrl_L = "Ctrl_R";
           };
         }
       ];

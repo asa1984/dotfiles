@@ -23,6 +23,7 @@
     # Wayland utility
     wtype
     wev
+    wayvnc
 
     swaybg
     swayidle
@@ -35,6 +36,6 @@
   ];
   home.file = {
     ".config/hypr/hyprland.conf".text = (import ./hypr-config.nix) colorscheme;
-    ".config/hypr/wallpapers".source = ./wallpapers;
+    ".config/hypr/wallpaper.jpg".source = ./wallpapers/silent-sea.jpg;
   };
 }

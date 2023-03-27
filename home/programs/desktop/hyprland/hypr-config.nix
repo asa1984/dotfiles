@@ -192,7 +192,7 @@ in ''
   exec-once = mako
   exec-once = fcitx5 -D
   exec-once = systemctl start --user xremap.service
-  exec-once = swaybg --image ~/.config/hypr/wallpapers/solar_system.jpg --mode fill
+  exec-once = swaybg --image ~/.config/hypr/wallpaper.jpg --mode fill
 
   exec-once = discord --start-minimized
   exec-once = slack -u

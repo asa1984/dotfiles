@@ -17,16 +17,12 @@
   (box
     :space-evenly false
     :halign "start"
-    (workspaces)))
+    ""))
 
 (defwidget right []
   (box
     :space-evenly false
     :halign "end"
-    (bright)
-    (volume-module)
-    (bluetooth)
-    (net)
     (sys)
     (clock_module)))
 
