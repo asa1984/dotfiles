@@ -3,6 +3,23 @@
 -----------------
 require("impatient")
 
+--------------------
+-- GitHub Copilot --
+--------------------
+require("copilot").setup({
+	suggestion = {
+		auto_trigger = true,
+		keymap = {
+			accept = "<C-j>",
+			accept_word = false,
+			accept_line = false,
+			next = "<M-o>",
+			prev = "<M-i>",
+			dismiss = "<C-S-e>",
+		},
+	},
+})
+
 -----------------
 -- Vim Options --
 -----------------

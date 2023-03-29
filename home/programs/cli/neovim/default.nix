@@ -13,7 +13,7 @@
       impatient-nvim
 
       # AI - good neither
-      copilot-vim
+      copilot-lua
 
       # LSP
       nvim-lspconfig
