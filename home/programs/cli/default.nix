@@ -39,6 +39,7 @@
     zip
     unzip
     unrar
+    unar
 
     # Rice
     neofetch
