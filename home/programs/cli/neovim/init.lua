@@ -116,6 +116,8 @@ rust_tools.setup({
 require("crates").setup()
 -- Svelte
 lspconfig.svelte.setup({})
+-- TailwindCSS
+lspconfig.tailwindcss.setup({})
 -- Zig
 lspconfig.zls.setup({})
 

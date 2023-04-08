@@ -130,6 +130,9 @@
       # Svelte
       nodePackages.svelte-language-server
 
+      # TailwindCSS
+      nodePackages."@tailwindcss/language-server"
+
       # Zig
       zls
     ];
