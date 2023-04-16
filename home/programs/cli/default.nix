@@ -11,13 +11,16 @@
   home.packages = with pkgs; [
     # development
     deno
-    nodejs
+    gcc
+    nodejs-slim
     nodePackages.pnpm
+    nodePackages.vercel
     nodePackages.wrangler
     python312
     rust-bin.stable.latest.default
+    supabase-cli
 
-    # Utils
+    # Utilities
     bat # cat alternative
     bottom # top alternative
     exa # ls alternative

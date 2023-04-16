@@ -32,8 +32,9 @@
   # Docker
   dci = "docker --rm -it";
 
-  # VS Code - enable IME
+  # enable IME
   code = "code --enable-features=UseOzonePlatform --ozone-platform=x11";
+  slack = "slack --enable-features=UseOzonePlatform --ozone-platform=x11";
 
   # Microsoft Teams
   teams = "teams-for-linux";
