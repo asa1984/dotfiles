@@ -195,6 +195,6 @@ in ''
   exec-once = swaybg --image ~/.config/hypr/wallpaper.jpg --mode fill
 
   exec-once = discord --start-minimized
-  exec-once = slack -u
+  exec-once = slack -u --enable-features=UseOzonePlatform --ozone-platform=x11
   exec-once = teams-for-linux --minimized
 ''
