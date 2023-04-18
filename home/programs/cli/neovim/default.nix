@@ -41,9 +41,10 @@
           tree-sitter-latex
           tree-sitter-lua
           tree-sitter-markdown
+          tree-sitter-nix
+          tree-sitter-prisma
           tree-sitter-python
           tree-sitter-regex
-          tree-sitter-nix
           tree-sitter-rust
           tree-sitter-scss
           tree-sitter-sql
@@ -118,6 +119,9 @@
       deadnix
       nil
       statix
+
+      # Prisma
+      nodePackages."@prisma/language-server"
 
       # Python
       black

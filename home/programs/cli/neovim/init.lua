@@ -105,6 +105,8 @@ lspconfig.lua_ls.setup({
 })
 -- Nix
 lspconfig.nil_ls.setup({})
+-- Prisma
+lspconfig.prismals.setup({})
 -- Python
 lspconfig.pyright.setup({})
 -- Rust
