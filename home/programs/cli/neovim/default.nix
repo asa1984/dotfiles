@@ -101,6 +101,9 @@
       # Docker
       nodePackages.dockerfile-language-server-nodejs
 
+      # Haskell
+      haskell-language-server
+
       # HTML/CSS
       nodePackages.vscode-langservers-extracted
 

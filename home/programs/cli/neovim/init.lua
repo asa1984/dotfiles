@@ -86,6 +86,8 @@ lspconfig.denols.setup({
 vim.g.markdown_fenced_languages = { "ts=typescript" }
 -- Docker
 lspconfig.dockerls.setup({})
+-- Haskell
+lspconfig.hls.setup({})
 -- HTML
 lspconfig.html.setup({ capabilities = capabilities })
 -- JavaScript/TypeScript
