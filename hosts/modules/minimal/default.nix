@@ -23,6 +23,7 @@
       neovim
     ];
   };
+  programs.zsh.enable = true;
 
   # network
   networking = {
