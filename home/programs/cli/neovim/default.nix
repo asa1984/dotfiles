@@ -103,6 +103,7 @@
 
       # Haskell
       haskell-language-server
+      haskellPackages.fourmolu
 
       # HTML/CSS
       nodePackages.vscode-langservers-extracted

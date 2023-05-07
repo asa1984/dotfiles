@@ -150,6 +150,8 @@ null_ls.setup({
 		null_ls.builtins.formatting.deno_fmt.with({
 			filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescriptreact" },
 		}),
+		-- Haskell
+		null_ls.builtins.formatting.fourmolu,
 		-- Lua
 		null_ls.builtins.formatting.stylua,
 		-- Markdown
