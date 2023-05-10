@@ -70,8 +70,8 @@
       gitsigns-nvim
       indent-blankline-nvim
       nvim-autopairs
-      nvim-colorizer-lua
       nvim-comment
+      nvim-highlight-colors
       nvim-ts-autotag
 
       # Navigation
@@ -103,6 +103,7 @@
 
       # Haskell
       haskell-language-server
+      haskellPackages.fourmolu
 
       # HTML/CSS
       nodePackages.vscode-langservers-extracted

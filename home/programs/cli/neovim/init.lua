@@ -23,21 +23,37 @@ require("copilot").setup({
 -----------------
 -- Vim Options --
 -----------------
+-- Character code
+vim.opt.encoding = "utf-8"
+vim.encoding = "utf-8"
+vim.fileencoding = "utf-8"
+
+-- Row
 vim.opt.number = true
+vim.opt.cursorline = true
+
+-- Tab, Indent
+vim.opt.tabstop = 2
+vim.opt.smarttab = true
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.smartindent = true
+vim.opt.breakindent = true
+
+-- Search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.hlsearch = true
+
+-- Backup, Swapfile
+vim.opt.backup = false
+vim.opt.swapfile = false
+
+-- Misc
 vim.opt.termguicolors = true
 vim.opt.cmdheight = 1
 vim.opt.autoindent = true
-vim.opt.smartindent = true
-vim.opt.smarttab = true
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.breakindent = true
-vim.opt.hlsearch = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
 vim.opt.hidden = true
-vim.opt.backup = false
 vim.opt.updatetime = 1000
 
 ------------
@@ -48,9 +64,30 @@ vim.keymap.set("i", "<C-s>", "<Cmd>w<CR>")
 vim.keymap.set("n", "<C-s>", "<Cmd>w<CR>")
 vim.keymap.set("i", "jj", "<ESC>", { noremap = true, silent = true })
 
+-- Move column
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")
+
+-- Remove highlight
+vim.keymap.set("n", "<Leader><Space>", "<Cmd>nohlsearch<CR>")
+
+-- Escape from terminal mode
+vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
+
 ---------
 -- LSP --
 ---------
+
+-- Format of diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = {
+		format = function(diagnostic)
+			return string.format("%s (%s: %s)", diagnostic.message, diagnostic.source, diagnostic.code)
+		end,
+	},
+})
+
+-- LSP config
 local lspconfig = require("lspconfig")
 
 require("lspsaga").init_lsp_saga({
@@ -150,6 +187,8 @@ null_ls.setup({
 		null_ls.builtins.formatting.deno_fmt.with({
 			filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescriptreact" },
 		}),
+		-- Haskell
+		null_ls.builtins.formatting.fourmolu,
 		-- Lua
 		null_ls.builtins.formatting.stylua,
 		-- Markdown
@@ -257,22 +296,24 @@ require("nvim-autopairs").setup({
 require("nvim_comment").setup({
 	line_mapping = "<C-_>",
 })
+require("nvim-highlight-colors").setup({
+	enable_tailwind = true,
+})
 require("nvim-ts-autotag").setup({})
-require("colorizer").setup({})
 require("gitsigns").setup({})
 
--- indent
+-- Indent
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
 require("indent_blankline").setup({
 	show_end_of_line = true,
 })
 
--- tab
+-- Tab
 require("bufferline").setup({})
 vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>")
 vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>")
-vim.keymap.set("n", ";q", ":bprevious<CR> :bdelete #<CR>") -- delete tab
+vim.keymap.set("n", ";q", "<Cmd>bd<CR>") -- Close Tab
 
 -- hover info
 -- vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>")
@@ -281,22 +322,27 @@ vim.keymap.set("n", ";q", ":bprevious<CR> :bdelete #<CR>") -- delete tab
 -- 	border = "rounded",
 -- })
 -- vim.cmd("highlight! link FloatBorder NormalFloat")
---
+
+----------------
 -- Navigation --
 ----------------
--- highlight search result
+-- Highlight search result
 require("hlslens").setup()
 
--- which-key
+-- Which-Key
 vim.opt.timeout = true
 vim.opt.timeoutlen = 500
 require("which-key").setup()
 
--- telescope
+-- Telescope
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 require("telescope").setup({
 	defaults = {
+		file_ignore_patterns = {
+			"node_modules",
+			".git",
+		},
 		mappings = {
 			n = {
 				["q"] = actions.close,
@@ -311,8 +357,12 @@ vim.keymap.set("n", ";r", function()
 	builtin.live_grep()
 end)
 
--- nvim-tree
+-- Nvim-tree
 require("nvim-tree").setup({
+	git = {
+		enable = true,
+		ignore = false,
+	},
 	view = {
 		width = 25,
 	},
@@ -325,13 +375,13 @@ vim.keymap.set("n", ";b", "<Cmd>NvimTreeFocus<CR>")
 --------
 -- UI --
 --------
--- nerd font icons
+-- Nerd font icons
 require("nvim-web-devicons").setup({})
 
--- startup page
+-- Startup page
 require("alpha").setup(require("alpha.themes.startify").config)
 
--- statusline
+-- Statusline
 require("lualine").setup({
 	options = {
 		component_separators = { left = "", right = "" },
@@ -341,7 +391,13 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch" },
 		lualine_c = { "filename" },
-		lualine_x = { "" },
+		lualine_x = {
+			{
+				"diagnostics",
+				sources = { "nvim_diagnostic" },
+				symbols = { error = " ", warn = " ", info = " ", hing = " " },
+			},
+		},
 		lualine_y = { "filetype" },
 		lualine_z = { "location" },
 	},

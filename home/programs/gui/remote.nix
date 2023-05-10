@@ -1,3 +1,3 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [parsec-bin moonlight-qt remmina];
+  home.packages = with pkgs; [parsec-bin remmina];
 }
