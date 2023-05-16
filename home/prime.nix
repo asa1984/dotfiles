@@ -6,6 +6,8 @@
     ./programs/cli
     ./programs/gui
     ./programs/desktop/hyprland
-    ../modules/xmonad/default.nix
+    ../modules/xmonad
+    ../modules/rofi
+    ../modules/dunst
   ];
 }

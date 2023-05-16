@@ -10,6 +10,7 @@ import XMonad.Actions.CycleWS
 
 import XMonad.Hooks.ManageDocks
 
+import XMonad.Config.Desktop (desktopConfig)
 import XMonad.Util.EZConfig
 import XMonad.Util.SpawnOnce (spawnOnce)
 
@@ -28,6 +29,7 @@ myConfig =
         , keys = \c -> mkKeymap c $ myKeys c
         }
 
+-- Startup
 myStartupHook :: X ()
 myStartupHook = do
     spawnOnce "fcitx5 -D"
@@ -40,6 +42,7 @@ myStartupHook = do
 myKeys :: XConfig Layout -> [(String, X ())]
 myKeys conf =
     [ ("M-<Return>", spawn $ XMonad.terminal conf)
+    , ("M-s", spawn "rofi -show drun -theme launcher")
     , ("M-S-q", kill)
     , ("M1-<Tab>", windows W.focusDown)
     , ("M1-S-<Tab>", windows W.focusUp)
@@ -56,8 +59,15 @@ myKeys conf =
            , (f, m) <- [(W.view, ""), (W.shift, "S-")]
            ]
 
+-- Layout
 myLayoutHook =
     avoidStruts $ smartBorders (tall ||| full)
   where
     tall = Tall 1 0.03 0.5
     full = Full
+
+-- -- ManageHook
+-- myManageHook :: ManageHook
+-- myManageHook =
+--     composeAll
+--         [className =? "Rofi" --> doIgnore]
