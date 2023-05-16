@@ -18,6 +18,7 @@
     ../modules/xremap.nix
 
     ../modules/desktop/hyprland.nix
+    ../modules/desktop/xmonad.nix
   ];
 
   boot = {
