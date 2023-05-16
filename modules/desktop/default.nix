@@ -1,4 +1,9 @@
 {
+  imports = [
+    ./dunst
+    ./rofi
+  ];
+
   xsession = {
     enable = true;
     windowManager.xmonad = {
