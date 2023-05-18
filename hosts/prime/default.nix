@@ -15,7 +15,7 @@
     ../modules/security.nix
     ../modules/services.nix
     ../modules/sound.nix
-    ../modules/xremap.nix
+    #    ../modules/xremap.nix
 
     ../modules/desktop/hyprland.nix
     ../modules/desktop/xmonad.nix

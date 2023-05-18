@@ -44,7 +44,7 @@
       # Desktop
       prime = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
-        modules = [./hosts/prime];
+        modules = [./hosts/prime ./system/xremap.nix];
       };
       # HP Laptop
       envy13 = nixpkgs.lib.nixosSystem {

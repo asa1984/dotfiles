@@ -41,7 +41,7 @@ NIX_ENFORCE_NO_NATIVE='1'
 export NIX_ENFORCE_NO_NATIVE
 NIX_HARDENING_ENABLE='fortify stackprotector pic strictoverflow format relro bindnow'
 export NIX_HARDENING_ENABLE
-NIX_LDFLAGS='-rpath /home/asahi/.dotfiles/modules/xmonad/outputs/out/lib64 -rpath /home/asahi/.dotfiles/modules/xmonad/outputs/out/lib  -L/nix/store/nh47yp2xm0r60hjxfjln9rp3aiipdjy9-ncurses-6.4/lib -L/nix/store/5br7hbxdrmxhrppz5wab8pp765bk5f2j-libffi-3.4.4/lib -L/nix/store/lzil4gvw5hsy5qxp9raihfkgf8avs2ry-gmp-with-cxx-6.2.1/lib -L/nix/store/nh47yp2xm0r60hjxfjln9rp3aiipdjy9-ncurses-6.4/lib -L/nix/store/5br7hbxdrmxhrppz5wab8pp765bk5f2j-libffi-3.4.4/lib -L/nix/store/lzil4gvw5hsy5qxp9raihfkgf8avs2ry-gmp-with-cxx-6.2.1/lib'
+NIX_LDFLAGS='-rpath /home/asahi/.dotfiles/modules/desktop/outputs/out/lib64 -rpath /home/asahi/.dotfiles/modules/desktop/outputs/out/lib  -L/nix/store/nh47yp2xm0r60hjxfjln9rp3aiipdjy9-ncurses-6.4/lib -L/nix/store/5br7hbxdrmxhrppz5wab8pp765bk5f2j-libffi-3.4.4/lib -L/nix/store/lzil4gvw5hsy5qxp9raihfkgf8avs2ry-gmp-with-cxx-6.2.1/lib -L/nix/store/nh47yp2xm0r60hjxfjln9rp3aiipdjy9-ncurses-6.4/lib -L/nix/store/5br7hbxdrmxhrppz5wab8pp765bk5f2j-libffi-3.4.4/lib -L/nix/store/lzil4gvw5hsy5qxp9raihfkgf8avs2ry-gmp-with-cxx-6.2.1/lib'
 export NIX_LDFLAGS
 NIX_LIB64_IN_SELF_RPATH='1'
 NIX_NO_SELF_RPATH='1'
@@ -133,7 +133,7 @@ name='nix-shell-env'
 export name
 nativeBuildInputs=''
 export nativeBuildInputs
-out='/home/asahi/.dotfiles/modules/xmonad/outputs/out'
+out='/home/asahi/.dotfiles/modules/desktop/outputs/out'
 export out
 outputBin='out'
 outputDev='out'
@@ -163,7 +163,7 @@ declare -a preConfigureHooks=('_multioutConfig' )
 declare -a preFixupHooks=('_moveToShare' '_multioutDocs' '_multioutDevs' )
 preferLocalBuild='1'
 export preferLocalBuild
-prefix='/home/asahi/.dotfiles/modules/xmonad/outputs/out'
+prefix='/home/asahi/.dotfiles/modules/desktop/outputs/out'
 declare -a propagatedBuildDepFiles=('propagated-build-build-deps' 'propagated-native-build-inputs' 'propagated-build-target-deps' )
 propagatedBuildInputs=''
 export propagatedBuildInputs

@@ -1,7 +1,8 @@
 {
   imports = [
-    ./dunst
     ./rofi
+    ./dunst.nix
+    ./xremap.nix
   ];
 
   xsession = {
