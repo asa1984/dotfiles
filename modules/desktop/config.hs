@@ -7,6 +7,7 @@ import XMonad.Layout.MultiToggle
 import XMonad.Layout.NoBorders
 
 import XMonad.Actions.CycleWS
+import XMonad.Actions.DynamicWorkspaces
 
 import XMonad.Hooks.ManageDocks
 
@@ -21,8 +22,8 @@ myConfig =
         { terminal = "alacritty"
         , startupHook = myStartupHook
         , modMask = mod4Mask
-        , workspaces = map show [1 .. 9 :: Int]
-        , borderWidth = 3
+        , -- , workspaces = map show [1 .. 9 :: Int]
+          borderWidth = 3
         , normalBorderColor = "#222436"
         , focusedBorderColor = "#82aaff"
         , layoutHook = myLayoutHook
@@ -33,7 +34,7 @@ myConfig =
 myStartupHook :: X ()
 myStartupHook = do
     spawnOnce "fcitx5 -D"
-    spawnOnce "systemctl start --user xremap.service"
+    spawnOnce "feh --bg-scale ~/Wallpapers/wallpaper.jpg"
     spawnOnce "discord --start-minimized"
     spawnOnce "slack -u"
     spawnOnce "teams-for-linux --minimized"
@@ -52,6 +53,8 @@ myKeys conf =
     , ("M-C-<Left>", prevWS)
     , ("M-S-<Right>", shiftToNext)
     , ("M-S-<Left>", shiftToPrev)
+    , ("M-C-d", addWorkspace def)
+    , ("M-C-r", removeEmptyWorkspace)
     ]
         -- Workspace
         ++ [ ("M-" ++ m ++ show k, windows $ f i)
@@ -65,9 +68,3 @@ myLayoutHook =
   where
     tall = Tall 1 0.03 0.5
     full = Full
-
--- -- ManageHook
--- myManageHook :: ManageHook
--- myManageHook =
---     composeAll
---         [className =? "Rofi" --> doIgnore]

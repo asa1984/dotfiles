@@ -6,7 +6,7 @@
         timeout = 50;
         background = "#222436";
         frame_color = "#82aaff";
-        corner_radius = 24;
+        corner_radius = 12;
         font = "HackGen35 Console NFJ";
       };
 

@@ -39,6 +39,7 @@
     ...
   }: let
     colorscheme = (import ./colorschemes) "tokyonight-moon";
+    theme = (import ./themes) "tokyonight-moon";
   in {
     nixosConfigurations = {
       # Desktop
@@ -61,7 +62,7 @@
           config.allowUnfree = true;
           overlays = [(import inputs.rust-overlay)];
         };
-        extraSpecialArgs = {inherit inputs colorscheme;};
+        extraSpecialArgs = {inherit inputs colorscheme theme;};
         modules = [./home/prime.nix];
       };
       # HP Laptop
@@ -71,7 +72,7 @@
           config.allowUnfree = true;
           overlays = [(import inputs.rust-overlay)];
         };
-        extraSpecialArgs = {inherit inputs colorscheme;};
+        extraSpecialArgs = {inherit inputs colorscheme theme;};
         modules = [./home/envy13.nix];
       };
     };
