@@ -6,7 +6,9 @@
   imports = [
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.nixos-hardware.nixosModules.common-pc-laptop
 
     ../modules/minimal
     ../modules/fonts.nix
@@ -14,10 +16,11 @@
     ../modules/security.nix
     ../modules/services.nix
     ../modules/sound.nix
-    ../modules/xremap.nix
+    # ../modules/xremap.nix
 
     # Desktop environment
     ../modules/desktop/hyprland.nix
+    ../modules/desktop/xmonad.nix
   ];
 
   boot = {

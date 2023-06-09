@@ -3,8 +3,10 @@
     # home profile
     ./home.nix
 
-    ./programs/cli
-    ./programs/gui
     ./programs/desktop/hyprland
+
+    ../modules/cli
+    ../modules/gui
+    ../modules/desktop
   ];
 }

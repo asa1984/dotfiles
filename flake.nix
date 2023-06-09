@@ -50,7 +50,7 @@
       # HP Laptop
       envy13 = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
-        modules = [./hosts/envy13];
+        modules = [./hosts/envy13 ./system/xremap.nix];
       };
     };
 

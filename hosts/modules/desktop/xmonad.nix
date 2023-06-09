@@ -8,5 +8,9 @@
       enable = true;
       enableContribAndExtras = true;
     };
+
+    libinput = {
+      enable = true;
+    };
   };
 }
