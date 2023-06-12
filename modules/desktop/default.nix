@@ -19,11 +19,17 @@ in {
   };
 
   home.packages = with pkgs; [
-    feh
+    feh # wallpaper
+    maim # screenshot
+    xclip # clipboard
   ];
 
   home.file."wallpaper.jpg" = {
     target = "Wallpapers/wallpaper.jpg";
     source = ./Wallpapers/${wallpaper}.jpg;
+  };
+  home.file."snipping-tool.sh" = {
+    target = "Scripts/snipping-tool.sh";
+    source = ./snipping-tool.sh;
   };
 }

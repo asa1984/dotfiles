@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       global = {
-        timeout = 50;
+        timeout = 5000;
         background = "#222436";
         frame_color = "#82aaff";
         corner_radius = 12;

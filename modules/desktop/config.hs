@@ -1,16 +1,18 @@
+import Data.Time.Format (defaultTimeLocale, formatTime)
+
 import System.Exit
 
 import XMonad
 import qualified XMonad.StackSet as W
 
+import XMonad.Actions.CycleWS
+import XMonad.Actions.DynamicWorkspaces
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.NoBorders
 
-import XMonad.Actions.CycleWS
-import XMonad.Actions.DynamicWorkspaces
-
 import XMonad.Hooks.ManageDocks
 
+import Data.Time (getCurrentTime)
 import XMonad.Config.Desktop (desktopConfig)
 import XMonad.Util.EZConfig
 import XMonad.Util.SpawnOnce (spawnOnce)
@@ -60,6 +62,25 @@ myKeys conf =
         ++ [ ("M-" ++ m ++ show k, windows $ f i)
            | (i, k) <- zip (XMonad.workspaces conf) ([1 .. 9] :: [Int])
            , (f, m) <- [(W.view, ""), (W.shift, "S-")]
+           ]
+        -- Utility
+        ++ [
+               ( "<Print>"
+               , do
+                    spawn "maim -u | xclip -selection clipboard -t image/png"
+                    spawn "dunstify -u low -t 3000 'Screenshot saved to ~/Screenshots'"
+               ) -- Copy screenshot to clipboard
+           ,
+               ( "M-<Print>"
+               , do
+                    spawn "maim ~/Screenshots/screenshot-$(date +%Y%m%d%H%M%S).png"
+                    spawn "maim -u | xclip -selection clipboard -t image/png"
+                    spawn "dunstify -u low -t 3000 'Screenshot saved to ~/Screenshots'"
+               ) -- Save screenshot to file
+           ,
+               ( "M-S-s"
+               , spawn "sh ~/Scripts/snipping-tool.sh"
+               ) -- Save screenshot to file (select area)
            ]
 
 -- Layout

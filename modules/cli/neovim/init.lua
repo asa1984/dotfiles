@@ -1,24 +1,7 @@
 -----------------
 -- Performance --
 -----------------
-vim.loader.enable()
-
---------------------
--- GitHub Copilot --
---------------------
-require("copilot").setup({
-	suggestion = {
-		auto_trigger = true,
-		keymap = {
-			accept = "<C-j>",
-			accept_word = false,
-			accept_line = false,
-			next = "<M-o>",
-			prev = "<M-i>",
-			dismiss = "<C-S-e>",
-		},
-	},
-})
+vim.loader.enable() -- You need to enable loader before loading plugins
 
 -----------------
 -- Vim Options --
@@ -39,6 +22,7 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 vim.opt.breakindent = true
+vim.opt.autoindent = true
 
 -- Search
 vim.opt.ignorecase = true
@@ -52,9 +36,10 @@ vim.opt.swapfile = false
 -- Misc
 vim.opt.termguicolors = true
 vim.opt.cmdheight = 1
-vim.opt.autoindent = true
 vim.opt.hidden = true
 vim.opt.updatetime = 1000
+vim.opt.mouse = "" -- Disable mouse
+vim.opt.clipboard = "unnamedplus" -- Use system clipboard
 
 ------------
 -- Keymap --
@@ -74,10 +59,26 @@ vim.keymap.set("n", "<Leader><Space>", "<Cmd>nohlsearch<CR>")
 -- Escape from terminal mode
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
 
+--------------------
+-- GitHub Copilot --
+--------------------
+require("copilot").setup({
+	suggestion = {
+		auto_trigger = true,
+		keymap = {
+			accept = "<C-j>",
+			accept_word = false,
+			accept_line = false,
+			next = "<M-o>",
+			prev = "<M-i>",
+			dismiss = "<C-S-e>",
+		},
+	},
+})
+
 ---------
 -- LSP --
 ---------
-
 -- Format of diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	virtual_text = {

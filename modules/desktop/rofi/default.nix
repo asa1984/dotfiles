@@ -3,8 +3,9 @@
     enable = true;
     package = pkgs.rofi.override {
       plugins = with pkgs; [
-        rofi-emoji
         rofi-calc
+        rofi-emoji
+        rofi-power-menu
       ];
     };
     font = "Hack Nerd Font 11";
@@ -20,4 +21,5 @@
     }
   '';
   home.file.".config/rofi/launcher.rasi".source = ./launcher.rasi;
+  home.file.".config/rofi/power-menu.rasi".source = ./power-menu.rasi;
 }

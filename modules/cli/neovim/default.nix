@@ -89,6 +89,10 @@
     ];
 
     extraPackages = with pkgs; [
+      # for clipboard
+      xclip
+      xsel
+
       # for telescope-nvim
       ripgrep
 
