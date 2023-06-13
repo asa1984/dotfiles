@@ -67,14 +67,16 @@ myKeys conf =
         ++ [
                ( "<Print>"
                , do
-                    spawn "maim -u | xclip -selection clipboard -t image/png"
+                    spawn "mkdir -p ~/Screenshots"
+                    spawn "maim -su | xclip -selection clipboard -t image/png"
                     spawn "dunstify -u low -t 3000 'Screenshot saved to ~/Screenshots'"
                ) -- Copy screenshot to clipboard
            ,
                ( "M-<Print>"
                , do
+                    spawn "mkdir -p ~/Screenshots"
                     spawn "maim ~/Screenshots/screenshot-$(date +%Y%m%d%H%M%S).png"
-                    spawn "maim -u | xclip -selection clipboard -t image/png"
+                    spawn "maim -su | xclip -selection clipboard -t image/png"
                     spawn "dunstify -u low -t 3000 'Screenshot saved to ~/Screenshots'"
                ) -- Save screenshot to file
            ,
