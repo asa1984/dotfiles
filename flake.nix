@@ -38,7 +38,7 @@
     home-manager,
     ...
   }: let
-    colorscheme = (import ./colorschemes) "tokyonight-moon";
+    colorscheme = (import ./colorschemes) "tokyonight-moon"; # to be removed
     theme = (import ./themes) "tokyonight-moon";
   in {
     nixosConfigurations = {

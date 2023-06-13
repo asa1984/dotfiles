@@ -21,7 +21,7 @@ main = xmonad myConfig
 
 myConfig =
     def
-        { terminal = "alacritty"
+        { terminal = "wezterm"
         , startupHook = myStartupHook
         , modMask = mod4Mask
         , -- , workspaces = map show [1 .. 9 :: Int]
