@@ -21,6 +21,7 @@ in {
   home.packages = with pkgs; [
     feh # wallpaper
     maim # screenshot
+    playerctl # media control
     xclip # clipboard
   ];
 

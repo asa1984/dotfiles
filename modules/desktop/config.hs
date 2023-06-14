@@ -63,7 +63,12 @@ myKeys conf =
            | (i, k) <- zip (XMonad.workspaces conf) ([1 .. 9] :: [Int])
            , (f, m) <- [(W.view, ""), (W.shift, "S-")]
            ]
-        -- Utility
+        -- Media control
+        ++ [ ("<XF86AudioPlay>", spawn "playerctl play-pause")
+           , ("<XF86AudioNext>", spawn "playerctl next")
+           , ("<XF86AudioPrev>", spawn "playerctl previous")
+           ]
+        -- Screenshot
         ++ [
                ( "<Print>"
                , do
