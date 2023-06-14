@@ -21,6 +21,7 @@ return {
 	hide_tab_bar_if_only_one_tab = true,
 
 	-- Misc
-	use_ime = true,
-	check_for_updates = false,
+	use_ime = true, -- Enable IME
+	check_for_updates = false, -- Disable update check
+	audible_bell = "Disabled", -- Disable bell
 }
