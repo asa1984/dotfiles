@@ -9,6 +9,7 @@ in {
 
   xsession = {
     enable = true;
+    scriptPath = ".hm-xsession";
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;

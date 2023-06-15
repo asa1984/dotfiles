@@ -9,16 +9,11 @@
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
 
-    ../modules/minimal
-    ../modules/fonts.nix
-    ../modules/games.nix
-    ../modules/security.nix
-    ../modules/services.nix
-    ../modules/sound.nix
-    #    ../modules/xremap.nix
-
-    ../modules/desktop/hyprland.nix
-    ../modules/desktop/xmonad.nix
+    ../../system/minimal.nix
+    ../../system/x11.nix
+    ../../system/desktop.nix
+    ../../system/xremap.nix
+    ../../system/gaming.nix
   ];
 
   boot = {
