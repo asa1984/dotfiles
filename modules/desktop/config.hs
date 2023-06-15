@@ -89,6 +89,10 @@ myKeys conf =
                , spawn "sh ~/Scripts/snipping-tool.sh"
                ) -- Save screenshot to file (select area)
            ]
+        -- Utilities
+        ++ [ ("<XF86MonBrightnessUp>", spawn "brightnessctl set +10%")
+           , ("<XF86MonBrightnessDown>", spawn "brightnessctl set 10%-")
+           ]
 
 -- Layout
 myLayoutHook =

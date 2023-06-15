@@ -19,6 +19,7 @@ in {
   };
 
   home.packages = with pkgs; [
+    brightnessctl # brightness control
     feh # wallpaper
     maim # screenshot
     playerctl # media control
