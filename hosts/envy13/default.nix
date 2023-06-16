@@ -10,17 +10,12 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-pc-laptop
 
-    ../modules/minimal
-    ../modules/fonts.nix
     ../modules/laptop.nix
-    ../modules/security.nix
-    ../modules/services.nix
-    ../modules/sound.nix
-    # ../modules/xremap.nix
 
-    # Desktop environment
-    ../modules/desktop/hyprland.nix
-    ../modules/desktop/xmonad.nix
+    ../../system/minimal.nix
+    ../../system/x11.nix
+    ../../system/desktop.nix
+    ../../system/xremap.nix
   ];
 
   boot = {
