@@ -102,6 +102,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Bash
 lspconfig.bashls.setup({})
+-- C/C++
+lspconfig.clangd.setup({})
 -- CSS
 lspconfig.cssls.setup({ capabilities = capabilities })
 -- Deno
@@ -184,6 +186,8 @@ local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
 	sources = {
+		-- C/C++
+		null_ls.builtins.formatting.clang_format,
 		-- Deno
 		null_ls.builtins.formatting.deno_fmt.with({
 			filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescriptreact" },
