@@ -50,11 +50,17 @@
     };
   };
 
+  # Desktop
+  programs.dconf.enable = true;
+
   # Security - Some apps require gnome-keyring (e.g. VSCode)
   services.gnome.gnome-keyring.enable = true;
   security.pam.services = {
     login.enableGnomeKeyring = true;
   };
+
+  # Power management
+  services.upower.enable = true;
 
   # Apps
   ## Flatpak
