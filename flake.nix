@@ -52,6 +52,11 @@
         specialArgs = {inherit inputs;};
         modules = [./hosts/envy13 ./system/xremap.nix];
       };
+      # Proxmox VE
+      pve = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [./hosts/pve];
+      };
     };
 
     homeConfigurations = {
@@ -74,6 +79,16 @@
         };
         extraSpecialArgs = {inherit inputs colorscheme theme;};
         modules = [./home/envy13.nix];
+      };
+      # Proxmox VE
+      "asahi@pve" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+          overlays = [(import inputs.rust-overlay)];
+        };
+        extraSpecialArgs = {inherit inputs colorscheme theme;};
+        modules = [./home/pve.nix];
       };
     };
 
