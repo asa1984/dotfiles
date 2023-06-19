@@ -188,17 +188,18 @@ null_ls.setup({
 	sources = {
 		-- C/C++
 		null_ls.builtins.formatting.clang_format,
-		-- Deno
-		null_ls.builtins.formatting.deno_fmt.with({
-			filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescriptreact" },
-		}),
+		-- -- Deno
+		-- null_ls.builtins.formatting.deno_fmt.with({
+		-- 	filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescriptreact" },
+		-- }),
+		-- JavaScript/TypeScript/Others
+		null_ls.builtins.formatting.prettier,
 		-- Haskell
 		null_ls.builtins.formatting.fourmolu,
 		-- Lua
 		null_ls.builtins.formatting.stylua,
 		-- Markdown
 		null_ls.builtins.diagnostics.markdownlint,
-		null_ls.builtins.formatting.markdownlint,
 		-- Nix
 		null_ls.builtins.code_actions.statix,
 		null_ls.builtins.diagnostics.deadnix,

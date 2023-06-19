@@ -113,6 +113,7 @@
       nodePackages.vscode-langservers-extracted
 
       # JavaScript/TypeScript
+      nodePackages.prettier
       nodePackages.typescript-language-server
 
       # Lua
