@@ -3,6 +3,11 @@
 -----------------
 vim.loader.enable() -- You need to enable loader before loading plugins
 
+------------------
+-- Color scheme --
+------------------
+vim.cmd("colorscheme tokyonight-moon")
+
 -----------------
 -- Vim Options --
 -----------------
@@ -165,7 +170,7 @@ lspconfig.tailwindcss.setup({})
 -- Zig
 lspconfig.zls.setup({})
 
--- holding cursor, show diagnostics
+-- Holding cursor, show diagnostics
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
 	pattern = { "*" },
 	callback = function()
@@ -316,18 +321,21 @@ require("indent_blankline").setup({
 })
 
 -- Tab
-require("bufferline").setup({})
+require("bufferline").setup({
+	options = {
+		diagnostics = "nvim_lsp",
+		always_show_bufferline = false,
+		show_close_icon = false,
+		show_buffer_close_icons = false,
+		diagnostics_indicator = function(count, level)
+			local icon = level:match("error") and " " or " "
+			return " " .. icon .. count
+		end,
+	},
+})
 vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>")
 vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>")
-vim.keymap.set("n", ";q", "<Cmd>bd<CR>") -- Close Tab
-
--- hover info
--- vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>")
--- vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
--- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
--- 	border = "rounded",
--- })
--- vim.cmd("highlight! link FloatBorder NormalFloat")
+vim.keymap.set("n", ";q", "<Cmd>NvimTreeClose<bar>bd<CR>") -- Close Tab
 
 ----------------
 -- Navigation --

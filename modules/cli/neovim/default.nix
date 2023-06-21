@@ -150,9 +150,6 @@
       zls
     ];
 
-    extraConfig = ''
-      colorscheme tokyonight-moon
-    '';
     extraLuaConfig = builtins.readFile ./init.lua;
   };
 }
