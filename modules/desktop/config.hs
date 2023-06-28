@@ -1,31 +1,32 @@
-import Data.Time.Format (defaultTimeLocale, formatTime)
-
 import System.Exit
 
 import XMonad
-import qualified XMonad.StackSet as W
-
 import XMonad.Actions.CycleWS
-import XMonad.Actions.DynamicWorkspaces
-import XMonad.Layout.MultiToggle
-import XMonad.Layout.NoBorders
+import XMonad.Actions.PhysicalScreens
+import qualified XMonad.StackSet as W
 
 import XMonad.Hooks.ManageDocks
 
-import Data.Time (getCurrentTime)
-import XMonad.Config.Desktop (desktopConfig)
+import XMonad.Layout.IndependentScreens
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.NoBorders
+
 import XMonad.Util.EZConfig
 import XMonad.Util.SpawnOnce (spawnOnce)
 
-main = xmonad myConfig
+main = do
+    n <- countScreens
+    xmonad $
+        myConfig
+            { workspaces = withScreens n (map show [1 .. 9 :: Int])
+            }
 
 myConfig =
     def
         { terminal = "wezterm"
         , startupHook = myStartupHook
         , modMask = mod4Mask
-        , -- , workspaces = map show [1 .. 9 :: Int]
-          borderWidth = 3
+        , borderWidth = 3
         , normalBorderColor = "#222436"
         , focusedBorderColor = "#82aaff"
         , layoutHook = myLayoutHook
@@ -35,8 +36,9 @@ myConfig =
 -- Startup
 myStartupHook :: X ()
 myStartupHook = do
+    spawnOnce "sh ~/.hm_desktop/xrandr.sh"
+    spawnOnce "feh --bg-scale ~/.hm_desktop/wallpaper.jpg"
     spawnOnce "fcitx5 -D"
-    spawnOnce "feh --bg-scale ~/Wallpapers/wallpaper.jpg"
     spawnOnce "discord --start-minimized"
     spawnOnce "slack -u"
     spawnOnce "teams-for-linux --minimized"
@@ -51,48 +53,55 @@ myKeys conf =
     , ("M1-S-<Tab>", windows W.focusUp)
     , ("M-S-f", withFocused $ windows . W.sink)
     , ("M-f", sendMessage NextLayout)
-    , ("M-C-<Right>", nextWS)
-    , ("M-C-<Left>", prevWS)
-    , ("M-S-<Right>", shiftToNext)
-    , ("M-S-<Left>", shiftToPrev)
-    , ("M-C-d", addWorkspace def)
-    , ("M-C-r", removeEmptyWorkspace)
+    , ("M-S-<Right>", shiftTo Next spacesOnCurrentScreen)
+    , ("M-S-<Left>", shiftTo Prev spacesOnCurrentScreen)
+    , ("M-<Left>", viewScreen def 0)
+    , ("M-<Right>", viewScreen def 1)
     ]
-        -- Workspace
-        ++ [ ("M-" ++ m ++ show k, windows $ f i)
-           | (i, k) <- zip (XMonad.workspaces conf) ([1 .. 9] :: [Int])
-           , (f, m) <- [(W.view, ""), (W.shift, "S-")]
+        -- Workspace - create virtual workspaces for each screen
+        ++ [ ("M-" ++ m ++ show k, windows $ onCurrentScreen f i)
+           | (i, k) <- zip (workspaces' conf) ([1 .. 9] :: [Int])
+           , (f, m) <- [(W.greedyView, ""), (W.shift, "S-")]
            ]
-        -- Media control
-        ++ [ ("<XF86AudioPlay>", spawn "playerctl play-pause")
-           , ("<XF86AudioNext>", spawn "playerctl next")
-           , ("<XF86AudioPrev>", spawn "playerctl previous")
+        -- Workspace - move to next or previous virtual workspace
+        ++ [ ("M-C-<Right>", moveTo Next spacesOnCurrentScreen)
+           , ("M-C-<Left>", moveTo Prev spacesOnCurrentScreen)
            ]
         -- Screenshot
         ++ [
                ( "<Print>"
                , do
-                    spawn "mkdir -p ~/Screenshots"
-                    spawn "maim -su | xclip -selection clipboard -t image/png"
-                    spawn "dunstify -u low -t 3000 'Screenshot saved to ~/Screenshots'"
+                    spawn "maim --hidecursor | xclip -selection clipboard -t image/png"
+                    spawn "dunstify -u low -t 3000 'Screenshot copied to clipboard'"
                ) -- Copy screenshot to clipboard
            ,
                ( "M-<Print>"
-               , do
-                    spawn "mkdir -p ~/Screenshots"
-                    spawn "maim ~/Screenshots/screenshot-$(date +%Y%m%d%H%M%S).png"
-                    spawn "maim -su | xclip -selection clipboard -t image/png"
-                    spawn "dunstify -u low -t 3000 'Screenshot saved to ~/Screenshots'"
+               , spawn "sh ~/.hm_desktop/screenshot.sh"
                ) -- Save screenshot to file
            ,
                ( "M-S-s"
-               , spawn "sh ~/Scripts/snipping-tool.sh"
+               , spawn "sh ~/.hm_desktop/snipping_tool.sh"
                ) -- Save screenshot to file (select area)
            ]
         -- Utilities
-        ++ [ ("<XF86MonBrightnessUp>", spawn "brightnessctl set +10%")
+        ++ [ ("<XF86AudioPlay>", spawn "playerctl play-pause")
+           , ("<XF86AudioNext>", spawn "playerctl next")
+           , ("<XF86AudioPrev>", spawn "playerctl previous")
+           , ("<XF86MonBrightnessUp>", spawn "brightnessctl set +10%")
            , ("<XF86MonBrightnessDown>", spawn "brightnessctl set 10%-")
            ]
+
+-- Workspace - get workspaces on current screen
+isOnScreen :: ScreenId -> WindowSpace -> Bool
+isOnScreen s ws = s == unmarshallS (W.tag ws)
+
+currentScreen :: X ScreenId
+currentScreen = gets (W.screen . W.current . windowset)
+
+spacesOnCurrentScreen :: WSType
+spacesOnCurrentScreen = WSIs $ do
+    s <- currentScreen
+    return $ \x -> W.tag x /= "NSP" && isOnScreen s x
 
 -- Layout
 myLayoutHook =
