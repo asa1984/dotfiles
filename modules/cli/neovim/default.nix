@@ -146,6 +146,9 @@
       # TailwindCSS
       nodePackages."@tailwindcss/language-server"
 
+      # TOML
+      taplo
+
       # Zig
       zls
     ];

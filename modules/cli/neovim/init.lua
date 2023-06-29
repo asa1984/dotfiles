@@ -213,6 +213,8 @@ null_ls.setup({
 		null_ls.builtins.formatting.black,
 		-- Rust
 		null_ls.builtins.formatting.rustfmt,
+		-- TOML
+		null_ls.builtins.formatting.taplo,
 		-- Zig
 		null_ls.builtins.formatting.zigfmt,
 	},
