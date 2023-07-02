@@ -1,0 +1,3 @@
+{
+  imports = [./kitty.nix ./wezterm];
+}
