@@ -15,8 +15,6 @@
       # LSP
       nvim-lspconfig
       lspsaga-nvim
-      lsp_signature-nvim
-      fidget-nvim
       # LSP: Rust
       rust-tools-nvim
       crates-nvim
@@ -64,10 +62,12 @@
       lspkind-nvim
 
       # IDE
+      comment-nvim
       gitsigns-nvim
+      inc-rename-nvim
       indent-blankline-nvim
+      noice-nvim
       nvim-autopairs
-      nvim-comment
       nvim-highlight-colors
       nvim-ts-autotag
 
@@ -75,7 +75,6 @@
       nvim-hlslens
       nvim-tree-lua
       telescope-nvim
-      which-key-nvim
 
       # UI
       alpha-nvim
@@ -84,7 +83,7 @@
       nvim-web-devicons
 
       # Vim plugins
-      quick-scope
+      vim-floaterm
       yuck-vim
     ];
 

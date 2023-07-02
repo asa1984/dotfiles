@@ -32,7 +32,6 @@ vim.opt.autoindent = true
 -- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.hlsearch = true
 
 -- Backup, Swapfile
 vim.opt.backup = false
@@ -64,20 +63,12 @@ vim.keymap.set("n", "<Leader><Space>", "<Cmd>nohlsearch<CR>")
 -- Escape from terminal mode
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
 
---------------------
--- GitHub Copilot --
---------------------
-require("copilot").setup({
-	suggestion = {
-		auto_trigger = true,
-		keymap = {
-			accept = "<C-j>",
-			accept_word = false,
-			accept_line = false,
-			next = "<M-o>",
-			prev = "<M-i>",
-			dismiss = "<C-S-e>",
-		},
+----------------
+-- Treesitter --
+----------------
+require("nvim-treesitter.configs").setup({
+	highlight = {
+		enable = true,
 	},
 })
 
@@ -99,8 +90,6 @@ local lspconfig = require("lspconfig")
 require("lspsaga").init_lsp_saga({
 	border_style = "round",
 })
-require("lsp_signature").setup()
-require("fidget").setup()
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -182,7 +171,12 @@ vim.keymap.set("n", "m", "<Plug>(lsp)")
 vim.keymap.set("n", "K", require("lspsaga.hover").render_hover_doc)
 vim.keymap.set("n", "<Plug>(lsp)d", vim.lsp.buf.definition)
 vim.keymap.set("n", "<Plug>(lsp)a", require("lspsaga.codeaction").code_action)
-vim.keymap.set("n", "<Plug>(lsp)rn", require("lspsaga.rename").rename)
+
+-- Rename
+require("inc_rename").setup()
+vim.keymap.set("n", "<Plug>(lsp)rn", function()
+	return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
 
 ------------------------
 -- Formatter & Linter --
@@ -193,18 +187,12 @@ null_ls.setup({
 	sources = {
 		-- C/C++
 		null_ls.builtins.formatting.clang_format,
-		-- -- Deno
-		-- null_ls.builtins.formatting.deno_fmt.with({
-		-- 	filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescriptreact" },
-		-- }),
 		-- JavaScript/TypeScript/Others
 		null_ls.builtins.formatting.prettier,
 		-- Haskell
 		null_ls.builtins.formatting.fourmolu,
 		-- Lua
 		null_ls.builtins.formatting.stylua,
-		-- Markdown
-		null_ls.builtins.diagnostics.markdownlint,
 		-- Nix
 		null_ls.builtins.code_actions.statix,
 		null_ls.builtins.diagnostics.deadnix,
@@ -238,13 +226,6 @@ null_ls.setup({
 			})
 		end
 	end,
-})
-
-----------------
--- Treesitter --
-----------------
-require("nvim-treesitter.configs").setup({
-	highlight = { enable = true },
 })
 
 ----------------
@@ -285,7 +266,7 @@ cmp.setup({
 	},
 })
 
--- cmdline
+-- Cmdline
 cmp.setup.cmdline({ "/", "?" }, {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
@@ -300,19 +281,75 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
----------
--- IDE --
----------
+-- Others
+require("Comment").setup({})
 require("nvim-autopairs").setup({
 	map_c_h = true,
 })
-require("nvim_comment").setup({
-	line_mapping = "<C-_>",
+require("nvim-ts-autotag").setup({})
+
+--------------------
+-- GitHub Copilot --
+--------------------
+require("copilot").setup({
+	suggestion = {
+		auto_trigger = true,
+		keymap = {
+			accept = "<C-j>",
+			accept_word = false,
+			accept_line = false,
+			next = "<M-o>",
+			prev = "<M-i>",
+			dismiss = "<C-S-e>",
+		},
+	},
 })
+
+---------
+-- IDE --
+---------
+-- Noice
+require("noice").setup({
+	lsp = {
+		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+		override = {
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+			["vim.lsp.util.stylize_markdown"] = true,
+			["cmp.entry.get_documentation"] = true,
+		},
+	},
+	routes = {
+		{
+			filter = {
+				event = "msg_show",
+				kind = "search_count",
+			},
+			opts = { skip = true },
+		},
+	},
+	cmdline = {
+		view = "cmdline",
+	},
+	presets = {
+		bottom_search = true, -- use a classic bottom cmdline for search
+		command_palette = true, -- position the cmdline and popupmenu together
+		long_message_to_split = true, -- long messages will be sent to a split
+		inc_rename = true, -- enables an input dialog for inc-rename.nvim
+		lsp_doc_border = false, -- add a border to hover docs and signature help
+	},
+})
+
+-- Highlight search result
+require("hlslens").setup({
+	calm_down = true,
+})
+
+-- Highlight color code
 require("nvim-highlight-colors").setup({
 	enable_tailwind = true,
 })
-require("nvim-ts-autotag").setup({})
+
+-- Git
 require("gitsigns").setup({})
 
 -- Indent
@@ -339,18 +376,7 @@ vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>")
 vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>")
 vim.keymap.set("n", ";q", "<Cmd>NvimTreeClose<bar>bd<CR>") -- Close Tab
 
-----------------
--- Navigation --
-----------------
--- Highlight search result
-require("hlslens").setup()
-
--- Which-Key
-vim.opt.timeout = true
-vim.opt.timeoutlen = 500
-require("which-key").setup()
-
--- Telescope
+-- Fuzzy finder
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 require("telescope").setup({
@@ -373,7 +399,7 @@ vim.keymap.set("n", ";r", function()
 	builtin.live_grep()
 end)
 
--- Nvim-tree
+-- File tree
 require("nvim-tree").setup({
 	git = {
 		enable = true,
@@ -387,12 +413,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.keymap.set("n", "<C-b>", "<Cmd>NvimTreeToggle<CR>")
 vim.keymap.set("n", ";b", "<Cmd>NvimTreeFocus<CR>")
-
---------
--- UI --
---------
--- Nerd font icons
-require("nvim-web-devicons").setup({})
 
 -- Startup page
 require("alpha").setup(require("alpha.themes.startify").config)
@@ -418,3 +438,9 @@ require("lualine").setup({
 		lualine_z = { "location" },
 	},
 })
+
+--------
+-- UI --
+--------
+-- Nerd font icons
+require("nvim-web-devicons").setup({})
