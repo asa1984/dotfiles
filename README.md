@@ -8,7 +8,7 @@ ASA1984's NixOS & home-manager configurations
 
 ## Setup
 
-You can check all hosts with `nix flake show` or [here](https://github.com/asa1984/dotfiles/blob/master/hosts/default.nix).
+You can check all hosts with `nix flake show` or [here](https://github.com/asa1984/dotfiles/blob/xmonad/hosts/default.nix).
 
 ### NixOS modules
 
