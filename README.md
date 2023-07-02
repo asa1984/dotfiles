@@ -15,7 +15,7 @@ ASA1984's NixOS & home-manager configurations
 
 ### `hosts`
 
-Per-host settings (e.g. hardware configurations) are defined here.
+Per-host settings (e.g. hardware configurations) are defined [here](https://github.com/asa1984/dotfiles/blob/master/hosts/default.nix).
 
 - **terra**: My primary desktop PC
 - **rhodes**: My laptop
