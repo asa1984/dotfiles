@@ -89,6 +89,7 @@ myKeys conf =
            , ("<XF86AudioPrev>", spawn "playerctl previous")
            , ("<XF86MonBrightnessUp>", spawn "brightnessctl set +10%")
            , ("<XF86MonBrightnessDown>", spawn "brightnessctl set 10%-")
+           , ("M-S-c", spawn "xcolor | xargs -I {} sh -c 'echo \"{}\" | xclip -selection clipboard && dunstify -t 3000 \"Copied\" \"{}\"'")
            ]
 
 -- Workspace - get workspaces on current screen
