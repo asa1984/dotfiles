@@ -2,24 +2,24 @@
 
 ASA1984's NixOS & home-manager configurations
 
+## Requirements
+
+- Nix command & Flakes are enabled
+
 ## Setup
 
-### Require
+You can check all hosts with `nix flake show` or [here](https://github.com/asa1984/dotfiles/blob/xmonad/hosts/default.nix).
 
-- Nix
-- Enable Nix command & Flakes
+### NixOS modules
 
-### Command
-
-```shell
-nix shell nixpkgs#git
-git clone https://github.com/ASA1984/dotfiles ~/.dotfiles
-cd ~/.dotfiles
-
-# home-manager
-nix run home-manager -- switch --flake "./#asahi@prime"
-
-# NixOS modules
-sudo nixos-rebuild switch --flake './#prime'
+```nix
+sudo nixos-rebuild switch --flake "./#<hostsname>"
 reboot
+
+```
+
+### home-manager
+
+```nix
+nix run home-manager -- switch --flake "./<username>@<hostname>"
 ```

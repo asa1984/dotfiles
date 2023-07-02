@@ -1,5 +1,0 @@
-{
-  programs.wezterm = {
-    enable = true;
-  };
-}
