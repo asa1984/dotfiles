@@ -7,8 +7,6 @@ return {
 	-- Font
 	font = wezterm.font_with_fallback({
 		"JetBrainsMono Nerd Font",
-		"Migu 1P",
-		"Twitter Color Emoji",
 	}),
 	font_size = 14.0,
 

@@ -11,7 +11,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     # Others
     rust-overlay.url = "github:oxalica/rust-overlay";
-    stylix.url = "github:danth/stylix";
     xremap.url = "github:xremap/nix-flake";
   };
 

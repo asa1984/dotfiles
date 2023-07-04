@@ -3,26 +3,26 @@
     fonts = with pkgs; [
       noto-fonts-cjk-serif
       noto-fonts-cjk-sans
+      noto-fonts-emoji
       migu
       nerdfonts
-      twemoji-color-font
     ];
     fontDir.enable = true;
     fontconfig = {
       defaultFonts = {
         serif = [
           "Noto Serif CJK JP"
-          "Twitter Color Emoji"
+          "Noto Color Emoji"
         ];
         sansSerif = [
           "Noto Sans CJK JP"
-          "Twitter Color Emoji"
+          "Noto Color Emoji"
         ];
         monospace = [
           "JetBrainsMono Nerd Font"
-          "Twitter Color Emoji"
+          "Noto Color Emoji"
         ];
-        emoji = ["Twitter Color Emoji"];
+        emoji = ["Noto Color Emoji"];
       };
       localConf = ''
         <?xml version="1.0"?>
