@@ -13,6 +13,7 @@
   ];
 
   boot.initrd.availableKernelModules = [
+    "acpi"
     "nvme"
     "xhci_pci"
     "usb_storage"

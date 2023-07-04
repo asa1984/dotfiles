@@ -36,7 +36,11 @@ myConfig =
 -- Startup
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "sh ~/.hm_desktop/xrandr.sh"
+    -- if multiple screens, set wallpaper to the first screenBy
+    n <- countScreens
+    if n > 1
+        then spawnOnce "sh ~/.hm_desktop/polybar.sh"
+        else spawnOnce "sh ~/.hm_desktop/polybar.sh --single"
     spawnOnce "feh --bg-scale ~/.hm_desktop/wallpaper.jpg"
     spawnOnce "fcitx5 -D"
     spawnOnce "discord --start-minimized"

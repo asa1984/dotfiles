@@ -12,7 +12,6 @@
       ../../modules/flatpak.nix
       ../../modules/fcitx5.nix
       ../../modules/fonts.nix
-      ../../modules/gaming.nix
       ../../modules/i18n.nix
       ../../modules/networking.nix
       ../../modules/sound.nix
@@ -35,7 +34,7 @@
         efiSysMountPoint = "/boot/efi";
       };
     };
-    kernelPackages = pkgs.linuxKernel.kernels.linux_zen;
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   };
 
   networking.hostName = hostname;
