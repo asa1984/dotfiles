@@ -11,9 +11,9 @@
     # Utilities
     bat # cat alternative
     bottom # top alternative
-    exa # ls alternative
     du-dust # du alternative
     duf # df alternative
+    exa # ls alternative
     fd # find alternative
     fzf # fazzy finder
     httpie # http client
@@ -28,21 +28,21 @@
     silicon # code to image
 
     # Archives
-    zip
-    unzip
-    unrar
     unar
+    unrar
+    unzip
+    zip
 
     # Rice
     neofetch
-    pfetch
     nitch
+    pfetch
     tty-clock
 
     # Joke
-    pingu
+    cowsay
     figlet
     lolcat
-    cowsay
+    pingu
   ];
 }

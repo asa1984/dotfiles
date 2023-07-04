@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  # Fonts
   fonts = {
     fonts = with pkgs; [
       noto-fonts-cjk-serif

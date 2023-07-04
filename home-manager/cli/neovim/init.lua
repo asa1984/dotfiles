@@ -187,12 +187,31 @@ null_ls.setup({
 	sources = {
 		-- C/C++
 		null_ls.builtins.formatting.clang_format,
-		-- JavaScript/TypeScript/Others
-		null_ls.builtins.formatting.prettier,
+		-- JavaScript/TypeScript/Others (Omit markdown)
+		null_ls.builtins.formatting.prettier.with({
+			filetypes = {
+				"css",
+				"graphql",
+				"handlebars",
+				"html",
+				"javascript",
+				"javascriptreact",
+				"json",
+				"jsonc",
+				"less",
+				"scss",
+				"typescript",
+				"typescriptreact",
+				"vue",
+				"yaml",
+			},
+		}),
 		-- Haskell
 		null_ls.builtins.formatting.fourmolu,
 		-- Lua
 		null_ls.builtins.formatting.stylua,
+		-- Markdown
+		null_ls.builtins.formatting.markdownlint,
 		-- Nix
 		null_ls.builtins.code_actions.statix,
 		null_ls.builtins.diagnostics.deadnix,
