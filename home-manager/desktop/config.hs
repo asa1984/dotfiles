@@ -1,5 +1,7 @@
 import System.Exit
 
+import Control.Monad (when)
+
 import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.PhysicalScreens
@@ -14,33 +16,25 @@ import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig
 import XMonad.Util.SpawnOnce (spawnOnce)
 
+main :: IO ()
 main = do
     n <- countScreens
     xmonad $
-        myConfig
-            { workspaces = withScreens n (map show [1 .. 9 :: Int])
+        def
+            { terminal = "wezterm"
+            , modMask = mod4Mask
+            , borderWidth = 3
+            , normalBorderColor = "#222436"
+            , focusedBorderColor = "#82aaff"
+            , layoutHook = myLayoutHook
+            , keys = \c -> mkKeymap c $ myKeys c
+            , workspaces = withScreens n (map show [1 .. 9 :: Int])
+            , startupHook = myStartupHook
             }
-
-myConfig =
-    def
-        { terminal = "wezterm"
-        , startupHook = myStartupHook
-        , modMask = mod4Mask
-        , borderWidth = 3
-        , normalBorderColor = "#222436"
-        , focusedBorderColor = "#82aaff"
-        , layoutHook = myLayoutHook
-        , keys = \c -> mkKeymap c $ myKeys c
-        }
 
 -- Startup
 myStartupHook :: X ()
 myStartupHook = do
-    -- if multiple screens, set wallpaper to the first screenBy
-    n <- countScreens
-    if n > 1
-        then spawnOnce "sh ~/.hm_desktop/polybar.sh"
-        else spawnOnce "sh ~/.hm_desktop/polybar.sh --single"
     spawnOnce "feh --bg-scale ~/.hm_desktop/wallpaper.jpg"
     spawnOnce "fcitx5 -D"
     spawnOnce "discord --start-minimized"

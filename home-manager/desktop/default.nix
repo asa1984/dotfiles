@@ -12,7 +12,7 @@
       enableContribAndExtras = true;
       config = ./config.hs;
       extraPackages = haskellPackages:
-        with haskellPackages; [xmonad-contrib xmonad-extras lens data-default];
+        with haskellPackages; [xmonad-contrib xmonad-extras];
     };
   };
 
