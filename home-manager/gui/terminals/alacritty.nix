@@ -1,5 +1,5 @@
-{colorscheme, ...}: let
-  inherit (colorscheme) hashrgb;
+{theme, ...}: let
+  xcolors = theme.xcolors;
 in {
   programs.alacritty = {
     enable = true;
@@ -18,18 +18,18 @@ in {
 
       colors = {
         primary = {
-          background = hashrgb.bg;
-          foreground = hashrgb.fg;
+          background = xcolors.bg;
+          foreground = xcolors.fg;
         };
         normal = {
-          inherit (hashrgb) black;
-          inherit (hashrgb) red;
-          inherit (hashrgb) green;
-          inherit (hashrgb) yellow;
-          inherit (hashrgb) blue;
-          inherit (hashrgb) magenta;
-          inherit (hashrgb) cyan;
-          inherit (hashrgb) white;
+          inherit (xcolors) black;
+          inherit (xcolors) red;
+          inherit (xcolors) green;
+          inherit (xcolors) yellow;
+          inherit (xcolors) blue;
+          inherit (xcolors) magenta;
+          inherit (xcolors) cyan;
+          inherit (xcolors) white;
         };
       };
     };
