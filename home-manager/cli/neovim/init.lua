@@ -63,6 +63,9 @@ vim.keymap.set("n", "<Leader><Space>", "<Cmd>nohlsearch<CR>")
 -- Escape from terminal mode
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
 
+-- Floating terminal
+vim.keymap.set("n", "<Leader>tt", "<Cmd>FloatermToggle<CR>")
+
 ----------------
 -- Treesitter --
 ----------------
