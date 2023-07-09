@@ -2,6 +2,7 @@
   pkgs,
   hostname,
   username,
+  config,
   ...
 }: {
   imports = [
@@ -67,4 +68,8 @@
 
   # Don't touch this
   system.stateVersion = "23.05";
+
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.opengl.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 }
