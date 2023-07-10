@@ -45,7 +45,6 @@ myStartupHook = do
 myKeys :: XConfig Layout -> [(String, X ())]
 myKeys conf =
     [ ("M-<Return>", spawn $ XMonad.terminal conf)
-    , ("M-s", spawn "rofi -show drun -theme launcher")
     , ("M-S-q", kill)
     , ("M1-<Tab>", windows W.focusDown)
     , ("M1-S-<Tab>", windows W.focusUp)
@@ -82,12 +81,14 @@ myKeys conf =
                ) -- Save screenshot to file (select area)
            ]
         -- Utilities
-        ++ [ ("<XF86AudioPlay>", spawn "playerctl play-pause")
+        ++ [ ("M-s", spawn "rofi -show drun -theme launcher")
+           , ("M-l", spawn "betterlockscreen -l")
+           , ("M-S-c", spawn "xcolor | xargs -I {} sh -c 'echo \"{}\" | xclip -selection clipboard && dunstify -t 3000 \"Copied\" \"{}\"'")
+           , ("<XF86AudioPlay>", spawn "playerctl play-pause")
            , ("<XF86AudioNext>", spawn "playerctl next")
            , ("<XF86AudioPrev>", spawn "playerctl previous")
            , ("<XF86MonBrightnessUp>", spawn "brightnessctl set +10%")
            , ("<XF86MonBrightnessDown>", spawn "brightnessctl set 10%-")
-           , ("M-S-c", spawn "xcolor | xargs -I {} sh -c 'echo \"{}\" | xclip -selection clipboard && dunstify -t 3000 \"Copied\" \"{}\"'")
            ]
 
 -- Workspace - get workspaces on current screen

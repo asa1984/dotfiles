@@ -16,6 +16,8 @@
     };
   };
 
+  services.betterlockscreen.enable = true;
+
   home.packages = with pkgs; [
     arandr # xrandr gui
     brightnessctl # brightness control
