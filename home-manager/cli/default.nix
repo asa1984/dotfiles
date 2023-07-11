@@ -26,6 +26,8 @@
     ranger # file viewer
     ripgrep # grep alternative
     silicon # code to image
+    speedtest-cli # speedtest
+    tokei # analyze code statistics
 
     # Archives
     unar
@@ -34,6 +36,7 @@
     zip
 
     # Rice
+    cava
     neofetch
     nitch
     pfetch
