@@ -119,9 +119,6 @@
       lua-language-server
       stylua
 
-      # Markdown
-      nodePackages.markdownlint-cli
-
       # Nix
       alejandra
       deadnix
