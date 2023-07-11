@@ -22,19 +22,15 @@
   g = "git";
   ga = "git add .";
   gc = "git commit";
-  gco = "git checkout";
   gac = "git add . && git commit";
   gacp = "git add . && git commit && git push";
+  gco = "git checkout";
 
   # Nix
   flake = "nix flake";
 
   # Docker
   dci = "docker run --rm -it";
-
-  # enable IME
-  code = "code";
-  slack = "slack";
 
   # Microsoft Teams
   teams = "teams-for-linux";
