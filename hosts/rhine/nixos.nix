@@ -45,9 +45,6 @@
       viAlias = true;
       vimAlias = true;
     };
-    starship = {
-      enable = true;
-    };
     zsh = {
       enable = true;
     };
