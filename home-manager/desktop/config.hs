@@ -3,18 +3,35 @@ import System.Exit
 import Control.Monad (when)
 
 import XMonad
-import XMonad.Actions.CycleWS
-import XMonad.Actions.PhysicalScreens
 import qualified XMonad.StackSet as W
 
-import XMonad.Hooks.ManageDocks
-
-import XMonad.Layout.IndependentScreens
-import XMonad.Layout.MultiToggle
-import XMonad.Layout.NoBorders
-
-import XMonad.Util.EZConfig
+import XMonad.Util.EZConfig (mkKeymap)
 import XMonad.Util.SpawnOnce (spawnOnce)
+import XMonad.Util.Types (Direction1D (Next, Prev))
+
+import XMonad.Actions.CycleWS (
+    WSType (WSIs),
+    moveTo,
+    nextWS,
+    prevWS,
+    shiftTo,
+    shiftToNext,
+    shiftToPrev,
+ )
+import XMonad.Actions.PhysicalScreens (viewScreen)
+
+import XMonad.Hooks.ManageDocks (avoidStruts)
+
+import XMonad.Layout.IndependentScreens (
+    countScreens,
+    onCurrentScreen,
+    unmarshallS,
+    withScreens,
+    workspaces',
+ )
+import XMonad.Layout.NoBorders (noBorders, smartBorders)
+import XMonad.Layout.Spacing (smartSpacingWithEdge)
+import XMonad.Layout.ToggleLayouts (ToggleLayout (ToggleLayout), toggleLayouts)
 
 main :: IO ()
 main = do
@@ -23,13 +40,13 @@ main = do
         def
             { terminal = "wezterm"
             , modMask = mod4Mask
-            , borderWidth = 3
+            , borderWidth = 2
             , normalBorderColor = "#222436"
             , focusedBorderColor = "#82aaff"
-            , layoutHook = myLayoutHook
-            , keys = \c -> mkKeymap c $ myKeys c
-            , workspaces = withScreens n (map show [1 .. 9 :: Int])
             , startupHook = myStartupHook
+            , workspaces = withScreens n (map show [1 .. 9 :: Int])
+            , keys = \c -> mkKeymap c $ myKeys c
+            , layoutHook = myLayoutHook
             }
 
 -- Startup
@@ -49,7 +66,7 @@ myKeys conf =
     , ("M1-<Tab>", windows W.focusDown)
     , ("M1-S-<Tab>", windows W.focusUp)
     , ("M-S-f", withFocused $ windows . W.sink)
-    , ("M-f", sendMessage NextLayout)
+    , ("M-f", sendMessage ToggleLayout)
     , ("M-S-<Right>", shiftTo Next spacesOnCurrentScreen)
     , ("M-S-<Left>", shiftTo Prev spacesOnCurrentScreen)
     , ("M-<Left>", viewScreen def 0)
@@ -105,7 +122,10 @@ spacesOnCurrentScreen = WSIs $ do
 
 -- Layout
 myLayoutHook =
-    avoidStruts $ smartBorders (tall ||| full)
+    avoidStruts $
+        toggleLayouts (noBorders Full) $
+            smartSpacingWithEdge gap $
+                smartBorders tall
   where
     tall = Tall 1 0.03 0.5
-    full = Full
+    gap = 6
