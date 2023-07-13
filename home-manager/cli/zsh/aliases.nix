@@ -1,4 +1,7 @@
 {
+  # Enable aliases to be sudo’ed
+  sudo = "sudo ";
+
   # Confirm before execute
   rm = "rm -i";
   cp = "cp -i";
@@ -25,9 +28,13 @@
   gac = "git add . && git commit";
   gacp = "git add . && git commit && git push";
   gco = "git checkout";
+  gf = "git fetch";
+  lgit = "lazygit";
 
   # Nix
   flake = "nix flake";
+  hm-switch = "home-manager switch --flake";
+  os-switch = "nixos-rebuild switch --flake";
 
   # Docker
   dci = "docker run --rm -it";
