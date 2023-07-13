@@ -29,6 +29,7 @@
           tree-sitter-c
           tree-sitter-css
           tree-sitter-dockerfile
+          tree-sitter-go
           tree-sitter-haskell
           tree-sitter-html
           tree-sitter-javascript
