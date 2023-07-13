@@ -104,6 +104,9 @@
       # Docker
       nodePackages.dockerfile-language-server-nodejs
 
+      # Go
+      gopls
+
       # Haskell
       haskell-language-server
       haskellPackages.fourmolu

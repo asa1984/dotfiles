@@ -123,6 +123,8 @@ lspconfig.denols.setup({
 vim.g.markdown_fenced_languages = { "ts=typescript" }
 -- Docker
 lspconfig.dockerls.setup({})
+-- Go
+lspconfig.gopls.setup({})
 -- Haskell
 lspconfig.hls.setup({})
 -- HTML
@@ -192,6 +194,8 @@ null_ls.setup({
 		null_ls.builtins.formatting.clang_format,
 		-- JavaScript/TypeScript/Others (Omit markdown)
 		null_ls.builtins.formatting.prettier,
+		-- Go
+		null_ls.builtins.formatting.gofmt,
 		-- Haskell
 		null_ls.builtins.formatting.fourmolu,
 		-- Lua

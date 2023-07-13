@@ -3,6 +3,9 @@
     # C
     gcc
 
+    # Go
+    go
+
     # Haskell
     cabal2nix
     ghc
