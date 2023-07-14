@@ -19,10 +19,10 @@
   services.betterlockscreen.enable = true;
 
   home.packages = with pkgs; [
-    arandr # xrandr gui
     brightnessctl # brightness control
     feh # wallpaper
     maim # screenshot
+    pamixer # audio control
     playerctl # media control
     xclip # clipboard
     xcolor # color picker

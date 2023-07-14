@@ -88,24 +88,21 @@ myKeys conf =
                     spawn "maim --hidecursor | xclip -selection clipboard -t image/png"
                     spawn "dunstify -u low -t 3000 'Screenshot copied to clipboard'"
                ) -- Copy screenshot to clipboard
-           ,
-               ( "M-<Print>"
-               , spawn "sh ~/.hm_desktop/screenshot.sh"
-               ) -- Save screenshot to file
-           ,
-               ( "M-S-s"
-               , spawn "sh ~/.hm_desktop/snipping_tool.sh"
-               ) -- Save screenshot to file (select area)
+           , ("M-<Print>", spawn "sh ~/.hm_desktop/screenshot.sh") -- Save screenshot to file
+           , ("M-S-s", spawn "sh ~/.hm_desktop/snipping_tool.sh") -- Save screenshot to file (select area)
            ]
         -- Utilities
-        ++ [ ("M-s", spawn "rofi -show drun -theme launcher")
-           , ("M-l", spawn "betterlockscreen -l")
-           , ("M-S-c", spawn "xcolor | xargs -I {} sh -c 'echo \"{}\" | xclip -selection clipboard && dunstify -t 3000 \"Copied\" \"{}\"'")
+        ++ [ ("M-s", spawn "rofi -show drun -theme launcher") -- Application launcher
+           , ("M-l", spawn "betterlockscreen -l") -- Lock screen
+           , ("M-S-c", spawn "xcolor | xargs -I {} sh -c 'echo \"{}\" | xclip -selection clipboard && dunstify -t 3000 \"Copied\" \"{}\"'") -- Color picker
+           , ("<XF86MonBrightnessDown>", spawn "brightnessctl set 10%-")
+           , ("<XF86MonBrightnessUp>", spawn "brightnessctl set +10%")
+           , ("<XF86AudioMute>", spawn "pamixer -t")
+           , ("<XF86AudioLowerVolume>", spawn "pamixer -d 10")
+           , ("<XF86AudioRaiseVolume>", spawn "pamixer -i 10")
+           , ("<XF86AudioPrev>", spawn "playerctl previous")
            , ("<XF86AudioPlay>", spawn "playerctl play-pause")
            , ("<XF86AudioNext>", spawn "playerctl next")
-           , ("<XF86AudioPrev>", spawn "playerctl previous")
-           , ("<XF86MonBrightnessUp>", spawn "brightnessctl set +10%")
-           , ("<XF86MonBrightnessDown>", spawn "brightnessctl set 10%-")
            ]
 
 -- Workspace - get workspaces on current screen
