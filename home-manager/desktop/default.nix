@@ -2,6 +2,7 @@
   imports = [
     ./rofi
     ./dunst.nix
+    ./picom.nix
   ];
 
   xsession = {
