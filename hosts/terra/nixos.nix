@@ -16,6 +16,7 @@
       ../../modules/i18n.nix
       ../../modules/networking.nix
       ../../modules/sound.nix
+      ../../modules/system-tools.nix
       ../../modules/virtualisation.nix
       ../../modules/xremap.nix
       ../../modules/xserver.nix
