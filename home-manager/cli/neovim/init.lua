@@ -33,6 +33,13 @@ vim.opt.autoindent = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+-- Fold
+vim.o.foldcolumn = "1"
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
 -- Backup, Swapfile
 vim.opt.backup = false
 vim.opt.swapfile = false
@@ -176,12 +183,7 @@ vim.keymap.set("n", "m", "<Plug>(lsp)")
 vim.keymap.set("n", "K", require("lspsaga.hover").render_hover_doc)
 vim.keymap.set("n", "<Plug>(lsp)d", vim.lsp.buf.definition)
 vim.keymap.set("n", "<Plug>(lsp)a", require("lspsaga.codeaction").code_action)
-
--- Rename
-require("inc_rename").setup()
-vim.keymap.set("n", "<Plug>(lsp)rn", function()
-	return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true })
+vim.keymap.set("n", "<Plug>(lsp)rn", require("lspsaga.rename").rename)
 
 ------------------------
 -- Formatter & Linter --
@@ -360,10 +362,66 @@ require("nvim-highlight-colors").setup({
 require("gitsigns").setup({})
 
 -- Indent
-vim.opt.list = true
-vim.opt.listchars:append("eol:↴")
 require("indent_blankline").setup({
 	show_end_of_line = true,
+	show_trailing_blankline_indent = false,
+	use_treesitter = true,
+	buftype_exclude = {
+		"nofile",
+		"terminal",
+	},
+	filetype_exclude = {
+		"help",
+		"startify",
+		"aerial",
+		"alpha",
+		"dashboard",
+		"lazy",
+		"neogitstatus",
+		"NvimTree",
+		"neo-tree",
+		"Trouble",
+	},
+	context_patterns = {
+		"class",
+		"return",
+		"function",
+		"method",
+		"^if",
+		"^while",
+		"jsx_element",
+		"^for",
+		"^object",
+		"^table",
+		"block",
+		"arguments",
+		"if_statement",
+		"else_clause",
+		"jsx_element",
+		"jsx_self_closing_element",
+		"try_statement",
+		"catch_clause",
+		"import_statement",
+		"operation_type",
+	},
+})
+
+-- Fold
+vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+require("ufo").setup({
+	provider_selector = function(bufnr, filetype, buftype)
+		return { "treesitter", "indent" }
+	end,
+})
+local statuscol_builtin = require("statuscol.builtin")
+require("statuscol").setup({
+	relculright = true,
+	segments = {
+		{ text = { statuscol_builtin.foldfunc }, click = "v:lua.ScFa" },
+		{ text = { "%s" }, click = "v:lua.ScSa" },
+		{ text = { statuscol_builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+	},
 })
 
 -- Tab
@@ -384,8 +442,8 @@ vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>")
 vim.keymap.set("n", ";q", "<Cmd>NvimTreeClose<bar>bd<CR>") -- Close Tab
 
 -- Fuzzy finder
-local actions = require("telescope.actions")
-local builtin = require("telescope.builtin")
+local telescope_actions = require("telescope.actions")
+local telescope_builtin = require("telescope.builtin")
 require("telescope").setup({
 	defaults = {
 		file_ignore_patterns = {
@@ -394,16 +452,16 @@ require("telescope").setup({
 		},
 		mappings = {
 			n = {
-				["q"] = actions.close,
+				["q"] = telescope_actions.close,
 			},
 		},
 	},
 })
 vim.keymap.set("n", ";f", function()
-	builtin.find_files()
+	telescope_builtin.find_files()
 end)
 vim.keymap.set("n", ";r", function()
-	builtin.live_grep()
+	telescope_builtin.live_grep()
 end)
 
 -- File tree

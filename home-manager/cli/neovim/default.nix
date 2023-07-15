@@ -6,10 +6,10 @@
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
-      # Theme
+      # Colorscheme
       tokyonight-nvim
 
-      # AI - good neither
+      # Coding assistant
       copilot-lua
 
       # LSP
@@ -18,9 +18,6 @@
       # LSP: Rust
       rust-tools-nvim
       crates-nvim
-
-      # Formatter & Linter
-      null-ls-nvim
 
       # Treesitter
       (nvim-treesitter.withPlugins (plugins:
@@ -52,6 +49,9 @@
           tree-sitter-zig
         ]))
 
+      # Formatter & Linter
+      null-ls-nvim
+
       # Completion
       nvim-cmp
       cmp-nvim-lsp
@@ -65,22 +65,23 @@
       # IDE
       comment-nvim
       gitsigns-nvim
-      inc-rename-nvim
       indent-blankline-nvim
-      noice-nvim
       nvim-autopairs
       nvim-highlight-colors
       nvim-ts-autotag
+      nvim-ufo
+      statuscol-nvim
 
       # Navigation
       nvim-hlslens
-      nvim-tree-lua
       telescope-nvim
 
       # UI
       alpha-nvim
       bufferline-nvim
       lualine-nvim
+      noice-nvim
+      nvim-tree-lua
       nvim-web-devicons
 
       # Vim plugins
@@ -118,6 +119,8 @@
       # JavaScript/TypeScript
       nodePackages.prettier
       nodePackages.typescript-language-server
+      nodePackages.svelte-language-server
+      nodePackages."@tailwindcss/language-server"
 
       # Lua
       lua-language-server
@@ -139,12 +142,6 @@
       # Rust
       rust-analyzer
       rustfmt
-
-      # Svelte
-      nodePackages.svelte-language-server
-
-      # TailwindCSS
-      nodePackages."@tailwindcss/language-server"
 
       # TOML
       taplo
