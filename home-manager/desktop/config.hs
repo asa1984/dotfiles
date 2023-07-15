@@ -29,8 +29,15 @@ import XMonad.Layout.IndependentScreens (
     withScreens,
     workspaces',
  )
-import XMonad.Layout.NoBorders (noBorders, smartBorders)
+import XMonad.Layout.NoBorders (
+    Ambiguity (Combine, OnlyFloat, Screen),
+    With (Union),
+    lessBorders,
+    noBorders,
+    smartBorders,
+ )
 import XMonad.Layout.Spacing (smartSpacingWithEdge)
+import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.ToggleLayouts (ToggleLayout (ToggleLayout), toggleLayouts)
 
 main :: IO ()
@@ -122,7 +129,9 @@ myLayoutHook =
     avoidStruts $
         toggleLayouts (noBorders Full) $
             smartSpacingWithEdge gap $
-                smartBorders tall
+                lessBorders
+                    (Combine Union Screen OnlyFloat)
+                    helix
   where
-    tall = Tall 1 0.03 0.5
+    helix = spiral (6 / 7)
     gap = 6
