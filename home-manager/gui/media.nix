@@ -1,5 +1,5 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [spotify];
+{ pkgs, ... }: {
+  home.packages = with pkgs; [ spotify ];
 
   # Spotify TUI
   programs.ncspot = {

@@ -1,10 +1,12 @@
-inputs: let
-  mkNixosSystem = {
-    system,
-    hostname,
-    username,
-    modules,
-  }:
+inputs:
+let
+  mkNixosSystem =
+    { system
+    , hostname
+    , username
+    , modules
+    ,
+    }:
     inputs.nixpkgs.lib.nixosSystem {
       inherit system modules;
       specialArgs = {
@@ -12,12 +14,13 @@ inputs: let
       };
     };
 
-  mkHomeManagerConfiguration = {
-    system,
-    username,
-    overlays,
-    modules,
-  }:
+  mkHomeManagerConfiguration =
+    { system
+    , username
+    , overlays
+    , modules
+    ,
+    }:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = import inputs.nixpkgs {
         inherit system overlays;
@@ -40,7 +43,8 @@ inputs: let
           }
         ];
     };
-in {
+in
+{
   nixos = {
     terra = mkNixosSystem {
       system = "x86_64-linux";
@@ -72,7 +76,7 @@ in {
     "asahi@terra" = mkHomeManagerConfiguration {
       system = "x86_64-linux";
       username = "asahi";
-      overlays = [(import inputs.rust-overlay)];
+      overlays = [ (import inputs.rust-overlay) ];
       modules = [
         ./terra/home-manager.nix
       ];
@@ -80,7 +84,7 @@ in {
     "asahi@rhodes" = mkHomeManagerConfiguration {
       system = "x86_64-linux";
       username = "asahi";
-      overlays = [(import inputs.rust-overlay)];
+      overlays = [ (import inputs.rust-overlay) ];
       modules = [
         ./rhodes/home-manager.nix
       ];
@@ -88,7 +92,7 @@ in {
     "asahi@rhine" = mkHomeManagerConfiguration {
       system = "x86_64-linux";
       username = "asahi";
-      overlays = [(import inputs.rust-overlay)];
+      overlays = [ (import inputs.rust-overlay) ];
       modules = [
         ./rhine/home-manager.nix
       ];

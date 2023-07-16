@@ -9,16 +9,16 @@
       };
     };
   };
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-    ...
-  }:
+  outputs =
+    { self
+    , nixpkgs
+    , flake-utils
+    , ...
+    }:
     flake-utils.lib.simpleFlake {
       inherit self nixpkgs;
       name = "XMonad dev env";
-      shell = {pkgs}:
+      shell = { pkgs }:
         pkgs.mkShell {
           buildInputs = with pkgs; [
             (ghc.withPackages (ps:

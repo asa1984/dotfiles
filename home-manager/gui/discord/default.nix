@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   #  home.file = {
   #    ".config/discord/settings.json".text = builtins.readFile ./settings.json;
   #  };

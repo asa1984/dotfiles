@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   fonts = {
     fonts = with pkgs; [
       noto-fonts-cjk-serif
@@ -22,7 +22,7 @@
           "JetBrainsMono Nerd Font"
           "Noto Color Emoji"
         ];
-        emoji = ["Noto Color Emoji"];
+        emoji = [ "Noto Color Emoji" ];
       };
       localConf = ''
         <?xml version="1.0"?>

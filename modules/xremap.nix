@@ -1,9 +1,8 @@
-{
-  inputs,
-  username,
-  ...
+{ inputs
+, username
+, ...
 }: {
-  imports = [inputs.xremap.nixosModules.default];
+  imports = [ inputs.xremap.nixosModules.default ];
   services.xremap = {
     userName = username;
     serviceMode = "system";
@@ -24,7 +23,7 @@
             C-h = "Backspace";
           };
           application = {
-            not = ["Alacritty" "Kitty" "Wezterm"];
+            not = [ "Alacritty" "Kitty" "Wezterm" ];
           };
         }
       ];

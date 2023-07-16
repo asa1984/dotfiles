@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   imports = [
     ./rofi
     ./dunst.nix
@@ -13,7 +13,7 @@
       enableContribAndExtras = true;
       config = ./config.hs;
       extraPackages = haskellPackages:
-        with haskellPackages; [xmonad-contrib xmonad-extras];
+        with haskellPackages; [ xmonad-contrib xmonad-extras ];
     };
   };
 
