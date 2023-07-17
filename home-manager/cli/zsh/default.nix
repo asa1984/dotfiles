@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  imports = [ ./starship.nix ];
+{pkgs, ...}: {
+  imports = [./starship.nix];
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";

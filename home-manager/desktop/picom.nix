@@ -2,7 +2,7 @@
   services.picom = {
     enable = true;
     wintypes = {
-      dock = { shadow = false; };
+      dock = {shadow = false;};
     };
     settings = {
       backend = "glx";
@@ -54,7 +54,7 @@
       vsync = true;
       dbe = false;
       unredir-if-possible = false;
-      focus-exclude = [ ];
+      focus-exclude = [];
       detect-transient = true;
       detect-client-leader = true;
       xrender-sync-fence = true;

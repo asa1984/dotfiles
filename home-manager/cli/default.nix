@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ./neovim
     ./zsh
@@ -22,7 +22,6 @@
     killall # process killer
     lazydocker # docker tui
     lazygit # git tui
-    nix-output-monitor # nix build monitor
     procs # ps alternative
     ranger # file viewer
     ripgrep # grep alternative

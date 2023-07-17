@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.neovim = {
     enable = true;
 
@@ -127,9 +127,9 @@
       stylua
 
       # Nix
+      alejandra
       deadnix
       nil
-      nixpkgs-fmt
       statix
 
       # Prisma

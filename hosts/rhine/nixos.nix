@@ -1,8 +1,9 @@
-{ pkgs
-, hostname
-, username
-, config
-, ...
+{
+  pkgs,
+  hostname,
+  username,
+  config,
+  ...
 }: {
   imports = [
     ./hardware-configuration.nix
@@ -52,7 +53,7 @@
   nix = {
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
     };
     gc = {
       automatic = true;
@@ -65,7 +66,7 @@
   # Don't touch this
   system.stateVersion = "23.05";
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.opengl.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 }
