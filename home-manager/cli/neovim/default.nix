@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   programs.neovim = {
     enable = true;
 
@@ -71,6 +71,7 @@
       nvim-ts-autotag
       nvim-ufo
       statuscol-nvim
+      toggleterm-nvim
 
       # Navigation
       nvim-hlslens
@@ -85,7 +86,6 @@
       nvim-web-devicons
 
       # Vim plugins
-      vim-floaterm
       yuck-vim
     ];
 

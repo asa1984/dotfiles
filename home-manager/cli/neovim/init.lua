@@ -504,6 +504,30 @@ require("lualine").setup({
 	},
 })
 
+-- Toggleterm
+require("toggleterm").setup({
+	size = 10,
+	shading_factor = 2,
+	open_mapping = [[<F7>]],
+	direction = "float",
+	float_opts = {
+		border = "curved",
+	},
+})
+local Terminal = require("toggleterm.terminal").Terminal
+local lazygit = Terminal:new({
+	cmd = "lazygit",
+	direction = "float",
+	float_opts = {
+		border = "curved",
+	},
+})
+vim.keymap.set("n", "<leader>gg", function()
+	lazygit:toggle()
+end)
+vim.keymap.set("n", "<leader>tt", "<Cmd>ToggleTerm<CR>")
+vim.keymap.set("n", "<leader>th", "<Cmd>ToggleTerm size=10 direction=horizontal<CR>")
+
 --------
 -- UI --
 --------
