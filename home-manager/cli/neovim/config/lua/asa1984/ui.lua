@@ -1,3 +1,5 @@
+local get_icon = require("asa1984/icons").get_icon
+
 -- Startup page
 require("alpha").setup(require("alpha.themes.startify").config)
 
@@ -15,7 +17,12 @@ require("lualine").setup({
 			{
 				"diagnostics",
 				sources = { "nvim_diagnostic" },
-				symbols = { error = " ", warn = " ", info = " ", hing = " " },
+				symbols = {
+					error = get_icon("DiagnosticError") .. " ",
+					warn = get_icon("DiagnosticWarn") .. " ",
+					info = get_icon("DiagnosticInfo") .. " ",
+					hint = get_icon("DiagnosticHint") .. " ",
+				},
 			},
 		},
 		lualine_y = { "filetype" },
@@ -24,7 +31,6 @@ require("lualine").setup({
 })
 
 -- File tree
-local get_icon = require("asa1984/icons").get_icon
 require("neo-tree").setup({
 	close_if_last_window = true,
 	window = {
@@ -33,7 +39,7 @@ require("neo-tree").setup({
 			["<space>"] = false,
 		},
 	},
-	default_component_config = {
+	default_component_configs = {
 		indent = { padding = 0 },
 		icon = {
 			folder_closed = get_icon("FolderClosed"),
@@ -148,7 +154,7 @@ require("indent_blankline").setup({
 
 -- Fold
 require("ufo").setup({
-	provider_selector = function(bufnr, filetype, buftype)
+	provider_selector = function()
 		return { "treesitter", "indent" }
 	end,
 })
@@ -170,14 +176,19 @@ require("bufferline").setup({
 		show_close_icon = false,
 		show_buffer_close_icons = false,
 		diagnostics_indicator = function(count, level)
-			local icon = level:match("error") and " " or " "
-			return " " .. icon .. count
+			local icon = level:match("error") and get_icon("DiagnosticError") or get_icon("DiagnosticWarn")
+			return " " .. icon .. " " .. count
 		end,
 	},
 })
 
 -- Scrollbar
-require("scrollbar").setup({})
+require("scrollbar").setup({
+	excluded_buftypes = {
+		"terminal",
+		"neo-tree",
+	},
+})
 require("scrollbar.handlers.gitsigns").setup()
 
 -- Search highlight

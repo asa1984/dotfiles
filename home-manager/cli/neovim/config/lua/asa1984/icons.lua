@@ -1,5 +1,6 @@
 local M = {}
 
+-- Via AstroNvim
 local icons = {
 	ActiveLSP = "",
 	ActiveTS = "",
@@ -41,7 +42,7 @@ local icons = {
 	GitStaged = "✓",
 	GitUnstaged = "✗",
 	GitUntracked = "★",
-	LSPLoaded = "", -- TODO: Remove unused icon in AstroNvim v4
+	LSPLoaded = "",
 	LSPLoading1 = "",
 	LSPLoading2 = "󰀚",
 	LSPLoading3 = "",
