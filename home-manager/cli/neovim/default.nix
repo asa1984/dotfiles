@@ -1,4 +1,9 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
+  home.file.".config/nvim" = {
+    source = ./config;
+    recursive = true;
+  };
+
   programs.neovim = {
     enable = true;
 
@@ -41,7 +46,6 @@
           tree-sitter-rust
           tree-sitter-scss
           tree-sitter-sql
-          tree-sitter-sql
           tree-sitter-toml
           tree-sitter-tsx
           tree-sitter-typescript
@@ -72,6 +76,7 @@
       nvim-ufo
       statuscol-nvim
       toggleterm-nvim
+      smart-splits-nvim
 
       # Navigation
       nvim-hlslens
@@ -82,6 +87,7 @@
       bufferline-nvim
       lualine-nvim
       noice-nvim
+      nvim-scrollbar
       nvim-tree-lua
       nvim-web-devicons
 
@@ -90,12 +96,9 @@
     ];
 
     extraPackages = with pkgs; [
-      # for clipboard
-      xclip
       xsel
-
-      # for telescope-nvim
       ripgrep
+      lazygit
 
       # Bash
       nodePackages.bash-language-server
@@ -149,7 +152,5 @@
       # Zig
       zls
     ];
-
-    extraLuaConfig = builtins.readFile ./init.lua;
   };
 }
