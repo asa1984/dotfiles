@@ -88,8 +88,8 @@
       lualine-nvim
       noice-nvim
       nvim-scrollbar
-      nvim-tree-lua
       nvim-web-devicons
+      neo-tree-nvim
 
       # Vim plugins
       yuck-vim

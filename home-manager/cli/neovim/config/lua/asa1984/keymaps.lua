@@ -70,11 +70,17 @@ vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 -- Tab
 vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>")
 vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>")
-vim.keymap.set("n", ";q", "<Cmd>NvimTreeClose<bar>bd<CR>") -- Close Tab
+vim.keymap.set("n", ";q", "<Cmd>bd<CR>") -- Close Tab
 
 -- File tree
-vim.keymap.set("n", "<C-b>", "<Cmd>NvimTreeToggle<CR>")
-vim.keymap.set("n", ";b", "<Cmd>NvimTreeFocus<CR>")
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>")
+vim.keymap.set("n", "<leader>o", function()
+	if vim.bo.filetype == "neo-tree" then
+		vim.cmd.wincmd("p")
+	else
+		vim.cmd.Neotree("focus")
+	end
+end)
 
 -- Telescope
 vim.keymap.set("n", ";f", function()
