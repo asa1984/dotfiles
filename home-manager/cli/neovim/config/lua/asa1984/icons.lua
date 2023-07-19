@@ -51,6 +51,7 @@ local icons = {
 	Paste = "󰅌",
 	Refresh = "",
 	Search = "",
+	SearchText = "󰺯",
 	Selected = "❯",
 	Session = "󱂬",
 	Sort = "󰒺",

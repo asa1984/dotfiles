@@ -1,7 +1,33 @@
 local get_icon = require("asa1984/icons").get_icon
 
--- Startup page
-require("alpha").setup(require("alpha.themes.startify").config)
+-- Startup dashboard
+local theme = require("alpha.themes.theta")
+local config = theme.config
+local button = require("alpha.themes.dashboard").button
+local logo = {
+	"                                                     ",
+	"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+	"  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+	"  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+	"  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+	"  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+	"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+	"                                                     ",
+}
+local buttons = {
+	type = "group",
+	val = {
+		{ type = "text", val = "Quick links", opts = { hl = "SpecialComment", position = "center" } },
+		{ type = "padding", val = 1 },
+		button("f", get_icon("Search") .. "  Telescope", "<cmd>Telescope find_files<cr>"),
+		button("r", get_icon("SearchText") .. "  Ripgrep", "<cmd>Telescope live_grep<cr>"),
+		button("q", get_icon("BufferClose") .. "  Quit", "<cmd>qa<cr>"),
+	},
+	position = "center",
+}
+config.layout[2].val = logo
+config.layout[6] = buttons
+require("alpha").setup(config)
 
 -- Statusline
 require("lualine").setup({
@@ -102,7 +128,6 @@ require("noice").setup({
 		bottom_search = true, -- use a classic bottom cmdline for search
 		command_palette = true, -- position the cmdline and popupmenu together
 		long_message_to_split = true, -- long messages will be sent to a split
-		inc_rename = true, -- enables an input dialog for inc-rename.nvim
 		lsp_doc_border = false, -- add a border to hover docs and signature help
 	},
 })
@@ -184,6 +209,7 @@ require("bufferline").setup({
 
 -- Scrollbar
 require("scrollbar").setup({
+	hide_if_all_visible = true,
 	excluded_buftypes = {
 		"terminal",
 		"neo-tree",
