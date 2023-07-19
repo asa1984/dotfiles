@@ -11,6 +11,9 @@
     parsec-bin
     remmina
 
+    # Note
+    obsidian
+
     vscode
   ];
 }
