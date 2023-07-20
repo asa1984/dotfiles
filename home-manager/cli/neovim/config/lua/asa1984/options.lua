@@ -38,6 +38,7 @@ vim.opt.hidden = true
 vim.opt.updatetime = 1000
 vim.opt.mouse = "" -- Disable mouse
 vim.opt.clipboard = "unnamedplus" -- Use system clipboard
+vim.opt.laststatus = 3
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

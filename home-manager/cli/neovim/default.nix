@@ -20,7 +20,10 @@
       # LSP
       nvim-lspconfig
       lspsaga-nvim
-      # LSP: Rust
+      neodev-nvim
+
+      # Languages
+      ## Rust
       rust-tools-nvim
       crates-nvim
 
@@ -56,6 +59,12 @@
       # Formatter & Linter
       null-ls-nvim
 
+      # Syntax
+      indent-blankline-nvim
+      nvim-highlight-colors
+      nvim-ufo
+      statuscol-nvim
+
       # Completion
       nvim-cmp
       cmp-nvim-lsp
@@ -65,34 +74,23 @@
       vim-vsnip
       cmp-vsnip
       lspkind-nvim
-
-      # IDE
       comment-nvim
-      gitsigns-nvim
-      indent-blankline-nvim
       nvim-autopairs
-      nvim-highlight-colors
       nvim-ts-autotag
-      nvim-ufo
-      statuscol-nvim
-      toggleterm-nvim
-      smart-splits-nvim
-
-      # Navigation
-      nvim-hlslens
-      telescope-nvim
 
       # UI
       alpha-nvim
       bufferline-nvim
-      lualine-nvim
+      gitsigns-nvim
+      heirline-nvim
+      neo-tree-nvim
       noice-nvim
+      nvim-hlslens
       nvim-scrollbar
       nvim-web-devicons
-      neo-tree-nvim
-
-      # Vim plugins
-      yuck-vim
+      smart-splits-nvim
+      telescope-nvim
+      toggleterm-nvim
     ];
 
     extraPackages = with pkgs; [

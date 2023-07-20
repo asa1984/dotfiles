@@ -6,7 +6,16 @@ vim.cmd("colorscheme tokyonight-moon")
 require("asa1984/options")
 require("asa1984/keymaps")
 
-require("asa1984/language")
-require("asa1984/cmp")
-require("asa1984/ide")
-require("asa1984/ui")
+-- LSP for Neovim config
+-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+require("neodev").setup({})
+
+require("plugins/lsp")
+require("plugins/language")
+require("plugins/cmp")
+require("plugins/syntax")
+require("plugins/filer")
+require("plugins/finder")
+require("plugins/startup")
+require("plugins/statusline")
+require("plugins/ui")
