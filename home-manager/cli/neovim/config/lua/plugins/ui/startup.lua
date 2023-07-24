@@ -1,4 +1,4 @@
-local get_icon = require("asa1984/icons").get_icon
+local get_icon = require("asa1984.icons")
 
 -- Startup dashboard
 local theme = require("alpha.themes.theta")

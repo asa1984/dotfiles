@@ -1,7 +1,6 @@
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
-
-local get_icon = require("asa1984/icons").get_icon
+local get_icon = require("asa1984.icons")
 
 local ViMode = {
 	init = function(self)
@@ -218,25 +217,20 @@ local ScrollBar = {
 
 GitContext = utils.insert(GitContext, FileType, GitStatus)
 
-require("heirline").setup({
-	statusline = {
-		hl = {
-			bg = "bg_dark",
-			fg = "fg_dark",
-		},
-		ViMode,
-		GitContext,
-		{
-			provider = "%=",
-		},
-		Diagnostics,
-		LSPActive,
-		Ruler,
-		ScrollBar,
+local StatusLine = {
+	hl = {
+		bg = "bg_dark",
+		fg = "fg_dark",
 	},
-	opts = {
-		colors = require("tokyonight.colors").setup({
-			style = "moon",
-		}),
+	ViMode,
+	GitContext,
+	{
+		provider = "%=",
 	},
-})
+	Diagnostics,
+	LSPActive,
+	Ruler,
+	ScrollBar,
+}
+
+return StatusLine
