@@ -17,7 +17,9 @@ vim.keymap.set("n", "<Leader><Space>", "<Cmd>nohlsearch<CR>")
 -- Terminal
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>") -- Escape from terminal by ESC
 vim.keymap.set("n", "<leader>tt", "<Cmd>ToggleTerm<CR>")
-vim.keymap.set("n", "<leader>th", "<Cmd>ToggleTerm size=10 direction=horizontal<CR>")
+vim.keymap.set("n", "<leader>tf", "<Cmd>ToggleTerm direction=float<CR>")
+vim.keymap.set("n", "<leader>th", "<Cmd>ToggleTerm direction=horizontal size=15<CR>")
+vim.keymap.set("n", "<leader>tv", "<Cmd>ToggleTerm direction=vertical size=70<CR>")
 vim.keymap.set("n", "<leader>gg", function()
 	local Terminal = require("toggleterm.terminal").Terminal
 	local lazygit = Terminal:new({
@@ -59,7 +61,7 @@ end)
 -- LSP
 vim.keymap.set("n", "m", "<Plug>(lsp)")
 vim.keymap.set("n", "K", require("lspsaga.hover").render_hover_doc)
-vim.keymap.set("n", "<Plug>(lsp)d", vim.lsp.buf.definition)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 vim.keymap.set("n", "<Plug>(lsp)a", require("lspsaga.codeaction").code_action)
 vim.keymap.set("n", "<Plug>(lsp)rn", require("lspsaga.rename").rename)
 
