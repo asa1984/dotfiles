@@ -1,27 +1,28 @@
-{
+{theme, ...}:
+with theme.xcolors; {
   services.dunst = {
     enable = true;
     settings = {
       global = {
-        timeout = 5000;
-        background = "#222436";
-        frame_color = "#82aaff";
+        timeout = 30;
+        background = bg;
+        frame_color = blue;
         corner_radius = 12;
-        font = "HackGen35 Console NFJ";
+        font = "Noto Sans CJK JP";
       };
 
       urgency_low = {
-        background = "#222436";
-        foreground = "#c8d3f5";
+        background = bg;
+        foreground = fg;
       };
       urgency_normal = {
-        background = "#222436";
-        foreground = "#c8d3f5";
+        background = bg;
+        foreground = fg;
       };
       urgency_critical = {
-        background = "#222436";
-        foreground = "#c8d3f5";
-        frame_color = "#ff757f";
+        background = bg;
+        foreground = fg;
+        frame_color = red;
       };
     };
   };

@@ -28,7 +28,8 @@
       corner-radius = 16;
       round-borders = 1;
       rounded-corners-exclude = [
-        "class_g  = 'Rofi'"
+        "class_g = 'Rofi'"
+        "class_g = 'Dunst'"
         "widthb>1900 && height>1000" # Disable corner radius when fullscreen
       ];
 
