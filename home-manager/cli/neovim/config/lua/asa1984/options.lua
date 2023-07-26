@@ -1,7 +1,7 @@
 -- Character code
-vim.opt.encoding = "utf-8"
 vim.encoding = "utf-8"
 vim.fileencoding = "utf-8"
+vim.opt.encoding = "utf-8"
 
 -- Row
 vim.opt.number = true
@@ -31,14 +31,18 @@ vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.opt.backup = false
 vim.opt.swapfile = false
 
--- Misc
-vim.opt.termguicolors = true
+-- UI
+vim.opt.termguicolors = true -- Enable 24-bit RGB colors
 vim.opt.cmdheight = 1
+vim.opt.laststatus = 3 -- Always show statusline
+vim.opt.showtabline = 2 -- Always show tabline
+
+-- Misc
 vim.opt.hidden = true
 vim.opt.updatetime = 1000
 vim.opt.mouse = "" -- Disable mouse
 vim.opt.clipboard = "unnamedplus" -- Use system clipboard
-vim.opt.laststatus = 3
 
+-- Disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

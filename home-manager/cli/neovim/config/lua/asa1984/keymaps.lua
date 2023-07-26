@@ -11,6 +11,11 @@ vim.keymap.set("i", "jj", "<ESC>", { noremap = true, silent = true })
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 
+-- Tabline
+vim.keymap.set("n", "<Tab>", "<cmd>bnext<cr>")
+vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>")
+vim.keymap.set("n", ";q", "<cmd>bdelete<cr>")
+
 -- Remove highlight
 vim.keymap.set("n", "<Leader><Space>", "<Cmd>nohlsearch<CR>")
 
@@ -68,11 +73,6 @@ vim.keymap.set("n", "<Plug>(lsp)rn", require("lspsaga.rename").rename)
 -- Fold
 vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-
--- Tab
-vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>")
-vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>")
-vim.keymap.set("n", ";q", "<Cmd>bd<CR>") -- Close Tab
 
 -- File tree
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>")
