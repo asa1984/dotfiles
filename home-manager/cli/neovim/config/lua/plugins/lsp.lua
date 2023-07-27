@@ -5,7 +5,9 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- Bash
 lspconfig.bashls.setup({})
 -- C/C++
-lspconfig.clangd.setup({})
+local clang_capabilities = vim.lsp.protocol.make_client_capabilities() -- null-ls.nvim issue#428
+clang_capabilities.offsetEncoding = { "utf-16" }
+lspconfig.clangd.setup({ capabilities = clang_capabilities })
 -- CSS
 lspconfig.cssls.setup({ capabilities = capabilities })
 -- Deno
