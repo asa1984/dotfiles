@@ -40,6 +40,20 @@ inputs: let
           }
         ];
     };
+
+  mkISO = {
+    system,
+    hostname,
+    username,
+    modules,
+  }:
+    inputs.nixos-generators.nixosGenerate {
+      inherit system modules;
+      specialArgs = {
+        inherit inputs hostname username;
+      };
+      format = "iso";
+    };
 in {
   nixos = {
     terra = mkNixosSystem {
@@ -64,6 +78,14 @@ in {
       username = "asahi";
       modules = [
         ./rhine/nixos.nix
+      ];
+    };
+    abyssal = mkNixosSystem {
+      system = "x86_64-linux";
+      hostname = "abyssal";
+      username = "asahi";
+      modules = [
+        ./abyssal/nixos.nix
       ];
     };
   };
@@ -91,6 +113,16 @@ in {
       overlays = [(import inputs.rust-overlay)];
       modules = [
         ./rhine/home-manager.nix
+      ];
+    };
+  };
+  iso = {
+    abyssal-iso = mkISO {
+      system = "x86_64-linux";
+      hostname = "abyssal";
+      username = "asahi";
+      modules = [
+        ./abyssal/iso.nix
       ];
     };
   };
