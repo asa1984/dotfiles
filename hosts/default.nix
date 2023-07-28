@@ -115,6 +115,14 @@ in {
         ./rhine/home-manager.nix
       ];
     };
+    "asahi@abyssal" = mkHomeManagerConfiguration {
+      system = "x86_64-linux";
+      username = "asahi";
+      overlays = [(import inputs.rust-overlay)];
+      modules = [
+        ./abyssal/home-manager.nix
+      ];
+    };
   };
   iso = {
     abyssal-iso = mkISO {
