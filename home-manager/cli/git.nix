@@ -3,6 +3,11 @@
     enable = true;
     userName = "asa1984";
     userEmail = "satoasa9913@gmail.com";
+    extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
+    };
   };
 
   programs.gh = {
