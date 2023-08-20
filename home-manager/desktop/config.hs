@@ -12,6 +12,7 @@ import XMonad.Util.Types (Direction1D (Next, Prev))
 import XMonad.Actions.CycleWS (
     WSType (WSIs),
     moveTo,
+    nextScreen,
     nextWS,
     prevWS,
     shiftTo,
@@ -72,12 +73,18 @@ myKeys conf =
     , ("M-S-q", kill)
     , ("M1-<Tab>", windows W.focusDown)
     , ("M1-S-<Tab>", windows W.focusUp)
+    , ("M-S-j", windows W.swapDown)
+    , ("M-S-k", windows W.swapUp)
+    , ("M-,", sendMessage Shrink)
+    , ("M-.", sendMessage Expand)
+    , ("M-S-m", windows W.shiftMaster)
     , ("M-S-f", withFocused $ windows . W.sink)
     , ("M-f", sendMessage ToggleLayout)
     , ("M-S-<Right>", shiftTo Next spacesOnCurrentScreen)
     , ("M-S-<Left>", shiftTo Prev spacesOnCurrentScreen)
     , ("M-<Left>", viewScreen def 0)
     , ("M-<Right>", viewScreen def 1)
+    , ("M-<Tab>", nextScreen)
     ]
         -- Workspace - create virtual workspaces for each screen
         ++ [ ("M-" ++ m ++ show k, windows $ onCurrentScreen f i)
