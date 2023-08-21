@@ -10,6 +10,7 @@
     shellAliases = import ./aliases.nix;
     initExtra = ''
       ${builtins.readFile ./session_variables.zsh}
+      ${builtins.readFile ./functions.zsh}
     '';
     plugins = [
       {

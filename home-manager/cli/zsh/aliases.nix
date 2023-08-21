@@ -6,7 +6,7 @@
   rm = "rm -i";
   cp = "cp -i";
 
-  # Rust cli tools
+  # CLI tools
   cat = "bat";
   grep = "rg";
   ls = "exa --icons --classify";
@@ -20,6 +20,7 @@
   "...." = "cd ../../..";
   "....." = "cd ../../../..";
   cdg = "cd $(git rev-parse --show-toplevel)"; # cd to git root directory
+  cdtemp = "cd $(mktemp -d)"; # cd to a temp directory
 
   # Git
   g = "git";
@@ -33,12 +34,10 @@
 
   # Nix
   flake = "nix flake";
-  hm-switch = "home-manager switch --flake";
-  os-switch = "nixos-rebuild switch --flake";
 
   # Docker
   dci = "docker run --rm -it";
 
-  # Microsoft Teams
-  teams = "teams-for-linux";
+  # Clipboard
+  clip = "xclip -selection clipboard";
 }

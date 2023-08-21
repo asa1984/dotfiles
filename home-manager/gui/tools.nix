@@ -5,7 +5,6 @@
 
     # Chat
     slack
-    teams-for-linux
 
     # Remote desktop client
     parsec-bin
