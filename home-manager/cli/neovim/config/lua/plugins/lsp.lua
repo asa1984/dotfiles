@@ -61,6 +61,8 @@ lspconfig.pyright.setup({})
 lspconfig.svelte.setup({})
 -- TailwindCSS
 lspconfig.tailwindcss.setup({})
+-- Terraform
+lspconfig.terraformls.setup({})
 -- Zig
 lspconfig.zls.setup({})
 

@@ -21,6 +21,8 @@ null_ls.setup({
 		null_ls.builtins.formatting.black,
 		-- Rust
 		null_ls.builtins.formatting.rustfmt,
+		-- Terraform
+		null_ls.builtins.formatting.terraform_fmt,
 		-- TOML
 		null_ls.builtins.formatting.taplo,
 		-- Zig

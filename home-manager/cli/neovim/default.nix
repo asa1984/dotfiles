@@ -49,6 +49,7 @@
           tree-sitter-rust
           tree-sitter-scss
           tree-sitter-sql
+          tree-sitter-terraform
           tree-sitter-toml
           tree-sitter-tsx
           tree-sitter-typescript
@@ -143,6 +144,9 @@
       # Rust
       rust-analyzer
       rustfmt
+
+      # Terraform
+      terraform-ls
 
       # TOML
       taplo

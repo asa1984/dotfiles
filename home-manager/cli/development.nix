@@ -27,6 +27,9 @@
     # Rust
     rust-bin.stable.latest.default
 
+    # Terraform
+    terraform
+
     # Dev CLI
     supabase-cli
   ];
