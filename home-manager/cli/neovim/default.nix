@@ -145,6 +145,10 @@
       rust-analyzer
       rustfmt
 
+      # Shell
+      shellcheck
+      shfmt
+
       # Terraform
       terraform-ls
 

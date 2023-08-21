@@ -5,7 +5,7 @@ null_ls.setup({
 	sources = {
 		-- C/C++
 		null_ls.builtins.formatting.clang_format,
-		-- JavaScript/TypeScript/Others (Omit markdown)
+		-- JavaScript/TypeScript/Others
 		null_ls.builtins.formatting.prettier,
 		-- Go
 		null_ls.builtins.formatting.gofmt,
@@ -21,6 +21,9 @@ null_ls.setup({
 		null_ls.builtins.formatting.black,
 		-- Rust
 		null_ls.builtins.formatting.rustfmt,
+		-- Shell
+		null_ls.builtins.diagnostics.shellcheck,
+		null_ls.builtins.formatting.shfmt,
 		-- Terraform
 		null_ls.builtins.formatting.terraform_fmt,
 		-- TOML
