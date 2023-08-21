@@ -92,6 +92,9 @@
       smart-splits-nvim
       telescope-nvim
       toggleterm-nvim
+
+      # Misc
+      mini-nvim
     ];
 
     extraPackages = with pkgs; [

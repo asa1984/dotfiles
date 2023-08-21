@@ -2,7 +2,7 @@ local get_icon = require("asa1984.icons")
 
 -- File tree
 require("neo-tree").setup({
-	close_if_last_window = false,
+	close_if_last_window = true,
 	window = {
 		width = 30,
 		mappings = {
