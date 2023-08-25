@@ -7,5 +7,6 @@
 
   home.packages = with pkgs; [
     prismlauncher # alternative minecraft launcher
+    jdk20
   ];
 }
