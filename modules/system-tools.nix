@@ -1,9 +1,8 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     acpi
+    btrfs
     lsof
     pciutils
   ];
-
-  services.upower.enable = true;
 }

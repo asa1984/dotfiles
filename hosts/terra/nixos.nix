@@ -22,7 +22,7 @@
       ../../modules/xserver.nix
     ]
     ++ (with inputs.nixos-hardware.nixosModules; [
-      common-cpu-intel
+      common-cpu-amd
       common-gpu-amd
       common-pc-ssd
     ]);
