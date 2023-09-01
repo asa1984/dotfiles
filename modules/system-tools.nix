@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     acpi
-    btrfs
+    btrfs-progs
     lsof
     pciutils
   ];
