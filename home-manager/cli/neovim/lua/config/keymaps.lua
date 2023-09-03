@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 -- Save file
 vim.keymap.set("i", "<C-s>", "<Cmd>w<CR>")
 vim.keymap.set("n", "<C-s>", "<Cmd>w<CR>")
@@ -36,8 +34,10 @@ end)
 vim.keymap.set("n", "<Tab>", "<cmd>bnext<cr>")
 vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>")
 vim.keymap.set("n", ";q", function()
-	local bufnr = vim.api.nvim_get_current_buf()
-	require("mini.bufremove").delete(bufnr)
+	require("mini.bufremove").delete(0, false)
+end)
+vim.keymap.set("n", ";Q", function()
+	require("mini.bufremove").delete(0, true)
 end)
 vim.keymap.set("n", "<leader>bh", vim.cmd.split)
 vim.keymap.set("n", "<leader>bv", vim.cmd.vsplit)
@@ -58,14 +58,14 @@ vim.keymap.set("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
 
 -- LSP
 vim.keymap.set("n", "m", "<Plug>(lsp)")
-vim.keymap.set("n", "K", require("lspsaga.hover").render_hover_doc)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-vim.keymap.set("n", "<Plug>(lsp)a", require("lspsaga.codeaction").code_action)
-vim.keymap.set("n", "<Plug>(lsp)rn", require("lspsaga.rename").rename)
+vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>")
+vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<cr>")
+vim.keymap.set("n", "<Plug>(lsp)a", "<cmd>Lspsaga code_action<cr>")
+vim.keymap.set("n", "<Plug>(lsp)rn", "<cmd>Lspsaga rename<cr>")
 
 -- Fold
-vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+--vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+--vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 
 -- File tree
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>")
@@ -84,3 +84,6 @@ end)
 vim.keymap.set("n", ";r", function()
 	require("telescope.builtin").live_grep()
 end)
+
+-- Zen mode
+vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<cr>")

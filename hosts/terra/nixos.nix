@@ -22,7 +22,7 @@
       ../../modules/xserver.nix
     ]
     ++ (with inputs.nixos-hardware.nixosModules; [
-      common-cpu-intel
+      common-cpu-amd
       common-gpu-amd
       common-pc-ssd
     ]);
@@ -30,10 +30,7 @@
   boot = {
     loader = {
       systemd-boot.enable = true;
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
+      efi.canTouchEfiVariables = true;
     };
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
   };

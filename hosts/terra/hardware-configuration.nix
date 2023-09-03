@@ -12,25 +12,31 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ahci"
-    "nvme"
-    "usbhid"
-    "usb_storage"
-    "sd_mod"
-  ];
+  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
+  boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/9a5d11ae-de40-49c7-a2dc-a4eba60369de";
-    fsType = "ext4";
+    device = "/dev/disk/by-uuid/907e7aec-91a8-497f-8b4e-c6082cd1f8dd";
+    fsType = "btrfs";
+    options = ["subvol=root" "compress=zstd"];
   };
 
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/67D6-B9AA";
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/907e7aec-91a8-497f-8b4e-c6082cd1f8dd";
+    fsType = "btrfs";
+    options = ["subvol=home" "compress=zstd"];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/907e7aec-91a8-497f-8b4e-c6082cd1f8dd";
+    fsType = "btrfs";
+    options = ["subvol=nix" "compress=zstd" "noatime"];
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/6524-A946";
     fsType = "vfat";
   };
 
@@ -41,9 +47,9 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp3s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp8s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp9s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
