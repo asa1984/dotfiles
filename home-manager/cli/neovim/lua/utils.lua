@@ -1,3 +1,5 @@
+local M = {}
+
 -- Refer to AstroNvim
 local icons = {
 	ActiveLSP = "",
@@ -59,12 +61,14 @@ local icons = {
 	Terminal = "",
 	Window = "",
 	WordFile = "󰈭",
+
+	Lazy = "󰒲 ",
 }
 
 --! @param icon_name string
 --! @return string
-local function get_icon(icon_name)
+function M.get_icon(icon_name)
 	return icons[icon_name] or ""
 end
 
-return get_icon
+return M

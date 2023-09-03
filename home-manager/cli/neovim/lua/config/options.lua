@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 -- Character code
 vim.encoding = "utf-8"
 vim.fileencoding = "utf-8"
@@ -8,6 +10,7 @@ vim.opt.scrolloff = 8
 
 -- Row
 vim.opt.number = true
+vim.opt.numberwidth = 5
 vim.opt.cursorline = true
 
 -- Tab, Indent
@@ -24,11 +27,11 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Fold
-vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.opt.foldcolumn = "1"
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
+vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 -- UI
 vim.opt.cmdheight = 1
