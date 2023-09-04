@@ -2,9 +2,6 @@
 vim.keymap.set("i", "<C-s>", "<Cmd>w<CR>")
 vim.keymap.set("n", "<C-s>", "<Cmd>w<CR>")
 
--- Better escape
-vim.keymap.set("i", "jj", "<ESC>", { noremap = true, silent = true })
-
 -- Better move
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
@@ -64,8 +61,8 @@ vim.keymap.set("n", "<Plug>(lsp)a", "<cmd>Lspsaga code_action<cr>")
 vim.keymap.set("n", "<Plug>(lsp)rn", "<cmd>Lspsaga rename<cr>")
 
 -- Fold
---vim.keymap.set("n", "zR", require("ufo").openAllFolds)
---vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 
 -- File tree
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>")

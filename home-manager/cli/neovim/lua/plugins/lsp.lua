@@ -96,8 +96,14 @@ return {
 		},
 	},
 
-	-- Suggest crate version
-	{ "saecki/crates.nvim", event = "BufRead Cargo.toml" },
+	-- Managing crates.io dependencies
+	{
+		"saecki/crates.nvim",
+		event = "BufRead Cargo.toml",
+		config = function()
+			require("crates").setup()
+		end,
+	},
 
 	-- Better UI
 	{

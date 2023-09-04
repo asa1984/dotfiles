@@ -35,7 +35,7 @@ return {
 	},
 
 	-- Better escape
-	{ "max397574/better-escape.nvim", event = "InsertCharPre" },
+	{ "max397574/better-escape.nvim", event = "InsertCharPre", opts = { timeout = 300 } },
 
 	-- Better pane navigation
 	{
@@ -46,9 +46,19 @@ return {
 	-- Better buffer remove
 	{ "echasnovski/mini.bufremove" },
 
-	{ "numToStr/Comment.nvim", event = "InsertEnter", opts = {} },
+	{ "numToStr/Comment.nvim", event = "BufRead", opts = {} },
 
 	{ "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
 
-	{ "windwp/nvim-ts-autotag", event = "InsertEnter", opts = {} },
+	{
+		"windwp/nvim-ts-autotag",
+		event = "InsertEnter",
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				autotag = {
+					enable = true,
+				},
+			})
+		end,
+	},
 }
