@@ -11,6 +11,7 @@ return {
 		{ family = "Noto Sans CJK JP" },
 	}),
 	font_size = 14.0,
+	warn_about_missing_glyphs = false,
 
 	-- Padding
 	window_padding = {
