@@ -16,7 +16,10 @@ return {
 			-- C/C++
 			local clang_capabilities = vim.lsp.protocol.make_client_capabilities() -- null-ls.nvim issue#428
 			clang_capabilities.offsetEncoding = { "utf-16" }
-			lspconfig.clangd.setup({ capabilities = clang_capabilities })
+			lspconfig.clangd.setup({
+				capabilities = clang_capabilities,
+				filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+			})
 			-- CSS
 			lspconfig.cssls.setup({ capabilities = capabilities })
 			-- Deno
@@ -41,6 +44,8 @@ return {
 			lspconfig.dockerls.setup({})
 			-- Go
 			lspconfig.gopls.setup({})
+			-- GraphQL
+			lspconfig.graphql.setup({})
 			-- Haskell
 			lspconfig.hls.setup({})
 			-- HTML
@@ -64,6 +69,8 @@ return {
 			lspconfig.nil_ls.setup({})
 			-- Prisma
 			lspconfig.prismals.setup({})
+			-- Protocol Buffers
+			lspconfig.bufls.setup({})
 			-- Python
 			lspconfig.pyright.setup({})
 			-- Svelte
@@ -118,6 +125,9 @@ return {
 				ui = {
 					border = "rounded",
 					code_action = get_icon("DiagnosticHint"),
+				},
+				lightbulb = {
+					sign = false,
 				},
 			}
 		end,

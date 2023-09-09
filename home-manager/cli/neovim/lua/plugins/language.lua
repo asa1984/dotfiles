@@ -18,8 +18,9 @@ return {
 					-- Lua
 					nls.builtins.formatting.stylua,
 					-- Nix
-					nls.builtins.diagnostics.deadnix,
 					nls.builtins.formatting.alejandra,
+					-- OCaml
+					nls.builtins.formatting.ocamlformat,
 					-- Python
 					nls.builtins.formatting.black,
 					-- Rust
@@ -43,6 +44,8 @@ return {
 					-- Shell
 					nls.builtins.diagnostics.shellcheck,
 					nls.builtins.formatting.shfmt,
+					-- Protocol Buffers
+					nls.builtins.formatting.buf,
 					-- Terraform
 					nls.builtins.formatting.terraform_fmt,
 					-- TOML

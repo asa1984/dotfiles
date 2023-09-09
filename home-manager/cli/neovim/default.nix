@@ -31,6 +31,9 @@
       # Go
       gopls
 
+      # GraphQL
+      nodePackages.graphql-language-service-cli
+
       # Haskell
       haskell-language-server
       haskellPackages.fourmolu
@@ -50,12 +53,18 @@
 
       # Nix
       alejandra
-      deadnix
       nil
-      statix
+
+      # OCaml
+      ocamlPackages.ocaml-lsp
+      ocamlformat
 
       # Prisma
       nodePackages."@prisma/language-server"
+
+      # Protocol Buffers
+      buf
+      buf-language-server
 
       # Python
       black
@@ -63,7 +72,6 @@
 
       # Rust
       rust-analyzer
-      rustfmt
 
       # Shell
       shellcheck
