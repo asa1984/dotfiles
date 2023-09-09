@@ -3,15 +3,36 @@
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
+
     autocd = true;
     enableCompletion = true;
     enableAutosuggestions = true;
     syntaxHighlighting.enable = true;
+
     shellAliases = import ./aliases.nix;
-    initExtra = ''
-      ${builtins.readFile ./session_variables.zsh}
-      ${builtins.readFile ./functions.zsh}
-    '';
+
+    initExtra =
+      /*
+      bash
+      */
+      ''
+        export EDITOR="nvim"
+        export NIXPKGS_ALLOW_UNFREE=1
+
+        function mkcd() {
+            mkdir -p "$1" && cd "$1"
+        }
+
+        # Fuzzy find history
+        function fzf-select-history(){
+            BUFFER=$(history -n -r 1 | fzf --query "$LBUFFER")
+            CURSOR=$#BUFFER
+            zle reset-prompt
+        }
+        zle -N fzf-select-history
+        bindkey '^R' fzf-select-history
+      '';
+
     plugins = [
       {
         name = "zsh-nix-shell";

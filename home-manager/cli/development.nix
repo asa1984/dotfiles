@@ -1,36 +1,52 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  stack-wrapped = pkgs.symlinkJoin {
+    name = "stack";
+    paths = [pkgs.stack];
+    buildInputs = [pkgs.makeWrapper];
+    postBuild = ''
+      wrapProgram $out/bin/stack \
+        --add-flags "\
+          --no-nix \
+          --system-ghc \
+          --no-install-ghc \
+        "
+    '';
+  };
+in {
   home.packages = with pkgs; [
-    # C
+    # Languages
+    ## C
     gcc
 
-    # Go
+    ## Go
     go
 
-    # Haskell
-    cabal2nix
+    ## Haskell
     ghc
-    haskellPackages.cabal-install
-    haskellPackages.stack
+    stack-wrapped
 
-    # JS/TS (Deno)
+    ## JS/TS
+    nodePackages_latest.nodejs
+    nodePackages_latest.pnpm
+    nodePackages_latest.vercel
+    nodePackages_latest.wrangler
     deno
+    bun
 
-    # JS/TS (Node)
-    nodejs-slim
-    nodePackages.pnpm
-    nodePackages.vercel
-    nodePackages.wrangler
-
-    # Python
+    ## Python
     python312
 
-    # Rust
+    ## Rust
     rust-bin.stable.latest.default
 
-    # Terraform
+    ## Zig
+    zig
+
+    # DevOps
+    ## Terraform
     terraform
 
-    # Dev CLI
+    # Dev Tools
     supabase-cli
   ];
 }

@@ -13,7 +13,7 @@
     bottom # top alternative
     du-dust # du alternative
     duf # df alternative
-    exa # ls alternative
+    eza # ls alternative
     fd # find alternative
     fzf # fazzy finder
     httpie # http client
