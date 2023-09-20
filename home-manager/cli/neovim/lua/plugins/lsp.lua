@@ -4,7 +4,7 @@ return {
 	-- LSP for Neovim config
 	{
 		"neovim/nvim-lspconfig",
-		event = "BufReadPre",
+		event = { "BufReadPost", "BufNewFile" },
 		dependencies = { "folke/neodev.nvim", opts = {} },
 		config = function()
 			local lspconfig = require("lspconfig")
@@ -79,6 +79,8 @@ return {
 			lspconfig.tailwindcss.setup({})
 			-- Terraform
 			lspconfig.terraformls.setup({})
+			-- Typst
+			lspconfig.typst_lsp.setup({})
 			-- Zig
 			lspconfig.zls.setup({})
 

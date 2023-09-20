@@ -44,6 +44,8 @@ return {
 					-- Shell
 					nls.builtins.diagnostics.shellcheck,
 					nls.builtins.formatting.shfmt,
+					-- -- SQL
+					-- nls.builtins.formatting.sql_formatter,
 					-- Protocol Buffers
 					nls.builtins.formatting.buf,
 					-- Terraform
@@ -74,5 +76,11 @@ return {
 				end,
 			}
 		end,
+	},
+
+	{
+		"kaarmu/typst.vim",
+		ft = "typst",
+		lazy = false,
 	},
 }

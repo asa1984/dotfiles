@@ -33,6 +33,10 @@ in {
     deno
     bun
 
+    ## Protocol Buffers
+    buf
+    protobuf
+
     ## Python
     python312
 

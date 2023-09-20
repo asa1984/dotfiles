@@ -63,7 +63,6 @@
       nodePackages."@prisma/language-server"
 
       # Protocol Buffers
-      buf
       buf-language-server
 
       # Python
@@ -82,6 +81,9 @@
 
       # TOML
       taplo
+
+      # Typst
+      typst-lsp
 
       # Zig
       zls
