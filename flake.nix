@@ -24,7 +24,18 @@
       pkgs = import inputs.nixpkgs {
         inherit system;
       };
+      scripts = with pkgs; [
+        (writeScriptBin "switch-home" ''
+          home-manager switch --flake ".#$@"
+        '')
+        (writeScriptBin "switch-nixos" ''
+          sudo nixos-rebuild switch --flake ".#$@"
+        '')
+      ];
     in {
       formatter = pkgs.alejandra;
+      devShell = pkgs.mkShell {
+        packages = scripts;
+      };
     });
 }
