@@ -18,6 +18,9 @@ in {
     ## C
     gcc
 
+    ## CUE
+    cue
+
     ## Go
     go
 

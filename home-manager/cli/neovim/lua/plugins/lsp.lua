@@ -22,6 +22,8 @@ return {
 			})
 			-- CSS
 			lspconfig.cssls.setup({ capabilities = capabilities })
+			-- CUE
+			lspconfig.dagger.setup({})
 			-- Deno
 			lspconfig.denols.setup({
 				root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),

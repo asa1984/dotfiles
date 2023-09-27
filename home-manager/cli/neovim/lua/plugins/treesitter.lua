@@ -14,6 +14,7 @@ return {
 					"comment",
 					"cpp",
 					"css",
+					"cue",
 					"dockerfile",
 					"go",
 					"gomod",

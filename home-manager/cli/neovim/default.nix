@@ -25,6 +25,9 @@
       # C/C++
       clang-tools
 
+      # CUE
+      cuelsp
+
       # Docker
       nodePackages.dockerfile-language-server-nodejs
 

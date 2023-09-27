@@ -9,6 +9,8 @@ return {
 				sources = {
 					-- C/C++
 					nls.builtins.formatting.clang_format,
+					-- CUE
+					nls.builtins.formatting.cue_fmt,
 					-- JavaScript/TypeScript/Others
 					nls.builtins.formatting.prettier,
 					-- Go
