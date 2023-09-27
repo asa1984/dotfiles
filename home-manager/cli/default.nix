@@ -24,6 +24,7 @@
     killall # process killer
     lazydocker # docker tui
     lazygit # git tui
+    nurl # generate nix fetcher
     procs # ps alternative
     ripgrep # grep alternative
     silicon # code to image
