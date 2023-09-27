@@ -12,9 +12,7 @@
     shellAliases = import ./aliases.nix;
 
     initExtra =
-      /*
-      bash
-      */
+      # bash
       ''
         export EDITOR="nvim"
         export NIXPKGS_ALLOW_UNFREE=1
@@ -31,6 +29,17 @@
         }
         zle -N fzf-select-history
         bindkey '^R' fzf-select-history
+
+        # cd to the repository managed by ghq
+        function __ghq-cd() {
+          cd $(ghq root)/$(ghq list | fzf)
+          zle clear-screen
+        }
+        zle -N __ghq-cd
+        bindkey '^G' __ghq-cd
+
+        # Move cursor to the beginning of the line
+        bindkey '^A' beginning-of-line
       '';
 
     plugins = [

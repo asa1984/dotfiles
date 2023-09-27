@@ -17,6 +17,7 @@
     fd # find alternative
     fx # json viewer
     fzf # fazzy finder
+    ghq # git repository manager
     httpie # http client
     imagemagick # image manipulation
     jq # json parser

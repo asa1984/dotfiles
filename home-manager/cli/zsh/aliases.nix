@@ -29,7 +29,10 @@
   gac = "git add . && git commit";
   gacp = "git add . && git commit && git push";
   gco = "git checkout";
-  gf = "git fetch";
+  gsw = "git switch";
+
+  gcd = "cd $(ghq root)/$(ghq list | fzf)"; # cd to a git repository managed by ghq
+
   lgit = "lazygit";
 
   # Nix
