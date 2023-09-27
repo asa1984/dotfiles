@@ -15,6 +15,7 @@
     duf # df alternative
     eza # ls alternative
     fd # find alternative
+    fx # json viewer
     fzf # fazzy finder
     httpie # http client
     imagemagick # image manipulation
@@ -23,11 +24,11 @@
     lazydocker # docker tui
     lazygit # git tui
     procs # ps alternative
-    ranger # file viewer
     ripgrep # grep alternative
     silicon # code to image
     speedtest-cli # speedtest
     tokei # analyze code statistics
+    yazi # file manager
 
     # Archives
     unar
