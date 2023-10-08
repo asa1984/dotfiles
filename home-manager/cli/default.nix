@@ -5,6 +5,7 @@
     ./development.nix
     ./direnv.nix
     ./git.nix
+    ./nix.nix
   ];
 
   home.packages = with pkgs; [

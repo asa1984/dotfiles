@@ -10,6 +10,7 @@
 
     ../../modules/i18n.nix
     ../../modules/networking.nix
+    ../../modules/nix.nix
     ../../modules/virtualisation.nix
   ];
 
@@ -49,19 +50,6 @@
       enable = true;
     };
   };
-
-  nix = {
-    settings = {
-      auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes"];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-  };
-  nixpkgs.config.allowUnfree = true;
 
   # Don't touch this
   system.stateVersion = "23.05";

@@ -14,6 +14,7 @@
       ../../modules/fonts.nix
       ../../modules/i18n.nix
       ../../modules/networking.nix
+      ../../modules/nix.nix
       ../../modules/sound.nix
       ../../modules/system-tools.nix
       ../../modules/virtualisation.nix
@@ -103,19 +104,6 @@
       ];
     };
   };
-
-  nix = {
-    settings = {
-      auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes"];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-  };
-  nixpkgs.config.allowUnfree = true;
 
   # Don't touch this
   system.stateVersion = "22.11";

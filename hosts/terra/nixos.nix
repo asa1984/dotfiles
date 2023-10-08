@@ -15,6 +15,7 @@
       ../../modules/gaming.nix
       ../../modules/i18n.nix
       ../../modules/networking.nix
+      ../../modules/nix.nix
       ../../modules/sound.nix
       ../../modules/system-tools.nix
       ../../modules/virtualisation.nix
@@ -37,18 +38,6 @@
 
   networking.hostName = hostname;
 
-  nix = {
-    settings = {
-      auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes"];
-      trusted-users = ["root" "${username}"];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-  };
   nixpkgs.config.allowUnfree = true;
 
   # Don't touch this
