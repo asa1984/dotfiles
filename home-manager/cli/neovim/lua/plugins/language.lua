@@ -11,8 +11,31 @@ return {
 					nls.builtins.formatting.clang_format,
 					-- CUE
 					nls.builtins.formatting.cue_fmt,
+					-- Deno
+					nls.builtins.formatting.deno_fmt.with({
+						condition = function(utils)
+							return not (utils.has_file({ ".prettierrc", ".prettierrc.js", "package.json" }))
+						end,
+					}),
 					-- JavaScript/TypeScript/Others
-					nls.builtins.formatting.prettier,
+					nls.builtins.formatting.prettier.with({
+						prefer_local = "node_modules/.bin",
+					}),
+					nls.builtins.diagnostics.eslint.with({
+						prefer_local = "node_modules/.bin",
+						condition = function(utils)
+							return utils.root_has_file("eslint.config.js")
+								or utils.root_has_file("eslint.config.cjs")
+								or utils.root_has_file("eslint.config.mjs")
+								or utils.root_has_file(".eslintrc")
+								or utils.root_has_file(".eslintrc.js")
+								or utils.root_has_file(".eslintrc.cjs")
+								or utils.root_has_file(".eslintrc.mjs")
+								or utils.root_has_file(".eslintrc.json")
+								or utils.root_has_file(".eslintrc.yml")
+								or utils.root_has_file(".eslintrc.yaml")
+						end,
+					}),
 					-- Go
 					nls.builtins.formatting.gofmt,
 					-- Haskell

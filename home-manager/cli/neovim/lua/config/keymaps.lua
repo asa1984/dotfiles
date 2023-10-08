@@ -58,6 +58,8 @@ vim.keymap.set("n", "m", "<Plug>(lsp)")
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>")
 vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<cr>")
 vim.keymap.set("n", "<Plug>(lsp)a", "<cmd>Lspsaga code_action<cr>")
+vim.keymap.set("n", "<Plug>(lsp)d", "<cmd>Lspsaga show_cursor_diagnostics<cr>")
+vim.keymap.set("n", "<Plug>(lsp)D", "<cmd>Lspsaga show_workspace_diagnostics<cr>")
 vim.keymap.set("n", "<Plug>(lsp)rn", "<cmd>Lspsaga rename<cr>")
 
 -- Fold

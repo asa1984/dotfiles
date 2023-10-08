@@ -45,6 +45,7 @@
       nodePackages.vscode-langservers-extracted
 
       # JavaScript/TypeScript
+      nodePackages.eslint
       nodePackages.prettier
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server
