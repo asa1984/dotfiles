@@ -6,6 +6,9 @@
     # Chat
     slack
 
+    # Video chat
+    zoom-us
+
     # Remote desktop client
     parsec-bin
     remmina
