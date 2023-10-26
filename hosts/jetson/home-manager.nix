@@ -7,6 +7,8 @@
 
     ../../home-manager/cli/neovim
     ../../home-manager/cli/zsh
+
+    ./neovim.nix
   ];
 
   home.packages = with pkgs; [
