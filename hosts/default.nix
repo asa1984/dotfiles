@@ -93,5 +93,13 @@ in {
         ./rhine/home-manager.nix
       ];
     };
+    "ema@jetson" = mkHomeManagerConfiguration {
+      system = "aarch64-linux";
+      username = "ema";
+      overlays = [(import inputs.rust-overlay)];
+      modules = [
+        ./jetson/home-manager.nix
+      ];
+    };
   };
 }
