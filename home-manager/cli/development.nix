@@ -36,6 +36,10 @@ in {
     deno
     bun
 
+    # OCaml
+    ocaml
+    ocamlPackages.dune_3
+
     ## Protocol Buffers
     buf
     protobuf

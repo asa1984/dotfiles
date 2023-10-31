@@ -70,6 +70,8 @@ return {
 			})
 			-- Nix
 			lspconfig.nil_ls.setup({})
+			-- OCaml
+			lspconfig.ocamllsp.setup({})
 			-- Prisma
 			lspconfig.prismals.setup({})
 			-- Protocol Buffers
