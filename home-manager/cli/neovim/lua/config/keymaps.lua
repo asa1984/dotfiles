@@ -7,7 +7,7 @@ vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 
 -- Remove highlight
-vim.keymap.set("n", "<Leader><Space>", "<Cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Leader><Space><Space>", "<Cmd>nohlsearch<CR>")
 
 -- Terminal
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>") -- Escape from terminal by ESC

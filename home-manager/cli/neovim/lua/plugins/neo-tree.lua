@@ -17,6 +17,11 @@ return {
 					["<space>"] = false,
 				},
 			},
+			filesystem = {
+				filtered_items = {
+					hide_dotfiles = false,
+				},
+			},
 			default_component_configs = {
 				indent = { padding = 0 },
 				icon = {

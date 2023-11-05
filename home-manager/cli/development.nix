@@ -31,8 +31,6 @@ in {
     ## JS/TS
     nodePackages_latest.nodejs
     nodePackages_latest.pnpm
-    nodePackages_latest.vercel
-    nodePackages_latest.wrangler
     deno
     bun
 

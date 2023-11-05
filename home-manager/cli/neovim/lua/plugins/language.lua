@@ -1,6 +1,6 @@
 return {
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		event = "BufRead",
 		opts = function()
 			local nls = require("null-ls")
@@ -13,8 +13,32 @@ return {
 					nls.builtins.formatting.cue_fmt,
 					-- Deno
 					nls.builtins.formatting.deno_fmt.with({
+						filetypes = {
+							"javascript",
+							"javascriptreact",
+							"json",
+							"jsonc",
+							"typescript",
+							"typescriptreact",
+						},
 						condition = function(utils)
 							return not (utils.has_file({ ".prettierrc", ".prettierrc.js", "package.json" }))
+						end,
+					}),
+					nls.builtins.diagnostics.deno_lint.with({
+						condition = function(utils)
+							return not (
+								utils.root_has_file("eslint.config.js")
+								or utils.root_has_file("eslint.config.cjs")
+								or utils.root_has_file("eslint.config.mjs")
+								or utils.root_has_file(".eslintrc")
+								or utils.root_has_file(".eslintrc.js")
+								or utils.root_has_file(".eslintrc.cjs")
+								or utils.root_has_file(".eslintrc.mjs")
+								or utils.root_has_file(".eslintrc.json")
+								or utils.root_has_file(".eslintrc.yml")
+								or utils.root_has_file(".eslintrc.yaml")
+							)
 						end,
 					}),
 					-- JavaScript/TypeScript/Others
