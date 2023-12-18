@@ -12,6 +12,7 @@
       ../../modules/flatpak.nix
       ../../modules/fcitx5.nix
       ../../modules/fonts.nix
+      ../../modules/gaming.nix
       ../../modules/i18n.nix
       ../../modules/networking.nix
       ../../modules/nix.nix

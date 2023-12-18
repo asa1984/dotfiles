@@ -87,7 +87,8 @@
       taplo
 
       # Typst
-      typst-lsp
+      # typst-lsp # FIX: issue nixos/nixpkgs#273835
+      typstfmt
 
       # Zig
       zls

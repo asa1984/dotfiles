@@ -21,7 +21,14 @@ inputs: let
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = import inputs.nixpkgs {
         inherit system overlays;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+
+          # FIX: How to solve this?
+          permittedInsecurePackages = [
+            "electron-25.9.0"
+          ];
+        };
       };
       extraSpecialArgs = {
         inherit inputs username;

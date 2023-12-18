@@ -29,8 +29,8 @@ in {
     stack-wrapped
 
     ## JS/TS
-    nodePackages_latest.nodejs
-    nodePackages_latest.pnpm
+    nodejs-slim
+    nodePackages.pnpm
     deno
     bun
 
@@ -53,7 +53,7 @@ in {
 
     # DevOps
     ## Terraform
-    terraform
+    # terraform
 
     # Dev Tools
     supabase-cli
