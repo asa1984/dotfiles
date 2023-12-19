@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  pkgs-stable,
+  ...
+}: let
   # gh-q and gh-fuzzyclone are not available on nixpkgs
   # Their shebangs are "#!/bin/bash" which is not available on NixOS
   # Replace original shebang with "#!/usr/bin/env sh" for NixOS
@@ -52,14 +56,11 @@ in {
 
   programs.gh = {
     enable = true;
+    package = pkgs-stable.gh;
     extensions = [
       pkgs.gh-markdown-preview
       gh-fuzzyclone
       gh-q
     ];
-    settings = {
-      editor = "nvim";
-      git_protocol = "https";
-    };
   };
 }

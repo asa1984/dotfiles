@@ -33,6 +33,12 @@ inputs: let
       extraSpecialArgs = {
         inherit inputs username;
         theme = (import ../themes) "tokyonight-moon";
+        pkgs-stable = import inputs.nixpkgs-stable {
+          inherit system overlays;
+          config = {
+            allowUnfree = true;
+          };
+        };
       };
       modules =
         modules
