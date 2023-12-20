@@ -1,6 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	dependencies = { "nvim-lua/plenary.nvim" },
+	dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-file-browser.nvim" },
 	opts = function()
 		local telescope_actions = require("telescope.actions")
 		return {
