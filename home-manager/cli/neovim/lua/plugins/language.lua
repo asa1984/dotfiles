@@ -44,7 +44,26 @@ return {
 					-- JavaScript/TypeScript/Others
 					nls.builtins.formatting.prettier.with({
 						prefer_local = "node_modules/.bin",
+						filetypes = {
+							-- "javascript",
+							-- "javascriptreact",
+							-- "typescript",
+							-- "typescriptreact",
+							"vue",
+							"css",
+							"scss",
+							"less",
+							"html",
+							-- "json",
+							-- "jsonc",
+							"yaml",
+							"markdown",
+							"markdown.mdx",
+							"graphql",
+							"handlebars",
+						},
 					}),
+					nls.builtins.formatting.biome,
 					nls.builtins.diagnostics.eslint.with({
 						prefer_local = "node_modules/.bin",
 						condition = function(utils)

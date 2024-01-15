@@ -50,6 +50,7 @@
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server
       nodePackages."@tailwindcss/language-server"
+      biome
 
       # Lua
       lua-language-server
