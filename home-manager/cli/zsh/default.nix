@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  theme,
+  ...
+}: {
   imports = [./starship.nix];
   programs.zsh = {
     enable = true;
@@ -40,6 +44,8 @@
 
         # Move cursor to the beginning of the line
         bindkey '^A' beginning-of-line
+
+        ${theme.fzf}
       '';
 
     plugins = [

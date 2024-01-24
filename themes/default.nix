@@ -8,4 +8,6 @@ in rec
   colors = builtins.mapAttrs (_: value: removeHash value) colors;
   # wezterm colors
   wezterm = builtins.readFile ./colors/${theme}/wezterm.toml;
+  # fzf colors
+  fzf = builtins.readFile ./colors/${theme}/fzf.zsh;
 }
