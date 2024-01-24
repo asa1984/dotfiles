@@ -6,13 +6,13 @@ in {
     settings = {
       window = {
         padding = {
-          x = 10;
-          y = 10;
+          x = 5;
+          y = 5;
         };
       };
 
       font = {
-        size = 12;
+        size = 14;
         normal.family = "JetBrainsMono Nerd Font";
       };
 
