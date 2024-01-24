@@ -19,11 +19,16 @@
       keymap = [
         {
           name = "Ctrl+H should be enabled on all apps as BackSpace";
+          exact_match = true;
+          application = {
+            not = [
+              "Alacritty.Alacritty"
+              "kitty.kitty"
+              "org.wezfurlong.wezterm.org.wezfurlong.wezterm"
+            ];
+          };
           remap = {
             C-h = "Backspace";
-          };
-          application = {
-            not = ["Alacritty" "Kitty" "Wezterm"];
           };
         }
       ];
