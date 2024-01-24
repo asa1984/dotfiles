@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ../../home-manager/cli
-    ../../home-manager/desktop
+    ../../home-manager/desktop/xmonad
     ../../home-manager/gui
   ];
 
