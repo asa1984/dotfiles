@@ -1,27 +1,27 @@
 # dotfiles
 
-ASA1984's NixOS & home-manager configurations
+asa1984's NixOS & home-manager configurations
 
-| Category | Name           | Description                   |
-| -------- | -------------- | ----------------------------- |
-| OS       | NixOS          | **_The Best Linux Distro_**   |
-| Kernel   | XanMod         | The name is similar to XMonad |
-| Shell    | ZSH + Starship | Simple & Functional           |
-| Editor   | Neovim         | The only choice               |
-| Terminal | Wezterm        | Practical terminal emulator   |
-| WM       | XMonad         | Functional window manager     |
+| Category | Name           | Description                 |
+| -------- | -------------- | --------------------------- |
+| OS       | NixOS          | **_The Best Linux Distro_** |
+| Kernel   | XanMod         | How to pronounce?           |
+| Shell    | ZSH + Starship | Simple & Functional         |
+| Editor   | Neovim         | The only choice             |
+| Terminal | Wezterm        | Practical terminal emulator |
+| WM       | Hyprland       | Beautiful window manager    |
 
-## Code Structure
+![desktop](./_image/desktop.png)
+
+## 🏗️ File Structure
 
 ### `hosts`
 
-Per-host settings (e.g. hardware configurations) are defined [here](https://github.com/asa1984/dotfiles/blob/master/hosts/default.nix).
+Per-host settings (e.g. hardware configurations)
 
 - **terra**: My primary desktop PC
-- **rhodes**: My laptop
+- **rhodes**: My laptop (HP Envy13)
 - **rhine**: VM on the Proxmox VE server
-
-**_Tips_**: If you'd like to configure multiple environments with a single code, you should share nothing but completely reusable modules for flexibility.
 
 ### `modules`
 
@@ -33,7 +33,7 @@ Shared NixOS modules
 
 - **gui**: GUI applications used in the desktop environment
 
-- **desktop**: The settings of XMonad and utilities for Xorg
+- **desktop**: Desktop environments
 
 ### `themes`
 
@@ -41,7 +41,7 @@ The color schemes for all applications
 
 - **tokyonight-moon**: Refer to [folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim)
 
-## Setup
+## 🚀 Setup
 
 ### Requirements
 
@@ -49,10 +49,13 @@ The color schemes for all applications
 
 ### Commands
 
+#### direnv
+
 #### NixOS modules
 
 ```nix
-sudo nixos-rebuild switch --flake "./#<hostsname>"
+nix develop
+switch-nixos "<hostname>" # NixOS modules
 reboot
 
 ```
@@ -60,5 +63,13 @@ reboot
 #### home-manager
 
 ```nix
-nix run home-manager -- switch --flake "./<username>@<hostname>"
+nix develop
+switch-home "<username>@<hostname>"
 ```
+
+## 📖 Reference
+
+- [sherubthakur/dotfiles](https://github.com/sherubthakur/dotfiles)
+- [fufexan/dotfiles](https://github.com/fufexan/dotfiles)
+- [Misterio77/nix-config](https://github.com/Misterio77/nix-config)
+- [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config)
