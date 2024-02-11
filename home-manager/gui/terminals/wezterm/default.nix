@@ -1,5 +1,10 @@
-{theme, ...}: {
+{
+  nur,
+  theme,
+  ...
+}: {
   programs.wezterm = {
+    package = nur.wezterm-nightly;
     enable = true;
     extraConfig = builtins.readFile ./wezterm.lua;
   };

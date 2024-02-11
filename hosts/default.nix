@@ -39,6 +39,7 @@ inputs: let
             allowUnfree = true;
           };
         };
+        nur = inputs.nekowinston-nur.packages.${system};
       };
       modules =
         modules
@@ -50,6 +51,7 @@ inputs: let
               stateVersion = "22.11";
             };
             programs.home-manager.enable = true;
+            programs.git.enable = true;
           }
         ];
     };
@@ -85,7 +87,9 @@ in {
     "asahi@terra" = mkHomeManagerConfiguration {
       system = "x86_64-linux";
       username = "asahi";
-      overlays = [(import inputs.rust-overlay)];
+      overlays = [
+        inputs.rust-overlay.overlays.default
+      ];
       modules = [
         ./terra/home-manager.nix
       ];

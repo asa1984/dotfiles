@@ -10,8 +10,11 @@ return {
 		{ family = "JetBrainsMono Nerd Font", weight = "Regular", assume_emoji_presentation = true },
 		{ family = "Noto Sans CJK JP" },
 	}),
-	font_size = 14.0,
+	-- font_size = 12.0,
 	warn_about_missing_glyphs = false,
+	window_frame = {
+		font_size = 10.0,
+	},
 
 	-- Padding
 	window_padding = {
