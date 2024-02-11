@@ -23,24 +23,6 @@
       chmod +x $out/bin/gh-q # make executable
     '';
   };
-
-  gh-fuzzyclone = pkgs.stdenv.mkDerivation rec {
-    name = "gh-fuzzyclone";
-    pname = name;
-    src = pkgs.fetchFromGitHub {
-      owner = "hashue";
-      repo = "gh-fuzzyclone";
-      rev = "6f4542a4b6ba76d50f6fc4d616b7e195373ed21a";
-      hash = "sha256-PitH71zLeCXL+/0pTmfi7PvqGQ6REQWfSXiOG3jXDzI=";
-    };
-    phases = ["installPhase"];
-    installPhase = ''
-      mkdir -p $out/bin
-      sed 1d $src/gh-fuzzyclone > $out/bin/gh-fuzzyclone
-      sed -i "1i#!\/usr\/bin\/env sh" $out/bin/gh-fuzzyclone
-      chmod +x $out/bin/gh-fuzzyclone
-    '';
-  };
 in {
   programs.git = {
     enable = true;
@@ -59,7 +41,6 @@ in {
     package = pkgs-stable.gh;
     extensions = [
       pkgs.gh-markdown-preview
-      gh-fuzzyclone
       gh-q
     ];
   };
