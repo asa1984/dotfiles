@@ -8,10 +8,7 @@
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/i18n.nix
-    ../../modules/networking.nix
-    ../../modules/nix.nix
-    ../../modules/virtualisation.nix
+    ../../modules/core
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -30,31 +27,13 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    bottom
-    direnv
-    zellij
-  ];
-
-  programs = {
-    git = {
-      enable = true;
-    };
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-    };
-    zsh = {
-      enable = true;
-    };
-  };
-
   # Don't touch this
   system.stateVersion = "23.05";
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver = {
+    enable = true;
+    videoDrivers = ["nvidia"];
+  };
   hardware.opengl.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 }
