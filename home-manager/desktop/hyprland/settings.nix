@@ -1,7 +1,4 @@
-# {theme, ...}: let
-#   # colors = theme.colors;
-# in
-{
+{lib, ...}: {
   wayland.windowManager.hyprland.settings = {
     env = [
       "GTK_IM_MODULE, fcitx"
@@ -9,7 +6,7 @@
       "XMODIFIERS, @im=fcitx"
     ];
     exec-once = [
-      "swww init && swww img ~/.config/hypr/wallpaper.jpg"
+      "swww init && swww img ~/.config/hypr/wallpaper/wallpaper.jpg"
       "fcitx5 -D"
       "hypr-helper start"
       "discord --start-minimized"
@@ -22,10 +19,7 @@
       repeat_delay = 300;
       repeat_rate = 30;
       follow_mouse = 1;
-      sensitivity = -0.5; # -1.0 - 1.0, 0 means no modification.
-      touchpad = {
-        natural_scroll = true;
-      };
+      sensitivity = lib.mkDefault 0.5; # -1.0 - 1.0, 0 means no modification.
     };
     general = {
       gaps_in = 5;

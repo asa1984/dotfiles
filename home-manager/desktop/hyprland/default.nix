@@ -34,13 +34,14 @@ in {
       inputs.hyprsome.packages.${pkgs.system}.default # workspace manager
       hypr-helper # my hyprland helper tool
     ];
-  # home.file = {
-  #   "wallpaper.jpg" = {
-  #     target = ".config/hypr/wallpaper/wallpaper.jpg";
-  #     source = pkgs.fetchurl {
-  #       url = "https://i.redd.it/49mj5c88ndla1.jpg";
-  #       sha256 = "sha256-idMl5YkMMrXfBW36eG0buuJZ1IjmZLG/5TwfVROmC2s=";
-  #     };
-  #   };
-  # };
+
+  home.file = {
+    "wallpaper.jpg" = {
+      target = ".config/hypr/wallpaper/wallpaper.jpg";
+      source = pkgs.fetchurl {
+        url = "https://i.redd.it/49mj5c88ndla1.jpg";
+        sha256 = "sha256-idMl5YkMMrXfBW36eG0buuJZ1IjmZLG/5TwfVROmC2s=";
+      };
+    };
+  };
 }
