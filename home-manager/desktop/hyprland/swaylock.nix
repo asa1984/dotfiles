@@ -2,15 +2,12 @@
   pkgs,
   theme,
   ...
-}: let
-  image = "solar_system.jpg";
-in {
+}: {
   home.packages = [pkgs.swaylock-effects];
-  # home.file.".config/swaylock/${image}".source = ./wallpapers/${image};
   home.file.".config/swaylock/config".text = with theme.colors; ''
     ignore-empty-password
 
-    font=Migu 1P
+    font=Noto Sans CJK JP
     font-size=50
     indicator-idle-visible
     indicator-thickness=15
@@ -47,6 +44,5 @@ in {
     clock
     timestr=%H:%M:%S
     datestr=%a, %b %d
-    # image=~/.config/swaylock/${image}
   '';
 }

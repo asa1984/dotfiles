@@ -6,10 +6,11 @@
   hypr-helper = pkgs.callPackage ./hypr-helper {};
 in {
   imports = [
-    ./wofi.nix
-    ./dunst.nix
     ./settings.nix
     ./key-binds.nix
+    ./wofi.nix
+    ./dunst.nix
+    ./swaylock.nix
   ];
 
   wayland.windowManager.hyprland = {
@@ -36,11 +37,18 @@ in {
     ];
 
   home.file = {
-    "wallpaper.jpg" = {
-      target = ".config/hypr/wallpaper/wallpaper.jpg";
+    "sea.jpg" = {
+      target = ".config/hypr/wallpaper/sea.jpg";
       source = pkgs.fetchurl {
         url = "https://i.redd.it/49mj5c88ndla1.jpg";
         sha256 = "sha256-idMl5YkMMrXfBW36eG0buuJZ1IjmZLG/5TwfVROmC2s=";
+      };
+    };
+    "talos-2.jpg" = {
+      target = ".config/hypr/wallpaper/talos-2.jpg";
+      source = pkgs.fetchurl {
+        url = "https://web-static.hg-cdn.com/endfield/official/oversea/_next/static/media/02_HD.f591bfa9.jpg";
+        sha256 = "sha256-sUo9db8qeo5jO9H28L8IhZFrW0MKevZh54B9N5Wcg/Y=";
       };
     };
   };

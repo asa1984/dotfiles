@@ -1,4 +1,10 @@
-{lib, ...}: {
+{
+  lib,
+  theme,
+  ...
+}: let
+  colors = theme.colors;
+in {
   wayland.windowManager.hyprland.settings = {
     env = [
       "GTK_IM_MODULE, fcitx"
@@ -6,7 +12,7 @@
       "XMODIFIERS, @im=fcitx"
     ];
     exec-once = [
-      "swww init && swww img ~/.config/hypr/wallpaper/wallpaper.jpg"
+      "swww init && swww img ~/.config/hypr/wallpaper/sea.jpg"
       "fcitx5 -D"
       "hypr-helper start"
       "discord --start-minimized"
@@ -25,10 +31,10 @@
       gaps_in = 5;
       gaps_out = 5;
       border_size = 2;
-      # "col.inactive_border" = "rgb(${colors.bg})";
-      # "col.active_border" = "rgb(${colors.blue})";
-      "col.inactive_border" = "0xff222436";
-      "col.active_border" = "0xff82aaff";
+      "col.inactive_border" = "rgb(${colors.bg})";
+      "col.active_border" = "rgb(${colors.blue})";
+      # "col.inactive_border" = "0xff222436";
+      # "col.active_border" = "0xff82aaff";
       resize_on_border = true;
     };
     decoration = {
