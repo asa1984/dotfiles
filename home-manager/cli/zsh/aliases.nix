@@ -9,10 +9,10 @@
   # Core
   cat = "bat";
   grep = "rg";
-  ls = "eza --icons --classify";
-  la = "eza --all --icons --classify";
-  ll = "eza --long --all --git --icons";
-  tree = "eza --icons --classify --tree";
+  ls = "eza --icons always --classify always";
+  la = "eza --icons always --classify always --all ";
+  ll = "eza --icons always --long --all --git ";
+  tree = "eza --icons always --classify always --tree";
 
   # cd
   ".." = "cd ..";
