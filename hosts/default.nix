@@ -39,7 +39,6 @@ inputs: let
             allowUnfree = true;
           };
         };
-        nur = inputs.nekowinston-nur.packages.${system};
       };
       modules =
         modules

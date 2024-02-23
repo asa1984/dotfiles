@@ -1,10 +1,11 @@
 {
-  nur,
+  inputs,
+  pkgs,
   theme,
   ...
 }: {
   programs.wezterm = {
-    package = nur.wezterm-nightly;
+    package = inputs.nekowinston-nur.packages.${pkgs.system}.wezterm-nightly;
     enable = true;
     extraConfig = builtins.readFile ./wezterm.lua;
   };

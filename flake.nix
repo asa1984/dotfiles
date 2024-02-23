@@ -1,10 +1,5 @@
 {
-  description = "NixOS & homa-manager configurations of ASA1984";
-
-  nixConfig = {
-    extra-substituters = ["https://hyprland.cachix.org"];
-    extra-trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-  };
+  description = "NixOS & homa-manager configurations of asa1984";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -13,14 +8,27 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # NixOS hardware configurations
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # Rust toolchain
     rust-overlay.url = "github:oxalica/rust-overlay";
+
+    # Key remapper
     xremap.url = "github:xremap/nix-flake";
+
+    # nekowinston's nur (for WezTerm nightly)
     nekowinston-nur.url = "github:nekowinston/nur";
+
+    # Hyprland
     hyprland.url = "github:hyprwm/Hyprland";
     hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprsome.url = "github:sopa0/hyprsome";
+
+    # TUI RSS feed reader
+    syndicationd.url = "github:ymgyt/syndicationd";
   };
 
   outputs = inputs: let
