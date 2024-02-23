@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
 
     ../../modules/core
+    ../../modules/programs/shell.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

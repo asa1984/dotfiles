@@ -29,6 +29,9 @@
 
     # TUI RSS feed reader
     syndicationd.url = "github:ymgyt/syndicationd";
+
+    # Remote deployment
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
 
   outputs = inputs: let
@@ -42,6 +45,22 @@
   in {
     nixosConfigurations = (import ./hosts inputs).nixos;
     homeConfigurations = (import ./hosts inputs).home-manager;
+
+    deploy = {
+      sshUser = "asahi";
+      # sshOpts = ["-p" "22" "-F" "./etc/ssh.config"];
+      # fastConnection = false;
+      user = "root";
+      nodes = {
+        rhine = {
+          hostname = "rhine";
+          profiles.system = {
+            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.rhine;
+          };
+        };
+      };
+    };
+
     devShells = forAllSystems (system: let
       pkgs = import inputs.nixpkgs {inherit system;};
       scripts = with pkgs; [
@@ -52,9 +71,12 @@
           sudo nixos-rebuild switch --flake ".#$@"
         '')
       ];
+      devPkgs = [
+        inputs.deploy-rs.packages.${pkgs.system}.default
+      ];
     in {
       default = pkgs.mkShell {
-        packages = scripts;
+        packages = scripts ++ devPkgs;
       };
     });
   };
