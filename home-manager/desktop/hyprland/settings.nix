@@ -25,7 +25,7 @@ in {
       repeat_delay = 300;
       repeat_rate = 30;
       follow_mouse = 1;
-      sensitivity = lib.mkDefault 0.5; # -1.0 - 1.0, 0 means no modification.
+      sensitivity = lib.mkDefault (-0.5); # -1.0 - 1.0, 0 means no modification.
     };
     general = {
       gaps_in = 5;
