@@ -32,6 +32,9 @@
 
     # Remote deployment
     deploy-rs.url = "github:serokell/deploy-rs";
+
+    # Spotify modifier
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
   };
 
   outputs = inputs: let
