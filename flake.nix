@@ -35,6 +35,12 @@
 
     # Spotify modifier
     spicetify-nix.url = "github:the-argus/spicetify-nix";
+
+    # Secure boot
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.3.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: let

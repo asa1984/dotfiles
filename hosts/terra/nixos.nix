@@ -13,6 +13,7 @@
       ../../modules/programs/flatpak.nix
       ../../modules/programs/hyprland.nix
       ../../modules/programs/media.nix
+      ../../modules/programs/secureboot.nix
       ../../modules/programs/shell.nix
       ../../modules/programs/steam.nix
     ]
