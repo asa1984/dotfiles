@@ -41,6 +41,12 @@
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # My personal pre-configured Neovim
+    asa1984-nvim = {
+      url = "github:asa1984/asa1984.nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: let
