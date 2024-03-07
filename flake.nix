@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -12,39 +13,40 @@
     # NixOS hardware configurations
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # Rust toolchain
-    rust-overlay.url = "github:oxalica/rust-overlay";
-
-    # Key remapper
-    xremap.url = "github:xremap/nix-flake";
-
-    # nekowinston's nur (for WezTerm nightly)
-    nekowinston-nur.url = "github:nekowinston/nur";
-
-    # Hyprland
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
-    hyprpicker.url = "github:hyprwm/hyprpicker";
-    hyprsome.url = "github:sopa0/hyprsome";
-
-    # TUI RSS feed reader
-    syndicationd.url = "github:ymgyt/syndicationd";
-
-    # Remote deployment
-    deploy-rs.url = "github:serokell/deploy-rs";
-
-    # Spotify modifier
-    spicetify-nix.url = "github:the-argus/spicetify-nix";
-
     # Secure boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Remote deployment
+    deploy-rs.url = "github:serokell/deploy-rs";
+
     # My personal pre-configured Neovim
     asa1984-nvim = {
       url = "github:asa1984/asa1984.nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Rust toolchain
+    rust-overlay.url = "github:oxalica/rust-overlay";
+
+    # Key remapper
+    xremap.url = "github:xremap/nix-flake";
+
+    # Hyprland
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprsome.url = "github:sopa0/hyprsome";
+
+    # nekowinston's nur (for WezTerm nightly)
+    nekowinston-nur.url = "github:nekowinston/nur";
+
+    # TUI RSS feed reader
+    syndicationd.url = "github:ymgyt/syndicationd";
+
+    # Spotify modifier
+    spicetify-nix = {
+      url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -58,13 +60,14 @@
     ];
     forAllSystems = inputs.nixpkgs.lib.genAttrs allSystems;
   in {
+    packages = forAllSystems (system: import ./pkgs inputs.nixpkgs.legacyPackages.${system});
+    formatter = forAllSystems (system: inputs.nixpkgs.legacyPackages.${system}.alejandra);
+
     nixosConfigurations = (import ./hosts inputs).nixos;
     homeConfigurations = (import ./hosts inputs).home-manager;
 
     deploy = {
       sshUser = "asahi";
-      # sshOpts = ["-p" "22" "-F" "./etc/ssh.config"];
-      # fastConnection = false;
       user = "root";
       nodes = {
         rhine = {

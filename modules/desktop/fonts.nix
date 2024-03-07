@@ -1,12 +1,22 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: let
+  myPackages = inputs.self.outputs.packages.${pkgs.system};
+in {
   fonts = {
-    packages = with pkgs; [
-      noto-fonts-cjk-serif
-      noto-fonts-cjk-sans
-      noto-fonts-emoji
-      migu
-      nerdfonts
-    ];
+    packages =
+      (with pkgs; [
+        noto-fonts-emoji
+        nerdfonts
+      ])
+      ++ (with myPackages; [
+        # Noto Fonts in nixpkgs are variable font, but Steam doesn't support it
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-cjk-serif
+      ]);
     fontDir.enable = true;
     fontconfig = {
       defaultFonts = {
@@ -24,24 +34,6 @@
         ];
         emoji = ["Noto Color Emoji"];
       };
-      localConf = ''
-        <?xml version="1.0"?>
-        <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-        <fontconfig>
-          <description>Change default fonts for Steam client</description>
-          <match>
-            <test name="prgname">
-              <string>steamwebhelper</string>
-            </test>
-            <test name="family" qual="any">
-              <string>sans-serif</string>
-            </test>
-            <edit mode="prepend" name="family">
-              <string>Migu 1P</string>
-            </edit>
-          </match>
-        </fontconfig>
-      '';
     };
   };
 }

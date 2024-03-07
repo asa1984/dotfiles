@@ -16,6 +16,7 @@ in {
       "fcitx5 -D"
       "hypr-helper start"
       "discord --start-minimized"
+      "steam -silent"
     ];
     windowrule = [
       "pseudo, noblur, class:(fcitx)"
@@ -33,8 +34,6 @@ in {
       border_size = 2;
       "col.inactive_border" = "rgb(${colors.bg})";
       "col.active_border" = "rgb(${colors.blue})";
-      # "col.inactive_border" = "0xff222436";
-      # "col.active_border" = "0xff82aaff";
       resize_on_border = true;
     };
     decoration = {

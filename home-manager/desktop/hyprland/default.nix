@@ -19,19 +19,18 @@ in {
 
   home.packages =
     (with pkgs; [
-      grimblast # screenshot
-      wev # key event watcher
-      wayvnc # vnc server
-      wl-clipboard # clipboard manager
-      wf-recorder # screen recorder
       brightnessctl # screen brightness
+      grimblast # screenshot
+      hyprpicker # color picker
       pamixer # pulseaudio mixer
       playerctl # media player control
       swww # wallpaper
+      wayvnc # vnc server
+      wev # key event watcher
+      wf-recorder # screen recorder
+      wl-clipboard # clipboard manager
     ])
     ++ [
-      inputs.hyprpicker.packages.${pkgs.system}.default # color picker
-      inputs.hyprpaper.packages.${pkgs.system}.default # wallpaper
       inputs.hyprsome.packages.${pkgs.system}.default # workspace manager
       hypr-helper # my hyprland helper tool
     ];
