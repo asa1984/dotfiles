@@ -22,6 +22,7 @@
     silicon # code to image
     speedtest-cli # speedtest
     tokei # analyze code statistics
+    typos # find typos
     yazi # file manager
 
     # Archives
