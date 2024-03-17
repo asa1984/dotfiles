@@ -1,12 +1,7 @@
-{
-  inputs,
-  pkgs,
-  theme,
-  ...
-}: let
-  spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
+{ inputs, pkgs, theme, ... }:
+let spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
 in {
-  imports = [inputs.spicetify-nix.homeManagerModule];
+  imports = [ inputs.spicetify-nix.homeManagerModule ];
 
   programs.spicetify = {
     enable = true;

@@ -1,4 +1,4 @@
-{theme, ...}:
+{ theme, ... }:
 with theme.xcolors; {
   services.dunst = {
     enable = true;

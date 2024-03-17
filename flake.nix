@@ -61,7 +61,7 @@
     forAllSystems = inputs.nixpkgs.lib.genAttrs allSystems;
   in {
     packages = forAllSystems (system: import ./pkgs inputs.nixpkgs.legacyPackages.${system});
-    formatter = forAllSystems (system: inputs.nixpkgs.legacyPackages.${system}.alejandra);
+    formatter = forAllSystems (system: inputs.nixpkgs.legacyPackages.${system}.nixfmt);
 
     nixosConfigurations = (import ./hosts inputs).nixos;
     homeConfigurations = (import ./hosts inputs).home-manager;

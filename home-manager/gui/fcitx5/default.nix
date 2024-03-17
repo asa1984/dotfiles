@@ -1,4 +1,5 @@
-{theme, ...}: let
+{ theme, ... }:
+let
   my-theme = with theme.xcolors; ''
     [Metadata]
     Name=my-theme

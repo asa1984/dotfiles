@@ -1,5 +1,5 @@
-{theme, ...}: let
-  xcolors = theme.xcolors;
+{ theme, ... }:
+let xcolors = theme.xcolors;
 in {
   programs.alacritty = {
     enable = true;

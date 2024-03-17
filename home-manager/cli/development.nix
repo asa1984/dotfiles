@@ -1,8 +1,9 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   stack-wrapped = pkgs.symlinkJoin {
     name = "stack";
-    paths = [pkgs.stack];
-    buildInputs = [pkgs.makeWrapper];
+    paths = [ pkgs.stack ];
+    buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/stack \
         --add-flags "\

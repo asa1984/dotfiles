@@ -6,8 +6,6 @@
       size = 14;
     };
     theme = "Tokyo Night Moon";
-    settings = {
-      enable_audio_bell = false;
-    };
+    settings = { enable_audio_bell = false; };
   };
 }

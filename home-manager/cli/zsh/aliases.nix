@@ -30,7 +30,8 @@
   gacp = "git add . && git commit && git push";
   gco = "git checkout";
   gsw = "git switch";
-  gcd = "cd $(ghq root)/$(ghq list | fzf)"; # cd to a git repository managed by ghq
+  gcd =
+    "cd $(ghq root)/$(ghq list | fzf)"; # cd to a git repository managed by ghq
   lgit = "lazygit";
 
   # Neovim

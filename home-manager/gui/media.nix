@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{ inputs, pkgs, ... }: {
   home.packages = with pkgs; [
     gnome.totem # video player
     gnome.evince # pdf viewer

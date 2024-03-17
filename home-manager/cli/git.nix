@@ -1,8 +1,5 @@
-{
-  pkgs,
-  pkgs-stable,
-  ...
-}: let
+{ pkgs, pkgs-stable, ... }:
+let
   # gh-q and gh-fuzzyclone are not available on nixpkgs
   # Their shebangs are "#!/bin/bash" which is not available on NixOS
   # Replace original shebang with "#!/usr/bin/env sh" for NixOS
@@ -15,7 +12,7 @@
       rev = "5dc627f350902e0166016a9dd1f9479c75e3f392";
       hash = "sha256-A0xYze0LCA67Qmck3WXiUihchLyjbOzWNQ++mitf3bk=";
     };
-    phases = ["installPhase"];
+    phases = [ "installPhase" ];
     installPhase = ''
       mkdir -p $out/bin
       sed 1d $src/gh-q > $out/bin/gh-q # remove original shebang
@@ -31,17 +28,12 @@ in {
 
     delta.enable = true;
 
-    extraConfig = {
-      init.defaultBranch = "main";
-    };
+    extraConfig = { init.defaultBranch = "main"; };
   };
 
   programs.gh = {
     enable = true;
     package = pkgs-stable.gh;
-    extensions = [
-      pkgs.gh-markdown-preview
-      gh-q
-    ];
+    extensions = [ pkgs.gh-markdown-preview gh-q ];
   };
 }

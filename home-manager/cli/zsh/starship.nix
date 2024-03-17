@@ -1,11 +1,8 @@
 {
   programs.starship = {
     enable = true;
-    settings =
-      builtins.fromTOML
-      /*
-      toml
-      */
+    settings = builtins.fromTOML
+      # toml
       ''
         [aws]
         symbol = "  "

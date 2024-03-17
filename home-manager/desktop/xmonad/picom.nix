@@ -1,9 +1,7 @@
 {
   services.picom = {
     enable = true;
-    wintypes = {
-      dock = {shadow = false;};
-    };
+    wintypes = { dock = { shadow = false; }; };
     settings = {
       backend = "glx";
       glx-no-stencil = true;
@@ -36,8 +34,8 @@
       # Fading
       fading = true;
       fade-delta = 1;
-      fade-in-step = 0.01;
-      fade-out-step = 0.01;
+      fade-in-step = 1.0e-2;
+      fade-out-step = 1.0e-2;
       no-fading-openclose = false;
 
       # Shadow
@@ -55,7 +53,7 @@
       vsync = true;
       dbe = false;
       unredir-if-possible = false;
-      focus-exclude = [];
+      focus-exclude = [ ];
       detect-transient = true;
       detect-client-leader = true;
       xrender-sync-fence = true;
