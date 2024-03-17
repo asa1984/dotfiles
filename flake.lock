@@ -88,11 +88,11 @@
         "zen_mode_nvim": "zen_mode_nvim"
       },
       "locked": {
-        "lastModified": 1709909366,
-        "narHash": "sha256-i7iLdFD0xkUv9E9zoNoee4ClizGbaKdxh191VzYVooU=",
+        "lastModified": 1710660392,
+        "narHash": "sha256-1aOTkJotqJXR9gSHOeJChCmHU1fBM/QgLNOywHK6JZ0=",
         "owner": "asa1984",
         "repo": "asa1984.nvim",
-        "rev": "e1f6261a1ee36d2e2aea835ade2d85417d551dbb",
+        "rev": "ccc31af65e5eb2918ac2f6c9eac9047b0afda635",
         "type": "github"
       },
       "original": {
