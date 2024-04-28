@@ -6,9 +6,9 @@ asa1984's NixOS & home-manager configurations
 | -------- | -------------- | --------------------------- |
 | OS       | NixOS          | **_The Best Linux Distro_** |
 | Kernel   | XanMod         | How to pronounce?           |
-| Shell    | ZSH + Starship | Simple & Functional         |
+| Shell    | ZSH + Starship | Simple & Stylish            |
 | Editor   | Neovim         | The only choice             |
-| Terminal | Wezterm        | Practical terminal emulator |
+| Terminal | Kitty          | Practical terminal emulator |
 | WM       | Hyprland       | Beautiful window manager    |
 
 ![desktop](./_image/desktop.png)
@@ -19,21 +19,32 @@ asa1984's NixOS & home-manager configurations
 
 Per-host settings (e.g. hardware configurations)
 
-- **terra**: My primary desktop PC
-- **rhodes**: My laptop (HP Envy13)
-- **rhine**: VM on the Proxmox VE server
+- `terra`: My primary desktop PC
+- `rhodes`: My laptop (HP Envy13)
+- `rhine`: VM on the Proxmox VE server
 
 ### `modules`
 
 Shared NixOS modules
 
+- `core`: Commonly used settings
+- `desktop`: For desktop environments
+- `programs`: Optional programs
+
 ### `home-manager`
 
-- **cli**: Command-line tools
+- `cli`: CLI tools
 
-- **gui**: GUI applications used in the desktop environment
+- `gui`: GUI applications
 
-- **desktop**: Desktop environments
+- `desktop`: Desktop environments & Utilities
+
+### `pkgs`
+
+Personal packages
+
+- Noto Sans CJK JP (Non-variable font)
+  - For some software that does not support variable fonts (e.g. Steam)
 
 ### `themes`
 
@@ -49,13 +60,11 @@ The color schemes for all applications
 
 ### Commands
 
-#### direnv
-
-#### NixOS modules
+#### NixOS
 
 ```nix
 nix develop
-switch-nixos "<hostname>" # NixOS modules
+nh os switch .
 reboot
 
 ```
@@ -64,7 +73,7 @@ reboot
 
 ```nix
 nix develop
-switch-home "<username>@<hostname>"
+nh home switch .
 ```
 
 ## 📖 Reference
