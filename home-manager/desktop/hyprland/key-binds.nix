@@ -2,7 +2,7 @@
   wayland.windowManager.hyprland.settings = {
     "$mainMod" = "SUPER";
     "$subMod" = "ALT";
-    "$term" = "wezterm";
+    "$term" = "kitty";
     bind = [
       "$mainMod, Return, exec, $term"
       "$mainMod SHIFT, Q, killactive"
@@ -57,8 +57,10 @@
 
       # screenshot
       ", Print, exec, grimblast --notify copy output"
-      "$mainMod, Print, exec, grimblast --notify copysave output \"$HOME/Screenshots/$(date +%Y-%m-%dT%H:%M:%S).png\""
-      "$mainMod SHIFT, s, exec, grimblast --notify copysave area \"$HOME/Screenshots/$(date +%Y-%m-%dT%H:%M:%S).png\""
+      ''
+        $mainMod, Print, exec, grimblast --notify copysave output "$HOME/Screenshots/$(date +%Y-%m-%dT%H:%M:%S).png"''
+      ''
+        $mainMod SHIFT, s, exec, grimblast --notify copysave area "$HOME/Screenshots/$(date +%Y-%m-%dT%H:%M:%S).png"''
 
       # launcher
       "$mainMod, s, exec, wofi --show drun --width 512px"

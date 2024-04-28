@@ -1,11 +1,20 @@
 {
   programs.kitty = {
     enable = true;
+    theme = "Tokyo Night Moon";
     font = {
       name = "JetBrainsMono Nerd Font";
-      size = 14;
+      size = 12;
     };
-    theme = "Tokyo Night Moon";
-    settings = { enable_audio_bell = false; };
+    settings = {
+      cursor_blink_interval = 0; # Disable blinking cursor
+      tab_bar_edge = "top";
+      tab_bar_style = "separator";
+      tab_separator = ''"┃"'';
+      tab_title_max_length = 30;
+      tab_title_template = ''" {title} "'';
+      window_margin_width = "5 10";
+      enable_audio_bell = false;
+    };
   };
 }
