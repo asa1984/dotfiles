@@ -1,37 +1,29 @@
-{
-  inputs,
-  username,
-  ...
-}: {
-  imports = [inputs.xremap.nixosModules.default];
+{ inputs, username, ... }: {
+  hardware.uinput.enable = true;
+  users.groups.uinput.members = [ username ];
+  users.groups.input.members = [ username ];
+
+  imports = [ inputs.xremap.nixosModules.default ];
   services.xremap = {
     userName = username;
-    serviceMode = "system";
+    serviceMode = "user";
     config = {
-      modmap = [
-        {
-          name = "CapsLock is dead";
-          remap = {
-            CapsLock = "Ctrl_L";
-          };
-        }
-      ];
-      keymap = [
-        {
-          name = "Ctrl+H should be enabled on all apps as BackSpace";
-          exact_match = true;
-          application = {
-            not = [
-              "Alacritty.Alacritty"
-              "kitty.kitty"
-              "org.wezfurlong.wezterm.org.wezfurlong.wezterm"
-            ];
-          };
-          remap = {
-            C-h = "Backspace";
-          };
-        }
-      ];
+      modmap = [{
+        name = "CapsLock is dead";
+        remap = { CapsLock = "Ctrl_L"; };
+      }];
+      keymap = [{
+        name = "Better Backspace";
+        exact_match = true;
+        application = {
+          not = [
+            "Alacritty"
+            "kitty"
+            "org.wezfurlong.wezterm.org.wezfurlong.wezterm"
+          ];
+        };
+        remap = { C-h = "Backspace"; };
+      }];
     };
   };
 }
