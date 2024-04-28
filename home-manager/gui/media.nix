@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     gnome.totem # video player
     gnome.evince # pdf viewer
+    spotify
     inputs.syndicationd.packages.${pkgs.system}.default
   ];
 

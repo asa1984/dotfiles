@@ -7,7 +7,6 @@
     ./xdg.nix
     ./discord
     ./fcitx5
-    ./spicetify.nix
     ./terminals
   ];
 }
