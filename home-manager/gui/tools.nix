@@ -1,21 +1,12 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    # GUI file manager
-    xfce.thunar
-
-    # Chat
+    localsend # local file sharing
+    obsidian # markdown note
+    parsec-bin # extreme first remote desktop client
+    remmina # VNC client
     slack
-
-    # Video chat
-    zoom-us
-
-    # Remote desktop client
-    parsec-bin
-    remmina
-
-    # Note
-    obsidian
-
     vscode
+    xfce.thunar # GUI file manager
+    zoom-us
   ];
 }

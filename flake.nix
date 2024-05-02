@@ -40,6 +40,9 @@
 
     # TUI RSS feed reader
     syndicationd.url = "github:ymgyt/syndicationd";
+
+    # nekowinston's NUR (for wezterm-nightly)
+    nekowinston-nur.url = "github:nekowinston/nur";
   };
 
   outputs = inputs:

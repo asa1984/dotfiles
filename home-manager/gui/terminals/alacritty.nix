@@ -12,7 +12,7 @@ in {
       };
 
       font = {
-        size = 14;
+        size = 12;
         normal.family = "JetBrainsMono Nerd Font";
       };
 
