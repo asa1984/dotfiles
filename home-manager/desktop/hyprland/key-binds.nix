@@ -2,7 +2,7 @@
   wayland.windowManager.hyprland.settings = {
     "$mainMod" = "SUPER";
     "$subMod" = "ALT";
-    "$term" = "kitty";
+    "$term" = "wezterm";
     bind = [
       "$mainMod, Return, exec, $term"
       "$mainMod SHIFT, Q, killactive"
