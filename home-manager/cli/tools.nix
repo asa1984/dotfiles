@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     # Utilities
     bat # cat alternative
@@ -35,6 +36,7 @@
     # Rice
     cava
     neofetch
+    fastfetch
     nitch
     pfetch
     tty-clock

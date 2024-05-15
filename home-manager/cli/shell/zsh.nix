@@ -1,5 +1,5 @@
-{ pkgs, theme, ... }: {
-  imports = [ ./starship.nix ];
+{ pkgs, theme, ... }:
+{
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
@@ -32,7 +32,12 @@
 
         # cd to the repository managed by ghq
         function __ghq-cd() {
-          cd $(ghq root)/$(ghq list | fzf)
+          REPOSITORY=$(ghq list | fzf)
+          # If the user did not select anything, return 1
+          if [ -z "$REPOSITORY" ]; then
+            return 1
+          fi
+          cd "$(ghq root)/$REPOSITORY"
           zle clear-screen
         }
         zle -N __ghq-cd
@@ -44,15 +49,17 @@
         ${theme.fzf}
       '';
 
-    plugins = [{
-      name = "zsh-nix-shell";
-      file = "nix-shell.plugin.zsh";
-      src = pkgs.fetchFromGitHub {
-        owner = "chisui";
-        repo = "zsh-nix-shell";
-        rev = "v0.5.0";
-        sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
-      };
-    }];
+    plugins = [
+      {
+        name = "zsh-nix-shell";
+        file = "nix-shell.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "chisui";
+          repo = "zsh-nix-shell";
+          rev = "v0.5.0";
+          sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
+        };
+      }
+    ];
   };
 }
