@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.file.".config/nvim" = {
     source = ../../home-manager/cli/neovim;
     recursive = true;
@@ -10,9 +11,7 @@
     viAlias = true;
     vimAlias = true;
 
-    plugins = with pkgs.vimPlugins; [
-      lazy-nvim
-    ];
+    plugins = with pkgs.vimPlugins; [ lazy-nvim ];
 
     extraPackages = with pkgs; [
       xsel

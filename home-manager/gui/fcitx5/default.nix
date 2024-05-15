@@ -79,7 +79,8 @@ let
     Top=5
     Bottom=5
   '';
-in {
+in
+{
   home.file = {
     ".local/share/fcitx5/themes/my-theme/theme.conf".text = my-theme;
     ".local/share/fcitx5/themes/my-theme/arrow.png".source = ./assets/arrow.png;

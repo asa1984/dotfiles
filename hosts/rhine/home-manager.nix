@@ -1,5 +1,1 @@
-{
-  imports = [
-    ../../home-manager/cli
-  ];
-}
+{ imports = [ ../../home-manager/cli ]; }

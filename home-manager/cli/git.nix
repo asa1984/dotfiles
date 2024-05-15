@@ -20,7 +20,8 @@ let
       chmod +x $out/bin/gh-q # make executable
     '';
   };
-in {
+in
+{
   programs.git = {
     enable = true;
     userName = "asa1984";
@@ -28,12 +29,17 @@ in {
 
     delta.enable = true;
 
-    extraConfig = { init.defaultBranch = "main"; };
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
   };
 
   programs.gh = {
     enable = true;
     package = pkgs-stable.gh;
-    extensions = [ pkgs.gh-markdown-preview gh-q ];
+    extensions = [
+      pkgs.gh-markdown-preview
+      gh-q
+    ];
   };
 }

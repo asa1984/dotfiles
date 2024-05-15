@@ -1,4 +1,4 @@
-{rustPlatform, ...}:
+{ rustPlatform, ... }:
 rustPlatform.buildRustPackage {
   name = "hypr-helper";
   src = ./.;

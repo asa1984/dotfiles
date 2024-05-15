@@ -1,6 +1,8 @@
 { theme, ... }:
-let xcolors = theme.xcolors;
-in {
+let
+  xcolors = theme.xcolors;
+in
+{
   programs.alacritty = {
     enable = true;
     settings = {

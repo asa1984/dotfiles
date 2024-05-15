@@ -1,10 +1,8 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: let
+{ inputs, pkgs, ... }:
+let
   myPackages = inputs.self.outputs.packages.${pkgs.system};
-in {
+in
+{
   fonts = {
     packages =
       (with pkgs; [
@@ -32,7 +30,7 @@ in {
           "JetBrainsMono Nerd Font"
           "Noto Color Emoji"
         ];
-        emoji = ["Noto Color Emoji"];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };

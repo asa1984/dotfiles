@@ -1,4 +1,10 @@
-{ inputs, pkgs, theme, ... }: {
+{
+  inputs,
+  pkgs,
+  theme,
+  ...
+}:
+{
   programs.wezterm = {
     package = inputs.nekowinston-nur.packages.${pkgs.system}.wezterm-nightly;
     enable = true;

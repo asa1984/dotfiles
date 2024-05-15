@@ -1,10 +1,8 @@
-{
-  lib,
-  theme,
-  ...
-}: let
+{ lib, theme, ... }:
+let
   colors = theme.colors;
-in {
+in
+{
   wayland.windowManager.hyprland.settings = {
     env = [
       "GTK_IM_MODULE, fcitx"
@@ -18,15 +16,12 @@ in {
       "discord --start-minimized"
       "steam -silent"
     ];
-    windowrule = [
-      "pseudo, noblur, class:(fcitx)"
-      "noblur, class:(wofi)"
-    ];
+    windowrule = [ "pseudo, noblur, class:(fcitx)" ];
     input = {
       repeat_delay = 300;
       repeat_rate = 30;
       follow_mouse = 1;
-      sensitivity = lib.mkDefault (-0.5); # -1.0 - 1.0, 0 means no modification.
+      sensitivity = lib.mkDefault (-1.0); # -1.0 - 1.0, 0 means no modification.
     };
     general = {
       gaps_in = 5;
@@ -51,6 +46,7 @@ in {
       bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
       animation = [
         "windows, 1, 4, myBezier, slide"
+        "layers, 1, 4, myBezier, fade"
         "border, 1, 5, default"
         "fade, 1, 5, default"
         "workspaces, 1, 6, default"

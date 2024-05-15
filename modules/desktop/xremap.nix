@@ -1,4 +1,5 @@
-{ inputs, username, ... }: {
+{ inputs, username, ... }:
+{
   hardware.uinput.enable = true;
   users.groups.uinput.members = [ username ];
   users.groups.input.members = [ username ];
@@ -8,22 +9,30 @@
     userName = username;
     serviceMode = "user";
     config = {
-      modmap = [{
-        name = "CapsLock is dead";
-        remap = { CapsLock = "Ctrl_L"; };
-      }];
-      keymap = [{
-        name = "Better Backspace";
-        exact_match = true;
-        application = {
-          not = [
-            "Alacritty"
-            "kitty"
-            "org.wezfurlong.wezterm.org.wezfurlong.wezterm"
-          ];
-        };
-        remap = { C-h = "Backspace"; };
-      }];
+      modmap = [
+        {
+          name = "CapsLock is dead";
+          remap = {
+            CapsLock = "Ctrl_L";
+          };
+        }
+      ];
+      keymap = [
+        {
+          name = "Better Backspace";
+          exact_match = true;
+          application = {
+            not = [
+              "Alacritty"
+              "kitty"
+              "org.wezfurlong.wezterm.org.wezfurlong.wezterm"
+            ];
+          };
+          remap = {
+            C-h = "Backspace";
+          };
+        }
+      ];
     };
   };
 }

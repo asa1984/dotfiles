@@ -1,10 +1,8 @@
+{ pkgs, inputs, ... }:
+let
+  hypr-helper = pkgs.callPackage ./hypr-helper { };
+in
 {
-  pkgs,
-  inputs,
-  ...
-}: let
-  hypr-helper = pkgs.callPackage ./hypr-helper {};
-in {
   imports = [
     ./settings.nix
     ./key-binds.nix

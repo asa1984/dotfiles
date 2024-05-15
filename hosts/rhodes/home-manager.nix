@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   imports = [
     ../../home-manager/cli
     ../../home-manager/desktop/hyprland
@@ -6,9 +7,7 @@
   ];
 
   wayland.windowManager.hyprland.settings = {
-    monitor = [
-      "eDP-1, 1920x1080@60, 0x0, 1"
-    ];
+    monitor = [ "eDP-1, 1920x1080@60, 0x0, 1" ];
     workspace = [
       "1,monitor:eDP-1"
       "2,monitor:eDP-1"

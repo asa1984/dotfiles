@@ -1,5 +1,9 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [wofi wofi-emoji];
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    wofi
+    wofi-emoji
+  ];
   home.file.".config/wofi/style.css".text = ''
     window {
       font-family: "Noto Sans CJK JP";

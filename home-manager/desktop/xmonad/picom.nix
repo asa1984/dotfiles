@@ -1,7 +1,11 @@
 {
   services.picom = {
     enable = true;
-    wintypes = { dock = { shadow = false; }; };
+    wintypes = {
+      dock = {
+        shadow = false;
+      };
+    };
     settings = {
       backend = "glx";
       glx-no-stencil = true;

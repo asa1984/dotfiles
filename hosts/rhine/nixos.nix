@@ -4,7 +4,8 @@
   username,
   config,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -33,7 +34,7 @@
 
   services.xserver = {
     enable = true;
-    videoDrivers = ["nvidia"];
+    videoDrivers = [ "nvidia" ];
   };
   hardware.opengl.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;

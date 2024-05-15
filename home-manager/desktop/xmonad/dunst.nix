@@ -1,5 +1,6 @@
 { theme, ... }:
-with theme.xcolors; {
+with theme.xcolors;
+{
   services.dunst = {
     enable = true;
     settings = {
