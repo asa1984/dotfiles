@@ -48,7 +48,11 @@ in
     python312
 
     ## Rust
-    rust-bin.stable.latest.default
+    (fenix.combine [
+      fenix.stable.toolchain
+      fenix.targets.wasm32-unknown-unknown.stable.rust-std
+      fenix.targets.wasm32-wasi.stable.rust-std
+    ])
 
     ## Zig
     zig

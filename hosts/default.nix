@@ -80,26 +80,25 @@ in
     "asahi@terra" = mkHomeManagerConfiguration {
       system = "x86_64-linux";
       username = "asahi";
-      overlays = [ inputs.rust-overlay.overlays.default ];
+      overlays = [ inputs.fenix.overlays.default ];
       modules = [ ./terra/home-manager.nix ];
     };
     "asahi@rhodes" = mkHomeManagerConfiguration {
       system = "x86_64-linux";
       username = "asahi";
-      overlays = [ (import inputs.rust-overlay) ];
+      overlays = [ inputs.fenix.overlays.default ];
       modules = [ ./rhodes/home-manager.nix ];
     };
     "asahi@rhine" = mkHomeManagerConfiguration {
       system = "x86_64-linux";
       username = "asahi";
-      overlays = [ (import inputs.rust-overlay) ];
+      overlays = [ inputs.fenix.overlays.default ];
       modules = [ ./rhine/home-manager.nix ];
     };
     "ema@jetson" = mkHomeManagerConfiguration {
       system = "aarch64-linux";
       username = "ema";
-      overlays = [ (import inputs.rust-overlay) ];
-      modules = [ ./jetson/home-manager.nix ];
+      overlays = [ inputs.fenix.overlays.default ];
     };
   };
 }

@@ -29,7 +29,7 @@
     };
 
     # Rust toolchain
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    fenix.url = "github:nix-community/fenix";
 
     # Key remapper
     xremap.url = "github:xremap/nix-flake";
