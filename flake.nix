@@ -11,7 +11,7 @@
     };
 
     # NixOS hardware configurations
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     # Secure boot
     lanzaboote = {
@@ -20,7 +20,10 @@
     };
 
     # Remote deployment
-    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # My personal pre-configured Neovim
     asa1984-nvim = {
@@ -29,20 +32,32 @@
     };
 
     # Rust toolchain
-    fenix.url = "github:nix-community/fenix";
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Key remapper
-    xremap.url = "github:xremap/nix-flake";
+    xremap = {
+      url = "github:xremap/nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Hyprland
     hyprland.url = "github:hyprwm/Hyprland";
-    hyprsome.url = "github:sopa0/hyprsome";
+    hyprsome = {
+      url = "github:sopa0/hyprsome";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # TUI RSS feed reader
     syndicationd.url = "github:ymgyt/syndicationd";
 
-    # nekowinston's NUR (for wezterm-nightly)
-    nekowinston-nur.url = "github:nekowinston/nur";
+    # WezTerm
+    wezterm = {
+      url = "github:wez/wezterm?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

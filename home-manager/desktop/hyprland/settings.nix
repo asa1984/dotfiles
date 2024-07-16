@@ -17,6 +17,7 @@ in
       "steam -silent"
     ];
     windowrule = [ "pseudo, noblur, class:(fcitx)" ];
+    windowrulev2 = [ "noblur,class:^()$,title:^()$" ];
     input = {
       repeat_delay = 300;
       repeat_rate = 30;
@@ -60,7 +61,7 @@ in
       disable_hyprland_logo = true;
     };
     master = {
-      new_is_master = true;
+      new_status = "slave";
     };
   };
 }
