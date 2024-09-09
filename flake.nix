@@ -28,7 +28,6 @@
     # My personal pre-configured Neovim
     asa1984-nvim = {
       url = "github:asa1984/asa1984.nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Rust toolchain
@@ -75,6 +74,7 @@
       packages = forAllSystems (system: import ./pkgs inputs.nixpkgs.legacyPackages.${system});
 
       nixosConfigurations = (import ./hosts inputs).nixos;
+
       homeConfigurations = (import ./hosts inputs).home-manager;
 
       deploy = {
@@ -110,6 +110,7 @@
           default = pkgs.mkShell { packages = ([ pkgs.nh ]) ++ formatters ++ scripts; };
         }
       );
+
       formatter = forAllSystems (
         system:
         let
