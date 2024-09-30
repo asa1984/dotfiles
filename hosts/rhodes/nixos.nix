@@ -1,6 +1,8 @@
 {
   inputs,
   pkgs,
+  lib,
+  config,
   username,
   ...
 }:
@@ -61,9 +63,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = ''
-          ${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland
-        '';
+        command = "${lib.getExe pkgs.greetd.tuigreet} --cmd ${lib.getExe config.programs.hyprland.package}";
         user = username;
       };
     };
