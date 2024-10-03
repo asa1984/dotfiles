@@ -5,9 +5,25 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
     };
 
     # NixOS hardware configurations
@@ -61,72 +77,79 @@
 
   outputs =
     inputs:
-    let
-      allSystems = [
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
         "aarch64-linux" # 64-bit ARM Linux
         "x86_64-linux" # 64-bit x86 Linux
         "aarch64-darwin" # 64-bit ARM macOS
         "x86_64-darwin" # 64-bit x86 macOS
       ];
-      forAllSystems = inputs.nixpkgs.lib.genAttrs allSystems;
-    in
-    {
-      packages = forAllSystems (system: import ./pkgs inputs.nixpkgs.legacyPackages.${system});
 
-      nixosConfigurations = (import ./hosts inputs).nixos;
+      imports = [
+        inputs.git-hooks.flakeModule
+        inputs.treefmt-nix.flakeModule
+      ];
 
-      homeConfigurations = (import ./hosts inputs).home-manager;
+      flake = {
+        nixosConfigurations = (import ./hosts inputs).nixos;
 
-      deploy = {
-        sshUser = "asahi";
-        user = "root";
-        nodes = {
-          rhine = {
-            hostname = "rhine";
-            profiles.system = {
-              path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.rhine;
+        homeConfigurations = (import ./hosts inputs).home-manager;
+
+        deploy = {
+          sshUser = "asahi";
+          user = "root";
+          nodes = {
+            rhine = {
+              hostname = "rhine";
+              profiles.system = {
+                path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.rhine;
+              };
             };
           };
         };
       };
 
-      devShells = forAllSystems (
-        system:
-        let
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
-          formatters = with pkgs; [
-            nixfmt-rfc-style
-            rustfmt
-            stylua
-            taplo
-          ];
-          scripts = [
-            (pkgs.writeScriptBin "update-input" ''
-              nix flake lock --override-input "$1" "$2" 
-            '')
-          ];
-        in
+      perSystem =
         {
-          default = pkgs.mkShell { packages = ([ pkgs.nh ]) ++ formatters ++ scripts; };
-        }
-      );
+          config,
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          packages = import ./pkgs pkgs;
 
-      formatter = forAllSystems (
-        system:
-        let
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
-          formatters = with pkgs; [
-            nixfmt-rfc-style
-            rustfmt
-            stylua
-            taplo
-          ];
-          format = pkgs.writeScriptBin "format" ''
-            PATH=$PATH:${pkgs.lib.makeBinPath formatters}
-            ${pkgs.treefmt}/bin/treefmt --config-file ${./treefmt.toml}
-          '';
-        in
-        format
-      );
+          pre-commit = {
+            check.enable = true;
+            settings = {
+              src = ./.;
+              hooks = {
+                shellcheck.enable = true;
+                treefmt.enable = true;
+              };
+            };
+          };
+
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs = {
+              nixfmt.enable = true;
+              rustfmt.enable = true;
+              stylua.enable = true;
+              taplo.enable = true;
+            };
+          };
+
+          devShells = {
+            default = pkgs.mkShell {
+              packages = [
+                (pkgs.writeScriptBin "update-input" ''
+                  nix flake lock --override-input "$1" "$2" 
+                '')
+              ];
+              shellHook = config.pre-commit.installationScript;
+            };
+          };
+        };
     };
 }
