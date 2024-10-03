@@ -36,6 +36,9 @@
     enable = true;
     videoDrivers = [ "nvidia" ];
   };
-  hardware.opengl.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware.graphics.enable = true;
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    open = true;
+  };
 }
