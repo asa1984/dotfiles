@@ -30,6 +30,7 @@
   gacp = "git add . && git commit && git push";
   gco = "git checkout";
   gsw = "git switch";
+  gswc = "git switch -c";
   gcd = "cd $(ghq root)/$(ghq list | fzf)"; # cd to a git repository managed by ghq
   lgit = "lazygit";
 

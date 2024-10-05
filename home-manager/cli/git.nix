@@ -22,16 +22,26 @@ let
   };
 in
 {
+  programs.gpg.enable = true;
+
   programs.git = {
     enable = true;
     userName = "asa1984";
     userEmail = "satoasa9913@gmail.com";
-
-    delta.enable = true;
-
     extraConfig = {
       init.defaultBranch = "main";
+      pull.rebase = true;
+      commit.gpgsign = true;
+      signing = {
+        key = "3B70874C47F634E4";
+        signByDefault = true;
+      };
     };
+    ignores = [
+      ".direnv"
+      ".devenv"
+    ];
+    delta.enable = true;
   };
 
   programs.gh = {
