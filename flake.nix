@@ -41,6 +41,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Secret management
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
+
     # My personal pre-configured Neovim
     asa1984-nvim = {
       url = "github:asa1984/asa1984.nvim";
@@ -142,11 +149,17 @@
 
           devShells = {
             default = pkgs.mkShell {
-              packages = [
-                (pkgs.writeScriptBin "update-input" ''
-                  nix flake lock --override-input "$1" "$2" 
-                '')
-              ];
+              packages =
+                [
+                  (pkgs.writeScriptBin "update-input" ''
+                    nix flake lock --override-input "$1" "$2" 
+                  '')
+                ]
+                ++ (with pkgs; [
+                  sops
+                  age
+                  ssh-to-age
+                ]);
               shellHook = config.pre-commit.installationScript;
             };
           };

@@ -38,8 +38,11 @@
   # Don't touch this
   system.stateVersion = "22.11";
 
+  sops.secrets.login-password.neededForUsers = true;
+
   users.users."${username}" = {
     isNormalUser = true;
+    hashedPasswordFile = config.sops.secrets.login-password.path;
     shell = pkgs.zsh;
     extraGroups = [
       "networkmanager"
