@@ -28,14 +28,14 @@ in
     enable = true;
     userName = "asa1984";
     userEmail = "satoasa9913@gmail.com";
+    signing = {
+      key = "D6B5DF95C5360AE9";
+      signByDefault = true;
+    };
     extraConfig = {
       init.defaultBranch = "main";
       pull.rebase = true;
       commit.gpgsign = true;
-      signing = {
-        key = "D6B5DF95C5360AE9";
-        signByDefault = true;
-      };
     };
     ignores = [
       ".direnv"
