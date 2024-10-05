@@ -33,7 +33,7 @@ in
       pull.rebase = true;
       commit.gpgsign = true;
       signing = {
-        key = "3B70874C47F634E4";
+        key = "D6B5DF95C5360AE9";
         signByDefault = true;
       };
     };
