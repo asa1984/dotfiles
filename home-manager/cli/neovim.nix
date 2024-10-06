@@ -55,6 +55,9 @@ let
     zls
 
     # Configuration languages
+    ## YAML
+    yaml-language-server
+
     ## TOML
     taplo
 
