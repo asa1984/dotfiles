@@ -3,8 +3,8 @@
   home.packages = (
     with pkgs;
     [
-      gnome.totem # video player
-      gnome.evince # pdf viewer
+      totem # video player
+      evince # pdf viewer
       spotify
     ]
   );
