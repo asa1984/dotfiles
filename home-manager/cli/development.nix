@@ -31,7 +31,8 @@ in
     stack-wrapped
 
     ## JS/TS
-    nodejs-slim
+    nodejs
+    nodePackages.yarn
     nodePackages.pnpm
     deno
     bun
