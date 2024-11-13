@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -51,6 +52,7 @@
     # My personal pre-configured Neovim
     asa1984-nvim = {
       url = "github:asa1984/asa1984.nvim";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # Rust toolchain
