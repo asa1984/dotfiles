@@ -40,6 +40,7 @@ in
     ignores = [
       ".direnv"
       ".devenv"
+      ".neoconf.json"
     ];
     delta.enable = true;
   };
