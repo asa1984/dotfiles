@@ -11,6 +11,12 @@ let
       inherit system modules;
       specialArgs = {
         inherit inputs hostname username;
+        pkgs-stable = import inputs.nixpkgs-stable {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
+        };
       };
     };
 
@@ -47,6 +53,7 @@ let
             inherit username;
             homeDirectory = "/home/${username}";
             stateVersion = "22.11";
+            enableNixpkgsReleaseCheck = false;
           };
           programs.home-manager.enable = true;
           programs.git.enable = true;

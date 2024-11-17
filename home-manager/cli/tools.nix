@@ -34,7 +34,7 @@
     zip
 
     # Rice
-    cava
+    # cava
     neofetch
     fastfetch
     nitch

@@ -4,7 +4,14 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    # Inner deps
+    flake-utils.url = "github:numtide/flake-utils";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    crane.url = "github:ipetkov/crane";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -33,13 +40,21 @@
     # Secure boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        crane.follows = "crane";
+        rust-overlay.follows = "rust-overlay";
+      };
     };
 
     # Remote deployment
     deploy-rs = {
       url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "flake-utils";
+      };
     };
 
     # Secret management
@@ -50,10 +65,7 @@
     };
 
     # My personal pre-configured Neovim
-    asa1984-nvim = {
-      url = "github:asa1984/asa1984.nvim";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    asa1984-nvim.url = "github:asa1984/asa1984.nvim";
 
     # Rust toolchain
     fenix = {
@@ -64,23 +76,38 @@
     # Key remapper
     xremap = {
       url = "github:xremap/nix-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+        crane.follows = "crane";
+        hyprland.follows = "hyprland";
+        home-manager.follows = "home-manager";
+      };
     };
 
     # Hyprland
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland/v0.45.0";
     hyprsome = {
       url = "github:sopa0/hyprsome";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        # crane.follows = "crane";
+        flake-utils.follows = "flake-utils";
+      };
     };
 
     # TUI RSS feed reader
-    syndicationd.url = "github:ymgyt/syndicationd";
+    # syndicationd.url = "github:ymgyt/syndicationd";
 
     # WezTerm
     wezterm = {
       url = "github:wez/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        rust-overlay.follows = "rust-overlay";
+      };
     };
   };
 
