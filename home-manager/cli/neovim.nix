@@ -76,8 +76,8 @@ let
     shfmt
 
     ## Typst
-    typst-lsp
-    typstfmt
+    tinymist
+    typstyle
   ];
   neovimWrapper = inputs.asa1984-nvim.lib.${pkgs.system}.mkNeovimWrapper tools;
 in
