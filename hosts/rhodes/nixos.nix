@@ -18,7 +18,6 @@
       ../../modules/programs/keybase.nix
       ../../modules/programs/media.nix
       ../../modules/programs/shell.nix
-      ../../modules/programs/steam.nix
     ]
     ++ (with inputs.nixos-hardware.nixosModules; [
       common-cpu-amd
