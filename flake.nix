@@ -148,8 +148,9 @@
       perSystem =
         {
           config,
-          pkgs,
           system,
+          pkgs,
+          lib,
           ...
         }:
         {
@@ -178,18 +179,22 @@
 
           devShells = {
             default = pkgs.mkShell {
-              packages =
+              packages = (
+                with pkgs;
                 [
-                  (pkgs.writeScriptBin "update-input" ''
-                    nix flake lock --override-input "$1" "$2" 
-                  '')
-                ]
-                ++ (with pkgs; [
                   sops
                   age
                   ssh-to-age
-                ]);
+                ]
+              );
               shellHook = config.pre-commit.installationScript;
+            };
+          };
+
+          apps = {
+            deploy = {
+              type = "app";
+              program = "${inputs.deploy-rs.packages.${system}.default}/bin/deploy";
             };
           };
         };
