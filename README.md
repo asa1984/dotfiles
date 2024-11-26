@@ -2,14 +2,14 @@
 
 asa1984's NixOS & home-manager configurations
 
-| Category | Name           | Description                 |
-| -------- | -------------- | --------------------------- |
-| OS       | NixOS          | **_The Best Linux Distro_** |
-| Kernel   | XanMod         | How to pronounce?           |
-| Shell    | ZSH + Starship | Simple & Stylish            |
-| Editor   | Neovim         | The only choice             |
-| Terminal | Kitty          | Practical terminal emulator |
-| WM       | Hyprland       | Beautiful window manager    |
+| Category | Name           | Description                           |
+| -------- | -------------- | ------------------------------------- |
+| OS       | NixOS          | **_The Best Linux Distro_**           |
+| Kernel   | XanMod         | How to pronounce?                     |
+| Shell    | zsh + Starship | Simple & Stylish                      |
+| Editor   | Neovim         | Pursuing developer experience         |
+| Terminal | WezTerm        | Practical terminal emulator           |
+| WM       | Hyprland       | Beautiful animation & Nix integration |
 
 ![desktop](./_image/desktop.png)
 
@@ -34,9 +34,7 @@ Shared NixOS modules
 ### `home-manager`
 
 - `cli`: CLI tools
-
 - `gui`: GUI applications
-
 - `desktop`: Desktop environments & Utilities
 
 ### `pkgs`
@@ -66,7 +64,6 @@ The color schemes for all applications
 nix develop
 nh os switch .
 reboot
-
 ```
 
 #### home-manager
@@ -76,9 +73,10 @@ nix develop
 nh home switch .
 ```
 
-## 📖 Reference
+## 📖 References
 
-- [sherubthakur/dotfiles](https://github.com/sherubthakur/dotfiles)
+- [nixypanda/dotfiles](https://github.com/nixypanda/dotfiles)
 - [fufexan/dotfiles](https://github.com/fufexan/dotfiles)
 - [Misterio77/nix-config](https://github.com/Misterio77/nix-config)
 - [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config)
+- [natsukium/dotfiles](https://github.com/natsukium/dotfiles)
