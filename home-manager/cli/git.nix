@@ -34,8 +34,10 @@ in
     };
     extraConfig = {
       init.defaultBranch = "main";
-      pull.rebase = true;
       commit.gpgsign = true;
+      merge.conflictStyle = "diff3";
+      rebase.autoSquash = true;
+      pull.rebase = true;
     };
     ignores = [
       ".direnv"
