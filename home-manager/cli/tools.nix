@@ -16,7 +16,6 @@
     jq # json parser
     killall # process killer
     lazydocker # docker tui
-    lazygit # git tui
     nh # nix cli helper
     nurl # generate nix fetcher
     procs # ps alternative
@@ -34,17 +33,6 @@
     zip
 
     # Rice
-    # cava
-    neofetch
     fastfetch
-    nitch
-    pfetch
-    tty-clock
-
-    # Joke
-    cowsay
-    figlet
-    lolcat
-    pingu
   ];
 }

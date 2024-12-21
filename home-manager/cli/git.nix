@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, ... }:
+{ pkgs, ... }:
 let
   # gh-q and gh-fuzzyclone are not available on nixpkgs
   # Their shebangs are "#!/bin/bash" which is not available on NixOS
@@ -38,21 +38,33 @@ in
       merge.conflictStyle = "diff3";
       rebase.autoSquash = true;
       pull.rebase = true;
+      push.autoSetupRemote = true;
     };
     ignores = [
       ".direnv"
       ".devenv"
       ".neoconf.json"
     ];
-    delta.enable = true;
+    difftastic.enable = true;
   };
 
   programs.gh = {
     enable = true;
-    package = pkgs-stable.gh;
     extensions = [
+      pkgs.gh-dash
       pkgs.gh-markdown-preview
       gh-q
     ];
+  };
+
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      git = {
+        paging = {
+          externalDiffCommand = "${pkgs.difftastic}/bin/difft --color=always";
+        };
+      };
+    };
   };
 }

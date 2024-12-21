@@ -34,10 +34,6 @@
   gcd = "cd $(ghq root)/$(ghq list | fzf)"; # cd to a git repository managed by ghq
   lgit = "lazygit";
 
-  # Neovim
-  vi = "nvim";
-  vim = "nvim";
-
   # Nix
   flake = "nix flake";
 

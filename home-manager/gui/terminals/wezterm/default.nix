@@ -6,12 +6,13 @@
 }:
 {
   programs.wezterm = {
-    package = inputs.wezterm.packages.${pkgs.system}.default;
+    package =
+      if pkgs.stdenv.isDarwin then pkgs.wezterm else inputs.wezterm.packages.${pkgs.system}.default;
     enable = true;
     extraConfig = builtins.readFile ./wezterm.lua;
   };
   home.file = {
-    ".config/wezterm/colors/myTheme.toml".text = theme.wezterm;
+    ".config/wezterm/colors/MyTheme.toml".text = theme.wezterm;
 
     # ranger config - enable image preview on wezterm
     ".config/ranger/rc.conf".text = ''

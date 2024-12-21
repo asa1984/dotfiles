@@ -23,6 +23,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -130,6 +135,19 @@
         nixosConfigurations = (import ./hosts inputs).nixos;
 
         homeConfigurations = (import ./hosts inputs).home-manager;
+
+        darwinConfigurations = {
+          gaul = inputs.nix-darwin.lib.darwinSystem {
+            modules = [ ./hosts/gaul/darwin.nix ];
+            specialArgs = {
+              inherit inputs;
+              username = "asahi";
+              hostname = "gaul";
+              system = "aarch64-darwin";
+              overlays = [ inputs.fenix.overlays.default ];
+            };
+          };
+        };
 
         deploy = {
           sshUser = "asahi";

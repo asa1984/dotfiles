@@ -1,4 +1,8 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  ...
+}:
 let
   tools = with pkgs; [
     # Inner tools
@@ -79,8 +83,13 @@ let
     tinymist
     typstyle
   ];
-  neovimWrapper = inputs.asa1984-nvim.lib.${pkgs.system}.mkNeovimWrapper tools;
+  neovimWrapper = inputs.asa1984-nvim.lib.${pkgs.system}.makeNeovimWrapper tools;
 in
 {
   home.packages = [ neovimWrapper ] ++ tools;
+
+  programs.zsh.shellAliases = {
+    vi = "nvim";
+    vim = "nvim";
+  };
 }
