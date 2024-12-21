@@ -1,17 +1,16 @@
-{ pkgs, username, ... }:
+{ pkgs, lib, ... }:
 {
   nix = {
-    package = pkgs.nix;
     settings = {
-      auto-optimise-store = true;
+      auto-optimise-store = pkgs.stdenv.isLinux;
       experimental-features = [
         "nix-command"
         "flakes"
       ];
       trusted-users = [
         "root"
-        "${username}"
-      ];
+        "@weel"
+      ] ++ lib.optionals pkgs.stdenv.isLinux [ "@admin" ];
       accept-flake-config = true;
     };
   };
