@@ -2,118 +2,58 @@
   description = "NixOS & homa-manager configurations of asa1984";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    # Nixpkgs
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Utilities
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    git-hooks.url = "github:cachix/git-hooks.nix";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+
+    # Modules
+    deploy-rs.url = "github:serokell/deploy-rs";
+    home-manager.url = "github:nix-community/home-manager";
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.1";
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    sops-nix.url = "github:Mic92/sops-nix";
+
+    # Overlays
+    fenix.url = "github:nix-community/fenix";
+
+    # Packages
+    asa1984-nvim.url = "github:asa1984/asa1984.nvim";
+    hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
+    hyprsome.url = "github:sopa0/hyprsome";
+    wezterm.url = "github:wez/wezterm?dir=nix";
+    xremap.url = "github:xremap/nix-flake";
 
     # Inner deps
     flake-utils.url = "github:numtide/flake-utils";
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    crane.url = "github:ipetkov/crane";
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    git-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-    };
-
-    # NixOS hardware configurations
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
-
-    # Secure boot
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        crane.follows = "crane";
-        rust-overlay.follows = "rust-overlay";
-      };
-    };
-
-    # Remote deployment
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-      };
-    };
-
-    # Secret management
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-    };
-
-    # My personal pre-configured Neovim
-    asa1984-nvim.url = "github:asa1984/asa1984.nvim";
-
-    # Rust toolchain
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Key remapper
-    xremap = {
-      url = "github:xremap/nix-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        treefmt-nix.follows = "treefmt-nix";
-        crane.follows = "crane";
-        hyprland.follows = "hyprland";
-        home-manager.follows = "home-manager";
-      };
-    };
-
-    # Hyprland
-    hyprland.url = "github:hyprwm/Hyprland/v0.45.0";
-    hyprsome = {
-      url = "github:sopa0/hyprsome";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        # crane.follows = "crane";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
-    # TUI RSS feed reader
-    # syndicationd.url = "github:ymgyt/syndicationd";
-
-    # WezTerm
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        rust-overlay.follows = "rust-overlay";
-      };
-    };
+    asa1984-nvim.inputs.git-hooks.follows = "";
+    deploy-rs.inputs.flake-compat.follows = "";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+    deploy-rs.inputs.utils.follows = "flake-utils";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+    git-hooks.inputs.flake-compat.follows = "";
+    git-hooks.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland.inputs.pre-commit-hooks.follows = "";
+    hyprsome.inputs.flake-utils.follows = "flake-utils";
+    hyprsome.inputs.nixpkgs.follows = "nixpkgs";
+    lanzaboote.inputs.flake-compat.follows = "";
+    lanzaboote.inputs.pre-commit-hooks-nix.follows = "";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+    xremap.inputs.flake-parts.follows = "flake-parts";
+    xremap.inputs.home-manager.follows = "home-manager";
+    xremap.inputs.hyprland.follows = "hyprland";
+    xremap.inputs.nixpkgs.follows = "nixpkgs";
+    xremap.inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   outputs =
@@ -174,27 +114,6 @@
         {
           packages = import ./pkgs pkgs;
 
-          pre-commit = {
-            check.enable = true;
-            settings = {
-              src = ./.;
-              hooks = {
-                shellcheck.enable = true;
-                treefmt.enable = true;
-              };
-            };
-          };
-
-          treefmt = {
-            projectRootFile = "flake.nix";
-            programs = {
-              nixfmt.enable = true;
-              rustfmt.enable = true;
-              stylua.enable = true;
-              taplo.enable = true;
-            };
-          };
-
           devShells = {
             default = pkgs.mkShell {
               packages = (
@@ -213,6 +132,27 @@
             deploy = {
               type = "app";
               program = "${inputs.deploy-rs.packages.${system}.default}/bin/deploy";
+            };
+          };
+
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs = {
+              nixfmt.enable = true;
+              rustfmt.enable = true;
+              stylua.enable = true;
+              taplo.enable = true;
+            };
+          };
+
+          pre-commit = {
+            check.enable = true;
+            settings = {
+              src = ./.;
+              hooks = {
+                shellcheck.enable = true;
+                treefmt.enable = true;
+              };
             };
           };
         };
