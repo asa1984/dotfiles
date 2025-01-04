@@ -72,6 +72,8 @@
       ];
 
       flake = {
+        overlays = import ./overlays;
+
         nixosConfigurations = (import ./hosts inputs).nixos;
 
         homeConfigurations = (import ./hosts inputs).home-manager;
