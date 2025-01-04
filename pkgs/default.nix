@@ -1,6 +1,7 @@
-# pkgs: (pkgs.callPackage ./noto-fonts.nix {})
 pkgs: {
-  noto-fonts = pkgs.callPackage ./noto-fonts.nix { };
-  noto-fonts-cjk-sans = pkgs.callPackage ./noto-fonts-cjk-sans.nix { };
-  noto-fonts-cjk-serif = pkgs.callPackage ./noto-fonts-cjk-serif.nix { };
+  gh-q = pkgs.callPackage ./gh-q { };
+  hypr-helper = pkgs.callPackage ./hypr-helper { };
+  noto-fonts-not-variable = pkgs.callPackage ./noto-fonts-not-variable { };
+  noto-fonts-cjk-sans-not-variable = pkgs.callPackage ./noto-fonts-cjk-sans-not-variable { };
+  noto-fonts-cjk-serif-not-variable = pkgs.callPackage ./noto-fonts-cjk-sans-not-variable { };
 }
