@@ -57,7 +57,12 @@
   };
 
   outputs =
-    inputs:
+    rawInputs@{ self, ... }:
+    let
+      inputs = rawInputs // {
+        private-modules = builtins.getFlake "github:asa1984/private-modules/718b83e5ae0b0165ef340e3992aced8cae1afa74";
+      };
+    in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "aarch64-linux" # 64-bit ARM Linux
@@ -72,22 +77,21 @@
       ];
 
       flake = {
-        overlays = import ./overlays;
+        lib = import ./lib inputs;
+
+        overlays = import ./overlays inputs;
 
         nixosConfigurations = (import ./hosts inputs).nixos;
 
         homeConfigurations = (import ./hosts inputs).home-manager;
 
         darwinConfigurations = {
-          gaul = inputs.nix-darwin.lib.darwinSystem {
-            modules = [ ./hosts/gaul/darwin.nix ];
-            specialArgs = {
-              inherit inputs;
-              username = "asahi";
-              hostname = "gaul";
-              system = "aarch64-darwin";
-              overlays = [ inputs.fenix.overlays.default ];
-            };
+          gaul = self.lib.makeDarwinConfig {
+            system = "aarch64-darwin";
+            hostname = "gaul";
+            username = "asahi";
+            theme = "tokyonight-moon";
+            modules = [ ./hosts/gaul/nix-darwin.nix ];
           };
         };
 
@@ -98,7 +102,7 @@
             rhine = {
               hostname = "rhine";
               profiles.system = {
-                path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.rhine;
+                path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rhine;
               };
             };
           };
