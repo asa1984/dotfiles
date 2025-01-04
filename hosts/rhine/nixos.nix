@@ -9,9 +9,18 @@
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/core
-    ../../modules/programs/shell.nix
+    ../../configs/nixos/core/docker.nix
+    ../../configs/nixos/core/network.nix
+    ../../configs/nixos/core/nix.nix
+    ../../configs/nixos/core/shell.nix
+
+    ../../configs/nixos/apps/keybase.nix
+    ../../configs/nixos/apps/sops.nix
+    ../../configs/nixos/apps/tailscale.nix
   ];
+
+  # Don't touch this
+  system.stateVersion = "23.05";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -28,9 +37,10 @@
       "video"
     ];
   };
+  time.timeZone = "Asia/Tokyo";
+  i18n.defaultLocale = "en_US.UTF-8";
 
-  # Don't touch this
-  system.stateVersion = "23.05";
+  programs.nix-ld.enable = true;
 
   services.xserver = {
     enable = true;

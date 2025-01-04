@@ -82,10 +82,52 @@
         overlays = import ./overlays inputs;
 
         nixosModules.default = import ./modules/nixos;
-        nixosConfigurations = (import ./hosts inputs).nixos;
+        nixosConfigurations = {
+          terra = self.lib.makeNixosConfig {
+            system = "x86_64-linux";
+            hostname = "terra";
+            username = "asahi";
+            modules = [ ./hosts/terra/nixos.nix ];
+          };
+
+          rhodes = self.lib.makeNixosConfig {
+            system = "x86_64-linux";
+            hostname = "rhodes";
+            username = "asahi";
+            modules = [ ./hosts/rhodes/nixos.nix ];
+          };
+
+          rhine = self.lib.makeNixosConfig {
+            system = "x86_64-linux";
+            hostname = "rhine";
+            username = "asahi";
+            modules = [ ./hosts/rhine/nixos.nix ];
+          };
+        };
 
         homeManagerModules.default = import ./modules/home-manager;
-        homeConfigurations = (import ./hosts inputs).home-manager;
+        homeConfigurations = {
+          "asahi@terra" = self.lib.makeHomeManagerConfig {
+            system = "x86_64-linux";
+            username = "asahi";
+            theme = "tokyonight-moon";
+            modules = [ ./hosts/terra/home-manager.nix ];
+          };
+
+          "asahi@rhodes" = self.lib.makeHomeManagerConfig {
+            system = "x86_64-linux";
+            username = "asahi";
+            theme = "tokyonight-moon";
+            modules = [ ./hosts/rhodes/home-manager.nix ];
+          };
+
+          "asahi@rhine" = self.lib.makeHomeManagerConfig {
+            system = "x86_64-linux";
+            username = "asahi";
+            theme = "tokyonight-moon";
+            modules = [ ./hosts/rhine/home-manager.nix ];
+          };
+        };
 
         darwinModules.default = import ./modules/nix-darwin;
         darwinConfigurations = {
