@@ -2,14 +2,14 @@
 
 asa1984's NixOS & home-manager configurations
 
-| Category | Name           | Description                           |
-| -------- | -------------- | ------------------------------------- |
-| OS       | NixOS          | **_The Best Linux Distro_**           |
-| Kernel   | XanMod         | How to pronounce?                     |
-| Shell    | zsh + Starship | Simple & Stylish                      |
-| Editor   | Neovim         | Pursuing developer experience         |
-| Terminal | WezTerm        | Practical terminal emulator           |
-| WM       | Hyprland       | Beautiful animation & Nix integration |
+| Category | Name           | Description                                             |
+| -------- | -------------- | ------------------------------------------------------- |
+| OS       | NixOS          | **_The Best Linux Distro_**                             |
+| Kernel   | XanMod         | How to pronounce?                                       |
+| Shell    | zsh + Starship | Simple & Stylish                                        |
+| Editor   | Neovim         | [asa1984.nvim](https://github.com/asa1984/asa1984.nvim) |
+| Terminal | WezTerm        | Practical terminal emulator                             |
+| WM       | Hyprland       | Beautiful animation & Nix integration                   |
 
 ![desktop](./_image/desktop.png)
 
@@ -17,36 +17,36 @@ asa1984's NixOS & home-manager configurations
 
 ### `hosts`
 
-Per-host settings (e.g. hardware configurations)
+Per-host configurations
 
-- `terra`: My primary desktop PC
-- `rhodes`: My laptop (HP Envy13)
-- `rhine`: VM on the Proxmox VE server
+| Name   | Description           |
+| ------ | --------------------- |
+| terra  | My primary desktop PC |
+| rhodes | My laptop (HP Envy13) |
+| rhine  | VM on the Proxmox VE  |
+| gaul   | M1 Macbook Air        |
 
 ### `modules`
 
-Shared NixOS modules
+NixOS / home-manager / nix-darwin modules
 
-- `core`: Commonly used settings
-- `desktop`: For desktop environments
-- `programs`: Optional programs
+### `configs`
 
-### `home-manager`
-
-- `cli`: CLI tools
-- `gui`: GUI applications
-- `desktop`: Desktop environments & Utilities
+Shared configurations for NixOS / home-manager / nix-darwin
 
 ### `pkgs`
 
-Personal packages
+User packages
 
-- Noto Sans CJK JP (Non-variable font)
-  - For some software that does not support variable fonts (e.g. Steam)
+| Name                      | Description                               |
+| ------------------------- | ----------------------------------------- |
+| gh-q                      | `gh` extension to fuzzy-find GitHub repos |
+| hypr-helper               | My hyprland helper tool                   |
+| noto-fonts-\*not-variable | Noto Sans (Not variable version)          |
 
 ### `themes`
 
-The color schemes for all applications
+The color schemes
 
 - **tokyonight-moon**: Refer to [folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim)
 
@@ -71,6 +71,12 @@ reboot
 ```nix
 nix develop
 nh home switch .
+```
+
+### nix-darwin
+
+```nix
+nix run nix-darwin -- switch --flake .
 ```
 
 ## 📖 References
