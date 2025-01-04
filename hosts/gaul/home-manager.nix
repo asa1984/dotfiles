@@ -1,15 +1,16 @@
 {
+  inputs,
   pkgs,
-  private-modules,
   username,
   ...
 }:
 {
   imports = [
+    inputs.private-modules.hmModules.gaul
+
     ../../home-manager/cli
     ../../home-manager/gui/terminals/wezterm
     ../../modules/home-manager
-    private-modules.hmModules.gaul
   ];
 
   home = {
