@@ -102,10 +102,5 @@ in
       overlays = [ inputs.fenix.overlays.default ];
       modules = [ ./rhine/home-manager.nix ];
     };
-    "ema@jetson" = mkHomeManagerConfiguration {
-      system = "aarch64-linux";
-      username = "ema";
-      overlays = [ inputs.fenix.overlays.default ];
-    };
   };
 }
