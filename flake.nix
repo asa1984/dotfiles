@@ -81,10 +81,13 @@
 
         overlays = import ./overlays inputs;
 
+        nixosModules.default = import ./modules/nixos;
         nixosConfigurations = (import ./hosts inputs).nixos;
 
+        homeManagerModules.default = import ./modules/home-manager;
         homeConfigurations = (import ./hosts inputs).home-manager;
 
+        darwinModules.default = import ./modules/nix-darwin;
         darwinConfigurations = {
           gaul = self.lib.makeDarwinConfig {
             system = "aarch64-darwin";

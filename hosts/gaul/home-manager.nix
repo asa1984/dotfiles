@@ -6,11 +6,18 @@
 }:
 {
   imports = [
-    inputs.private-modules.hmModules.gaul
-
-    ../../home-manager/cli
-    ../../home-manager/gui/terminals/wezterm
     ../../modules/home-manager
+
+    inputs.private-modules.hmModules.gaul
+    ../../configs/home-manager/cli-utilities
+    ../../configs/home-manager/direnv
+    ../../configs/home-manager/gh
+    ../../configs/home-manager/git
+    ../../configs/home-manager/lazygit
+    ../../configs/home-manager/neovim
+    ../../configs/home-manager/starship
+    ../../configs/home-manager/wezterm
+    ../../configs/home-manager/zsh
   ];
 
   home = {
@@ -20,17 +27,22 @@
     enableNixpkgsReleaseCheck = false;
   };
 
-  programs.home-manager.enable = true;
-  programs.git.enable = true;
-  services.colima.enable = true;
-  services.keybase-service.enable = true;
-
-  programs.google-chrome.enable = true;
-  services.raycast.enable = true;
+  development.enable = true;
 
   home.packages = with pkgs; [
     arc-browser
     keybase
     vscode
   ];
+
+  programs.home-manager.enable = true;
+
+  # Development
+  programs.git.enable = true;
+  services.colima.enable = true;
+  services.keybase-service.enable = true;
+
+  # GUI
+  programs.google-chrome.enable = true;
+  services.raycast.enable = true;
 }

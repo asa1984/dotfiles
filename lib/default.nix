@@ -16,15 +16,6 @@ in
     }:
     inputs.nixpkgs.lib.nixosSystem {
       inherit system;
-      modules = modules ++ [
-        {
-          nixpkgs = {
-            inherit overlays;
-            config.allowUnfree = true;
-            hostPlatform = system;
-          };
-        }
-      ];
       specialArgs = {
         inherit
           hostname
@@ -37,6 +28,15 @@ in
           config.allowUnfree = true;
         };
       };
+      modules = [
+        {
+          nixpkgs = {
+            inherit overlays;
+            config.allowUnfree = true;
+            hostPlatform = system;
+          };
+        }
+      ] ++ [ inputs.self.nixosModules.default ] ++ modules;
     };
 
   makeHomeManagerConfig =
@@ -74,7 +74,7 @@ in
             programs.git.enable = true;
           }
         )
-      ] ++ modules;
+      ] ++ [ inputs.self.homeManagerModules.default ] ++ modules;
     };
 
   makeDarwinConfig =
@@ -87,15 +87,6 @@ in
       username, # String
     }:
     inputs.nix-darwin.lib.darwinSystem {
-      modules = [
-        {
-          nixpkgs = {
-            inherit overlays;
-            config.allowUnfree = true;
-            hostPlatform = system;
-          };
-        }
-      ] ++ modules;
       specialArgs = {
         inherit
           hostname
@@ -109,5 +100,14 @@ in
           config.allowUnfree = true;
         };
       };
+      modules = [
+        {
+          nixpkgs = {
+            inherit overlays;
+            config.allowUnfree = true;
+            hostPlatform = system;
+          };
+        }
+      ] ++ [ inputs.self.darwinModules.default ] ++ modules;
     };
 }
