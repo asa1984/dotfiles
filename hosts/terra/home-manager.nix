@@ -1,11 +1,45 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../home-manager/cli
-    ../../home-manager/gui
-    ../../home-manager/desktop/hyprland
-    # ../../home-manager/desktop/xmonad
+    ../../modules/home-manager
+
+    ../../configs/home-manager/cli-utilities
+    ../../configs/home-manager/direnv
+    ../../configs/home-manager/fcitx5
+    ../../configs/home-manager/gh
+    ../../configs/home-manager/git
+    ../../configs/home-manager/gtk
+    ../../configs/home-manager/gui-utilities
+    ../../configs/home-manager/hyprland
+    ../../configs/home-manager/lazygit
+    ../../configs/home-manager/neovim
+    ../../configs/home-manager/starship
+    ../../configs/home-manager/vivaldi
+    ../../configs/home-manager/wezterm
+    ../../configs/home-manager/xdg
+    ../../configs/home-manager/zsh
   ];
+
+  development.enable = true;
+
+  home.packages = with pkgs; [
+    discord
+    discord-ptb
+    jdk
+    parsec-bin
+    prismlauncher # alternative minecraft launcher
+    slack
+    spotify
+    vscode
+    zoom-us
+  ];
+
+  programs = {
+    firefox.enable = true;
+    google-chrome.enable = true;
+    ncspot.enable = true;
+    obs-studio.enable = true;
+  };
 
   wayland.windowManager.hyprland.settings = {
     monitor = [
@@ -37,9 +71,4 @@
     ];
     input.kb_layout = "us";
   };
-
-  home.packages = with pkgs; [
-    prismlauncher # alternative minecraft launcher
-    jdk
-  ];
 }

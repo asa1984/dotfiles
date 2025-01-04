@@ -1,9 +1,35 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
-    ../../home-manager/cli
-    ../../home-manager/desktop/hyprland
-    ../../home-manager/gui
+    ../../modules/home-manager
+
+    ../../configs/home-manager/cli-utilities
+    ../../configs/home-manager/direnv
+    ../../configs/home-manager/fcitx5
+    ../../configs/home-manager/gh
+    ../../configs/home-manager/git
+    ../../configs/home-manager/gtk
+    ../../configs/home-manager/gui-utilities
+    ../../configs/home-manager/hyprland
+    ../../configs/home-manager/lazygit
+    ../../configs/home-manager/neovim
+    ../../configs/home-manager/starship
+    ../../configs/home-manager/vivaldi
+    ../../configs/home-manager/wezterm
+    ../../configs/home-manager/xdg
+    ../../configs/home-manager/zsh
+  ];
+
+  development.enable = true;
+
+  home.packages = with pkgs; [
+    discord
+    discord-ptb
+    parsec-bin
+    slack
+    spotify
+    vscode
+    zoom-us
   ];
 
   wayland.windowManager.hyprland.settings = {

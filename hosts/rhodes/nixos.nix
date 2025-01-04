@@ -11,13 +11,22 @@
     [
       ./hardware-configuration.nix
 
-      ../../modules/core
-      ../../modules/desktop
-      ../../modules/programs/flatpak.nix
-      ../../modules/programs/hyprland.nix
-      ../../modules/programs/keybase.nix
-      ../../modules/programs/media.nix
-      ../../modules/programs/shell.nix
+      ../../configs/nixos/core/docker.nix
+      ../../configs/nixos/core/network.nix
+      ../../configs/nixos/core/nix.nix
+      ../../configs/nixos/core/shell.nix
+
+      ../../configs/nixos/apps/keybase.nix
+      ../../configs/nixos/apps/keyring.nix
+      ../../configs/nixos/apps/sops.nix
+      ../../configs/nixos/apps/sunshine.nix
+      ../../configs/nixos/apps/tailscale.nix
+      ../../configs/nixos/apps/xremap.nix
+
+      ../../configs/nixos/desktop/fcitx5.nix
+      ../../configs/nixos/desktop/fonts.nix
+      ../../configs/nixos/desktop/hyprland.nix
+      ../../configs/nixos/desktop/sound.nix
     ]
     ++ (with inputs.nixos-hardware.nixosModules; [
       common-cpu-amd
@@ -25,6 +34,9 @@
       common-pc-ssd
       common-pc-laptop
     ]);
+
+  # Don't touch this
+  system.stateVersion = "22.11";
 
   boot = {
     loader = {
@@ -37,9 +49,6 @@
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   };
 
-  # Don't touch this
-  system.stateVersion = "22.11";
-
   users.users."${username}" = {
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -50,6 +59,10 @@
       "video"
     ];
   };
+  time.timeZone = "Asia/Tokyo";
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  programs.nix-ld.enable = true;
 
   # Bluetooth
   hardware.bluetooth.enable = true;
