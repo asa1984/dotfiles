@@ -138,6 +138,13 @@
             theme = "tokyonight-moon";
             modules = [ ./hosts/gaul/nix-darwin.nix ];
           };
+          endfield=self.lib.makeDarwinConfig{
+            system = "aarch64-darwin";
+            hostname = "endfield";
+            username = "asahi";
+            theme = "tokyonight-moon";
+            modules = [ ./hosts/endfield/nix-darwin.nix ];
+          };
         };
 
         deploy = {
