@@ -2,6 +2,7 @@
   hostname,
   inputs,
   pkgs,
+  pkgs-stable,
   theme,
   username,
   ...
@@ -19,7 +20,7 @@
   networking.hostName = hostname;
   users.users.${username}.home = "/Users/${username}";
   fonts.packages = with pkgs; [ hackgen-nf-font ];
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # home-manager
   home-manager = {
@@ -30,6 +31,7 @@
       inherit
         hostname
         inputs
+        pkgs-stable
         theme
         username
         ;

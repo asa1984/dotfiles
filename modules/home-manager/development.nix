@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-stable,
   ...
 }:
 with lib;
@@ -192,7 +193,7 @@ in
           pkgs.eslint
           pkgs.nodePackages."@astrojs/language-server"
           pkgs.nodePackages."@tailwindcss/language-server"
-          pkgs.nodePackages.graphql-language-service-cli
+          pkgs-stable.nodePackages.graphql-language-service-cli # github:NixOS/nixpkgs issue#390063
           pkgs.nodePackages.pnpm
           pkgs.nodePackages.typescript-language-server
           pkgs.nodePackages.vscode-langservers-extracted
@@ -225,9 +226,9 @@ in
         ])
         ++ optionals cfg.languages.rust.enable ([
           (pkgs.fenix.combine [
-            pkgs.fenix.stable.toolchain
-            pkgs.fenix.targets.wasm32-unknown-unknown.stable.rust-std
-            pkgs.fenix.targets.wasm32-wasi.stable.rust-std
+            pkgs.fenix.latest.toolchain
+            pkgs.fenix.targets.wasm32-unknown-unknown.latest.rust-std
+            pkgs.fenix.targets.wasm32-wasi.latest.rust-std
           ])
         ])
         ++ optionals cfg.languages.shell.enable ([

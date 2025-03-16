@@ -17,16 +17,16 @@ let
     nodePackages.vscode-langservers-extracted
 
     ## JavaScript/TypeScript/Frameworks
-    biome
-    deno
-    nodePackages.eslint
-    nodePackages.prettier
-    nodePackages.typescript-language-server
-    nodePackages."@astrojs/language-server"
-    nodePackages."@tailwindcss/language-server"
+    # biome
+    # deno
+    # nodePackages.eslint
+    # nodePackages.prettier
+    # nodePackages.typescript-language-server
+    # nodePackages."@astrojs/language-server"
+    # nodePackages."@tailwindcss/language-server"
 
     ## GraphQL
-    nodePackages.graphql-language-service-cli
+    # nodePackages.graphql-language-service-cli
 
     # Programming languages
     ## Lua
