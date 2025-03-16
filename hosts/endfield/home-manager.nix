@@ -28,6 +28,7 @@
   development.enable = true;
 
   home.packages = with pkgs; [
+    _1password-cli
     vscode
   ];
 

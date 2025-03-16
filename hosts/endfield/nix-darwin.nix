@@ -44,12 +44,17 @@
       cleanup = "uninstall";
     };
     casks = [
+      "1password"
       "arc"
       "cursor"
       "discord"
+      "minecraft"
+      "modrinth"
       "orbstack"
+      "parsec"
       "slack"
       "spotify"
+      "zoom"
     ];
   };
 
