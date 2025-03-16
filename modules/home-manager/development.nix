@@ -119,6 +119,14 @@ in
         };
       };
 
+      terraform = {
+        enable = mkOption {
+          type = types.bool;
+          default = true;
+          description = "Enable Terraform";
+        };
+      };
+
       typst = {
         enable = mkOption {
           type = types.bool;
@@ -225,6 +233,11 @@ in
         ++ optionals cfg.languages.shell.enable ([
           pkgs.shellcheck
           pkgs.shfmt
+        ])
+        ++ optionals cfg.languages.terraform.enable ([
+          pkgs.terraform
+          pkgs.terraform-ls
+          pkgs.opentofu
         ])
         ++ optionals cfg.languages.typst.enable ([
           pkgs.typst
