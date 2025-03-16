@@ -5,14 +5,15 @@
     userEmail = "satoasa9913@gmail.com";
     signing = {
       key = "D6B5DF95C5360AE9";
-      signByDefault = true;
+      signByDefault = false;
     };
     extraConfig = {
       init.defaultBranch = "main";
-      commit.gpgsign = true;
+      commit.gpgsign = false;
       merge.conflictStyle = "diff3";
       rebase.autoSquash = true;
       pull.rebase = true;
+      push.autoSetupRemote = true;
     };
     ignores = [
       ".direnv"
