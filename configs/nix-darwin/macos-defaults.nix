@@ -20,6 +20,8 @@
         ShowStatusBar = true;
       };
       NSGlobalDomain = {
+        "com.apple.keyboard.fnState" = true; # Use function keys as standard function keys
+        "com.apple.swipescrolldirection" = false; # Disable natural scrolling
         InitialKeyRepeat = 15;
         KeyRepeat = 2;
       };
