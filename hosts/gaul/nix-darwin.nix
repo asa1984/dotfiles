@@ -1,8 +1,7 @@
 {
   hostname,
   inputs,
-  pkgs,
-  system,
+  pkgs-stable,
   theme,
   username,
   ...
@@ -31,6 +30,7 @@
       inherit
         hostname
         inputs
+        pkgs-stable
         theme
         username
         ;
