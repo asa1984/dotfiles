@@ -30,8 +30,6 @@
   development.enable = true;
 
   home.packages = with pkgs; [
-    arc-browser
-    keybase
     vscode
   ];
 
@@ -39,10 +37,7 @@
 
   # Development
   programs.git.enable = true;
-  services.colima.enable = true;
-  services.keybase-service.enable = true;
 
   # GUI
-  programs.google-chrome.enable = true;
   services.raycast.enable = true;
 }
