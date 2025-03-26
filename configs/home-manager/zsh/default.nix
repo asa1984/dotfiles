@@ -16,6 +16,8 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
+    history.ignoreAllDups = true;
+
     shellAliases = {
       # Enable aliases to be sudo’ed
       sudo = "sudo ";
