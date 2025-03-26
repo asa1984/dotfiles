@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     # Coreutils replacements
     bat # cat alternative
+    bottom # top alternative
     du-dust # du alternative
     duf # df alternative
     eza # ls alternative
@@ -10,7 +11,7 @@
     ripgrep # grep alternative
 
     # Utilities
-    bottom # top alternative
+    ffmpeg # media manipulation
     fx # json viewer
     fzf # fazzy finder
     ghq # git repository manager
@@ -21,12 +22,14 @@
     lazydocker # docker tui
     nh # nix cli helper
     nurl # generate nix fetcher
+    nvfetcher # nix fetcher
     procs # ps alternative
     silicon # code to image
     speedtest-cli # speedtest
     tokei # analyze code statistics
     typos # find typos
     yazi # file manager
+    zellij # terminal multiplexer
 
     # Archives
     unar
