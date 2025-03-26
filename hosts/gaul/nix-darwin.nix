@@ -13,6 +13,7 @@
     inputs.private-modules.darwinModules.gaul
 
     ../../configs/nix-darwin/macos-defaults.nix
+    ../../configs/nix-darwin/misc.nix
     ../../configs/nix-darwin/nix.nix
   ];
 
