@@ -1,7 +1,6 @@
 {
   hostname,
   inputs,
-  pkgs,
   pkgs-stable,
   theme,
   username,
@@ -47,8 +46,10 @@
     casks = [
       "1password"
       "arc"
+      "claude"
       "cursor"
       "discord"
+      "discord@ptb"
       "minecraft"
       "modrinth"
       "orbstack"
