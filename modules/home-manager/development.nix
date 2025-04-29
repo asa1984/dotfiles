@@ -186,6 +186,7 @@ in
           stack-wrapped
         ])
         ++ optionals cfg.languages.javascript.enable ([
+          pkgs-stable.nodePackages.graphql-language-service-cli # github:NixOS/nixpkgs issue#390063
           pkgs.biome
           pkgs.bun
           pkgs.corepack
@@ -193,13 +194,12 @@ in
           pkgs.eslint
           pkgs.nodePackages."@astrojs/language-server"
           pkgs.nodePackages."@tailwindcss/language-server"
-          pkgs-stable.nodePackages.graphql-language-service-cli # github:NixOS/nixpkgs issue#390063
           pkgs.nodePackages.pnpm
-          pkgs.nodePackages.typescript-language-server
+          pkgs.nodePackages.prettier
           pkgs.nodePackages.vscode-langservers-extracted
           pkgs.nodePackages.yarn
           pkgs.nodejs
-          pkgs.nodePackages.prettier
+          pkgs.vtsls
         ])
         ++ optionals cfg.languages.lua.enable ([
           pkgs.lua-language-server
