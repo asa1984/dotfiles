@@ -186,12 +186,12 @@ in
           stack-wrapped
         ])
         ++ optionals cfg.languages.javascript.enable ([
-          pkgs-stable.nodePackages.graphql-language-service-cli # github:NixOS/nixpkgs issue#390063
           pkgs.biome
           pkgs.bun
           pkgs.corepack
           pkgs.deno
           pkgs.eslint
+          pkgs.graphql-language-service-cli
           pkgs.nodePackages."@astrojs/language-server"
           pkgs.nodePackages."@tailwindcss/language-server"
           pkgs.nodePackages.pnpm
