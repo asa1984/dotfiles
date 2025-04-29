@@ -32,7 +32,6 @@
     # Inner deps
     flake-utils.url = "github:numtide/flake-utils";
 
-    asa1984-nvim.inputs.git-hooks.follows = "";
     deploy-rs.inputs.flake-compat.follows = "";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     deploy-rs.inputs.utils.follows = "flake-utils";
@@ -138,7 +137,7 @@
             theme = "tokyonight-moon";
             modules = [ ./hosts/gaul/nix-darwin.nix ];
           };
-          endfield=self.lib.makeDarwinConfig{
+          endfield = self.lib.makeDarwinConfig {
             system = "aarch64-darwin";
             hostname = "endfield";
             username = "asahi";
