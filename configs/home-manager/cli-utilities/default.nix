@@ -15,12 +15,14 @@
     fx # json viewer
     fzf # fazzy finder
     ghq # git repository manager
+    go-task # task runner
     httpie # http client
     imagemagick # image manipulation
     jq # json parser
     killall # process killer
     lazydocker # docker tui
     nh # nix cli helper
+    nix-update # nix package updater
     nurl # generate nix fetcher
     nvfetcher # nix fetcher
     procs # ps alternative
