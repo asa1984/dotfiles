@@ -1,4 +1,5 @@
 pkgs: {
+  claude-code = pkgs.callPackage ./claude-code { };
   gh-q = pkgs.callPackage ./gh-q { };
   hypr-helper = pkgs.callPackage ./hypr-helper { };
   noto-fonts-not-variable = pkgs.callPackage ./noto-fonts-not-variable { };

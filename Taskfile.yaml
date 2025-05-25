@@ -1,0 +1,32 @@
+version: "3"
+
+silent: true
+
+tasks:
+  update:
+    desc: "Update all packages"
+    deps:
+      - task: update:claude-code
+    cmds:
+      - echo "All packages updated successfully."
+
+  update:claude-code:
+    desc: "Update claude-code"
+    vars:
+      VERSION:
+        sh: npm view @anthropic-ai/claude-code version
+    deps:
+      - task: update:claude-code:lock
+        vars: { VERSION: "{{.VERSION}}" }
+    cmds:
+      - echo "Updating claude-code hash..."
+      - nix-update claude-code --flake --version {{.VERSION}} > /dev/null 2>&1
+      - echo "Update claude-code complete."
+
+  update:claude-code:lock:
+    desc: "Generate package-lock.json for claude-code"
+    dir: pkgs/claude-code
+    cmds:
+      - echo "Generating package-lock.json for claude-code version {{.VERSION}}"
+      - cmd: npm install --package-lock-only @anthropic-ai/claude-code@{{.VERSION}} --silent
+      - rm -f package.json

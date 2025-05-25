@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   home.packages = with pkgs; [
     # Coreutils replacements
@@ -39,5 +39,8 @@
 
     # Rice
     fastfetch
+
+    # Agents
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
   ];
 }
