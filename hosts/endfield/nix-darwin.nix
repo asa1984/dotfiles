@@ -19,6 +19,7 @@
   system.stateVersion = 5;
   networking.hostName = hostname;
   users.users.${username}.home = "/Users/${username}";
+  system.primaryUser = username;
 
   # home-manager
   home-manager = {
