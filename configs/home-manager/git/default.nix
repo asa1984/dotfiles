@@ -19,6 +19,7 @@
       ".direnv"
       ".devenv"
       ".neoconf.json"
+      ".claude/settings.local.json"
     ];
     difftastic.enable = true;
   };
