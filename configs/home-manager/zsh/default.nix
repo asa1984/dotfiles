@@ -64,7 +64,7 @@
       clip = "xclip -selection clipboard";
     };
 
-    initExtra =
+    initContent =
       # bash
       ''
         export EDITOR="nvim"
