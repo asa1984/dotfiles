@@ -47,6 +47,7 @@
     casks = [
       "1password"
       "arc"
+      "blender"
       "claude"
       "cursor"
       "discord"
