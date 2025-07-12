@@ -1,0 +1,63 @@
+name: Update flake input
+
+on:
+  workflow_dispatch:
+    inputs:
+      input:
+        description: "The flake input to update"
+        required: true
+        type: string
+      title:
+        description: "The commit title"
+        required: true
+        type: string
+      body:
+        description: "The commit body"
+        required: true
+        type: string
+      base:
+        description: "The base branch to create the PR against"
+        required: false
+        default: "main"
+        type: string
+
+jobs:
+  update-flake-input:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Update flake input
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +e
+          set +o pipefail
+
+          nix flake update "${{ inputs.input }}"
+
+          branch="update-flake-input/${{ inputs.input }}"
+          git switch -c "$branch"
+          git commit --all --message "${{ inputs.title }}" --message "${{ inputs.body }}"
+          git push --force origin "$branch"
+          gh pr create --fill --base "${{ inputs.base }}"
+          gh pr merge --auto --squash --delete-branch
+
