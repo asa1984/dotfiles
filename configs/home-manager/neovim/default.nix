@@ -70,7 +70,7 @@ let
     nodePackages.bash-language-server
 
     ## Docker
-    nodePackages.dockerfile-language-server-nodejs
+    dockerfile-language-server
 
     ## Protocol Buffers
     buf

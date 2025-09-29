@@ -1,4 +1,9 @@
-{ pkgs, theme, ... }:
+{
+  config,
+  pkgs,
+  theme,
+  ...
+}:
 {
   home.packages = with pkgs; [
     bat
@@ -9,7 +14,7 @@
 
   programs.zsh = {
     enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.home.homeDirectory}/.config/zsh";
 
     autocd = true;
     enableCompletion = true;

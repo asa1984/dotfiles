@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  pkgs-stable,
   ...
 }:
 with lib;
@@ -173,7 +172,7 @@ in
           pkgs.clang-tools
         ])
         ++ optionals cfg.languages.docker.enable ([
-          pkgs.nodePackages.dockerfile-language-server-nodejs
+          pkgs.dockerfile-language-server
         ])
         ++ optionals cfg.languages.go.enable ([
           pkgs.go
@@ -194,10 +193,8 @@ in
           pkgs.graphql-language-service-cli
           pkgs.nodePackages."@astrojs/language-server"
           pkgs.nodePackages."@tailwindcss/language-server"
-          pkgs.nodePackages.pnpm
           pkgs.nodePackages.prettier
           pkgs.nodePackages.vscode-langservers-extracted
-          pkgs.nodePackages.yarn
           pkgs.nodejs
           pkgs.vtsls
         ])
