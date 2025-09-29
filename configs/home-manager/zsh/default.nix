@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   theme,
   ...
@@ -14,7 +13,6 @@
 
   programs.zsh = {
     enable = true;
-    dotDir = "${config.home.homeDirectory}/.config/zsh";
 
     autocd = true;
     enableCompletion = true;
