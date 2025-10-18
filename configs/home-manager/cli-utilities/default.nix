@@ -43,6 +43,7 @@
     fastfetch
 
     # Agents
+    cursor-cli
     inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
   ];
 }
