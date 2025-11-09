@@ -1,0 +1,66 @@
+{
+  inputs = {
+    # Nixpkgs
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Utilities
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    git-hooks.url = "github:cachix/git-hooks.nix";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+
+    # Modules
+    home-manager.url = "github:nix-community/home-manager";
+    nix-darwin.url = "github:LnL7/nix-darwin";
+
+    # Overlays
+    fenix.url = "github:nix-community/fenix";
+
+    # Packages
+    asa1984-nvim.url = "github:asa1984/asa1984.nvim";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  outputs =
+    inputs@{ self, ... }:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "aarch64-darwin" # 64-bit ARM macOS
+      ];
+
+      flake = {
+        lib = import ../../lib inputs;
+
+        overlays = import ../../overlays inputs;
+
+        darwinModules.default = import ../../modules/nix-darwin;
+        darwinConfigurations = {
+          endfield = self.lib.makeDarwinConfig {
+            system = "aarch64-darwin";
+            hostname = "endfield";
+            username = "asahi";
+            theme = "tokyonight-moon";
+            modules = [ ./nix-darwin.nix ];
+          };
+        };
+      };
+
+      perSystem =
+        {
+          system,
+          pkgs,
+          ...
+        }:
+        {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+
+          packages = import ../../pkgs pkgs;
+        };
+    };
+}

@@ -4,7 +4,7 @@
     # Coreutils replacements
     bat # cat alternative
     bottom # top alternative
-    du-dust # du alternative
+    dust # du alternative
     duf # df alternative
     eza # ls alternative
     fd # find alternative
@@ -30,6 +30,7 @@
     speedtest-cli # speedtest
     tokei # analyze code statistics
     typos # find typos
+    wget # web downloader
     yazi # file manager
     zellij # terminal multiplexer
 

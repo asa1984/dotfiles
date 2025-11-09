@@ -4,7 +4,7 @@
   ...
 }:
 let
-  extraPackages = with pkgs; [
+  tools = with pkgs; [
     # Inner tools
     ## For telescope.nvim
     ripgrep
@@ -83,12 +83,12 @@ let
     tinymist
     typstyle
   ];
-  neovimWrapper = inputs.asa1984-nvim.lib.${pkgs.system}.makeNeovimWrapper {
-    inherit extraPackages;
-  };
 in
 {
-  home.packages = [ neovimWrapper ] ++ extraPackages;
+  home.packages = [
+    inputs.asa1984-nvim.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ]
+  ++ tools;
 
   programs.zsh.shellAliases = {
     vi = "nvim";
