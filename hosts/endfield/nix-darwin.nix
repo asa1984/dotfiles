@@ -46,6 +46,7 @@
     };
     casks = [
       "1password"
+      "ableton-live-lite"
       "arc"
       "azookey"
       "blender"
@@ -58,6 +59,7 @@
       "orbstack"
       "parsec"
       "slack"
+      "steam"
       "spotify"
       "zoom"
     ];
@@ -65,4 +67,5 @@
 
   # Misc
   programs.gnupg.agent.enable = true;
+  services.tailscale.enable = true;
 }
