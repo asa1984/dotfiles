@@ -187,7 +187,6 @@ in
         ++ optionals cfg.languages.javascript.enable ([
           pkgs.biome
           pkgs.bun
-          pkgs.corepack
           pkgs.deno
           pkgs.eslint
           pkgs.graphql-language-service-cli
@@ -195,7 +194,9 @@ in
           pkgs.nodePackages."@tailwindcss/language-server"
           pkgs.nodePackages.prettier
           pkgs.nodePackages.vscode-langservers-extracted
-          pkgs.nodejs
+          pkgs.nodejs-slim
+          pkgs.pnpm
+          pkgs.prisma-language-server
           pkgs.vtsls
         ])
         ++ optionals cfg.languages.lua.enable ([
@@ -204,7 +205,7 @@ in
         ])
         ++ optionals cfg.languages.nix.enable ([
           pkgs.nil
-          pkgs.nixfmt-rfc-style
+          pkgs.nixfmt
         ])
         ++ optionals cfg.languages.ocaml.enable ([
           pkgs.ocaml
