@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     # Coreutils replacements
@@ -44,7 +44,8 @@
     fastfetch
 
     # Agents
+    claude-code
+    codex
     cursor-cli
-    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
   ];
 }

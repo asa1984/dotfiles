@@ -35,7 +35,7 @@ let
 
     ## Nix
     nil
-    nixfmt-rfc-style
+    nixfmt
 
     ## C/C++
     clang-tools
