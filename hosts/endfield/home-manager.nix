@@ -38,6 +38,5 @@
   programs.git.enable = true;
 
   # GUI
-  programs.google-chrome.enable = true;
   services.raycast.enable = true;
 }
