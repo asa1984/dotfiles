@@ -10,6 +10,7 @@
   imports = [
     inputs.home-manager.darwinModules.home-manager
 
+    ../../configs/nix-darwin/aerospace.nix
     ../../configs/nix-darwin/macos-defaults.nix
     ../../configs/nix-darwin/misc.nix
     ../../configs/nix-darwin/nix.nix
