@@ -54,13 +54,15 @@
       "cursor"
       "discord"
       "discord@ptb"
+      "ghostty"
+      "google-chrome"
       "minecraft"
       "modrinth"
       "orbstack"
       "parsec"
       "slack"
-      "steam"
       "spotify"
+      "steam"
       "zoom"
     ];
   };
