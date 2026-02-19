@@ -1,23 +1,18 @@
 {
   inputs = {
-    # Nixpkgs
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Utilities
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
-    # Modules
+    asa1984-nvim.url = "github:asa1984/asa1984.nvim";
+    claude-code-overlay.url = "github:ryoppippi/claude-code-overlay";
+    fenix.url = "github:nix-community/fenix";
     home-manager.url = "github:nix-community/home-manager";
     nix-darwin.url = "github:LnL7/nix-darwin";
 
-    # Overlays
-    fenix.url = "github:nix-community/fenix";
-
-    # Packages
-    asa1984-nvim.url = "github:asa1984/asa1984.nvim";
+    claude-code-overlay.inputs.nixpkgs.follows = "nixpkgs";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
-
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };

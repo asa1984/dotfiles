@@ -6,16 +6,36 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1768199644,
-        "narHash": "sha256-QOl4QDnZVXROYjJdRpxp5ct/iE167DRc6OUlYxRJib8=",
+        "lastModified": 1771513343,
+        "narHash": "sha256-vpNJiOg7LHgCBR8VtzLtmgrzWlUFeQ2J1NxS1SR8i+0=",
         "owner": "asa1984",
         "repo": "asa1984.nvim",
-        "rev": "c468fffcf4865d4e8b1142ed8811dcd376c8ac38",
+        "rev": "822635edfed4a8bdf02088660ee65ae32ad4c83d",
         "type": "github"
       },
       "original": {
         "owner": "asa1984",
         "repo": "asa1984.nvim",
+        "type": "github"
+      }
+    },
+    "claude-code-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771452337,
+        "narHash": "sha256-+rhNFXNvS2eRBdnDY5yaX4dUcXTyhU889tFIIQo3/3M=",
+        "owner": "ryoppippi",
+        "repo": "claude-code-overlay",
+        "rev": "6f2d936ed22d0170220fc570a3350b23b02b40a5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryoppippi",
+        "repo": "claude-code-overlay",
         "type": "github"
       }
     },
@@ -197,6 +217,7 @@
     "root": {
       "inputs": {
         "asa1984-nvim": "asa1984-nvim",
+        "claude-code-overlay": "claude-code-overlay",
         "fenix": "fenix",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",

@@ -44,7 +44,7 @@
     fastfetch
 
     # Agents
-    claude-code
+    claude-code-minimal
     codex
     cursor-cli
   ];

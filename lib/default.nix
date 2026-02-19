@@ -3,6 +3,7 @@ let
   defaultOverlays = [
     inputs.self.overlays.default
     inputs.fenix.overlays.default
+    inputs.claude-code-overlay.overlays.default
   ];
 in
 {
@@ -28,18 +29,17 @@ in
           config.allowUnfree = true;
         };
       };
-      modules =
-        [
-          {
-            nixpkgs = {
-              inherit overlays;
-              config.allowUnfree = true;
-              hostPlatform = system;
-            };
-          }
-        ]
-        ++ [ inputs.self.nixosModules.default ]
-        ++ modules;
+      modules = [
+        {
+          nixpkgs = {
+            inherit overlays;
+            config.allowUnfree = true;
+            hostPlatform = system;
+          };
+        }
+      ]
+      ++ [ inputs.self.nixosModules.default ]
+      ++ modules;
     };
 
   makeHomeManagerConfig =
@@ -63,24 +63,23 @@ in
           config.allowUnfree = true;
         };
       };
-      modules =
-        [
-          (
-            { pkgs, ... }:
-            {
-              home = {
-                inherit username;
-                homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
-                stateVersion = "24.11";
-                enableNixpkgsReleaseCheck = false;
-              };
-              programs.home-manager.enable = true;
-              programs.git.enable = true;
-            }
-          )
-        ]
-        ++ [ inputs.self.homeManagerModules.default ]
-        ++ modules;
+      modules = [
+        (
+          { pkgs, ... }:
+          {
+            home = {
+              inherit username;
+              homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
+              stateVersion = "24.11";
+              enableNixpkgsReleaseCheck = false;
+            };
+            programs.home-manager.enable = true;
+            programs.git.enable = true;
+          }
+        )
+      ]
+      ++ [ inputs.self.homeManagerModules.default ]
+      ++ modules;
     };
 
   makeDarwinConfig =
@@ -106,17 +105,16 @@ in
           config.allowUnfree = true;
         };
       };
-      modules =
-        [
-          {
-            nixpkgs = {
-              inherit overlays;
-              config.allowUnfree = true;
-              hostPlatform = system;
-            };
-          }
-        ]
-        ++ [ inputs.self.darwinModules.default ]
-        ++ modules;
+      modules = [
+        {
+          nixpkgs = {
+            inherit overlays;
+            config.allowUnfree = true;
+            hostPlatform = system;
+          };
+        }
+      ]
+      ++ [ inputs.self.darwinModules.default ]
+      ++ modules;
     };
 }
