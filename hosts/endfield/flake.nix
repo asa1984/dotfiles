@@ -6,12 +6,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     asa1984-nvim.url = "github:asa1984/asa1984.nvim";
-    claude-code-overlay.url = "github:ryoppippi/claude-code-overlay";
+    llm-agents.url = "github:numtide/llm-agents.nix";
     fenix.url = "github:nix-community/fenix";
     home-manager.url = "github:nix-community/home-manager";
     nix-darwin.url = "github:LnL7/nix-darwin";
 
-    claude-code-overlay.inputs.nixpkgs.follows = "nixpkgs";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";

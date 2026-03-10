@@ -44,8 +44,9 @@
     fastfetch
 
     # Agents
-    claude-code-minimal
-    codex
-    cursor-cli
+    llm-agents.claude-code
+    llm-agents.codex
+    llm-agents.copilot-cli
+    llm-agents.cursor-agent
   ];
 }
