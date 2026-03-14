@@ -19,6 +19,7 @@
     httpie # http client
     imagemagick # image manipulation
     jq # json parser
+    just # command runner
     killall # process killer
     lazydocker # docker tui
     nh # nix cli helper
