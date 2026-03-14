@@ -62,6 +62,7 @@
       "modrinth"
       "orbstack"
       "parsec"
+      "raycast"
       "slack"
       "spotify"
       "steam"

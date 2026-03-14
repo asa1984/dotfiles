@@ -37,7 +37,4 @@
 
   # Development
   programs.git.enable = true;
-
-  # GUI
-  services.raycast.enable = true;
 }
