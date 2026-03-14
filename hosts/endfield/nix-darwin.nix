@@ -52,6 +52,7 @@
       "azookey"
       "blender"
       "claude"
+      "cmux"
       "cursor"
       "discord"
       "discord@ptb"
