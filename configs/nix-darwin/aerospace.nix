@@ -1,5 +1,96 @@
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  detectLittleArcSrc = pkgs.writeText "detect-little-arc.m" ''
+    #import <Cocoa/Cocoa.h>
 
+    extern AXError _AXUIElementGetWindow(AXUIElementRef element, CGWindowID *windowID);
+
+    int main() {
+        NSArray *apps = [NSWorkspace.sharedWorkspace runningApplications];
+        for (NSRunningApplication *app in apps) {
+            if (![app.bundleIdentifier isEqualToString:@"company.thebrowser.Browser"]) continue;
+
+            AXUIElementRef appRef = AXUIElementCreateApplication(app.processIdentifier);
+            CFArrayRef windows = NULL;
+            AXUIElementCopyAttributeValue(appRef, kAXWindowsAttribute, (CFTypeRef *)&windows);
+
+            if (!windows) { CFRelease(appRef); continue; }
+
+            for (CFIndex i = 0; i < CFArrayGetCount(windows); i++) {
+                AXUIElementRef window = (AXUIElementRef)CFArrayGetValueAtIndex(windows, i);
+                CFStringRef identifier = NULL;
+                AXUIElementCopyAttributeValue(window, kAXIdentifierAttribute, (CFTypeRef *)&identifier);
+
+                if (identifier && CFStringHasPrefix(identifier, CFSTR("littleBrowserWindow"))) {
+                    CGWindowID windowID = 0;
+                    if (_AXUIElementGetWindow(window, &windowID) == kAXErrorSuccess) {
+                        printf("%u\n", windowID);
+                    }
+                }
+                if (identifier) CFRelease(identifier);
+            }
+
+            CFRelease(windows);
+            CFRelease(appRef);
+        }
+        return 0;
+    }
+  '';
+
+  detectLittleArc = pkgs.stdenv.mkDerivation {
+    name = "detect-little-arc";
+    dontUnpack = true;
+    buildPhase = ''
+      cc -framework Cocoa -framework ApplicationServices -O2 -o detect-little-arc ${detectLittleArcSrc}
+    '';
+    installPhase = ''
+      mkdir -p $out/bin
+      cp detect-little-arc $out/bin/
+    '';
+  };
+
+  aerospace-float-arc = pkgs.writeShellApplication {
+    name = "aerospace-float-arc";
+    text = ''
+      LOG="/tmp/aerospace-float-arc.log"
+
+      # Wait for the window to be fully registered
+      sleep 0.3
+
+      WIDS=$(${detectLittleArc}/bin/detect-little-arc)
+      AEROSPACE="${config.services.aerospace.package}/bin/aerospace"
+
+      {
+        echo "$(date): callback fired, detected wids=[$WIDS]"
+        for wid in $WIDS; do
+          "$AEROSPACE" layout floating --window-id "$wid" 2>&1 || true
+          echo "$(date): layout floating --window-id $wid exit=$?"
+        done
+      } >> "$LOG"
+    '';
+  };
+
+  format = pkgs.formats.toml { };
+  baseConfigFile = format.generate "aerospace-base.toml" config.services.aerospace.settings;
+
+  # Workaround: nix-darwin cannot serialize on-window-detected correctly (nix-darwin#1271)
+  # Append the [[on-window-detected]] section as raw TOML
+  aerospaceConfig = pkgs.runCommand "aerospace.toml" { } ''
+    sed '/^on-window-detected = \[\]/d' ${baseConfigFile} > $out
+    cat >> $out << 'TOML'
+
+    [[on-window-detected]]
+    if.app-id = "company.thebrowser.Browser"
+    run = "exec-and-forget ${aerospace-float-arc}/bin/aerospace-float-arc"
+    TOML
+  '';
+in
+{
   services.aerospace = {
     enable = true;
     settings = {
@@ -117,4 +208,7 @@
       };
     };
   };
+
+  launchd.user.agents.aerospace.command =
+    lib.mkForce "${config.services.aerospace.package}/Applications/AeroSpace.app/Contents/MacOS/AeroSpace --config-path ${aerospaceConfig}";
 }
