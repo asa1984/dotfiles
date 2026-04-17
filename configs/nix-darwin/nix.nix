@@ -12,8 +12,11 @@
     };
     settings = {
       experimental-features = [
-        "nix-command"
+        "ca-derivations"
+        "dynamic-derivations"
         "flakes"
+        "nix-command"
+        "recursive-nix"
       ];
       accept-flake-config = true;
       trusted-users = [
