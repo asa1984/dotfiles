@@ -164,7 +164,7 @@ in
     mkIf cfg.enable {
       home.packages =
         optionals cfg.languages.config-lang.enable ([
-          pkgs.nodePackages.prettier
+          pkgs.prettier
           pkgs.taplo
         ])
         ++ optionals cfg.languages.c.enable ([
@@ -185,18 +185,18 @@ in
           stack-wrapped
         ])
         ++ optionals cfg.languages.javascript.enable ([
+          pkgs.astro-language-server
           pkgs.biome
           pkgs.bun
           pkgs.deno
           pkgs.eslint
           pkgs.graphql-language-service-cli
-          pkgs.nodePackages."@astrojs/language-server"
-          pkgs.nodePackages."@tailwindcss/language-server"
-          pkgs.nodePackages.prettier
-          pkgs.nodePackages.vscode-langservers-extracted
           pkgs.nodejs-slim
           pkgs.pnpm
+          pkgs.prettier
           pkgs.prisma-language-server
+          pkgs.tailwindcss-language-server
+          pkgs.vscode-langservers-extracted
           pkgs.vtsls
         ])
         ++ optionals cfg.languages.lua.enable ([

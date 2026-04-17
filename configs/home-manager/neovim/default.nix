@@ -14,7 +14,7 @@ let
 
     # Web
     ## HTML/CSS
-    nodePackages.vscode-langservers-extracted
+    vscode-langservers-extracted
 
     ## JavaScript/TypeScript/Frameworks
     # biome
@@ -67,7 +67,7 @@ let
 
     # Misc
     ## Bash
-    nodePackages.bash-language-server
+    bash-language-server
 
     ## Docker
     dockerfile-language-server
