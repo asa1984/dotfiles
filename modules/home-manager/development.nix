@@ -191,7 +191,7 @@ in
           pkgs.deno
           pkgs.eslint
           pkgs.graphql-language-service-cli
-          pkgs.nodejs-slim
+          pkgs.nodejs
           pkgs.pnpm
           pkgs.prettier
           pkgs.prisma-language-server
