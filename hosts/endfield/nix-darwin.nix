@@ -64,7 +64,6 @@
       "raycast"
       "slack"
       "spotify"
-      "steam"
       "zoom"
     ];
   };
