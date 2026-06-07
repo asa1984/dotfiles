@@ -75,6 +75,35 @@ let
     '';
   };
 
+  # Switch to (or move a node to) the Nth workspace assigned to the focused
+  # monitor. Works with one monitor too: list-workspaces falls back to all
+  # workspaces present on the only monitor.
+  aerospace-workspace-relative = pkgs.writeShellApplication {
+    name = "aerospace-workspace-relative";
+    text = ''
+      INDEX="$1"
+      MODE="''${2:-focus}"
+      AEROSPACE="${config.services.aerospace.package}/bin/aerospace"
+
+      mapfile -t WORKSPACES < <("$AEROSPACE" list-workspaces --monitor focused)
+      TARGET="''${WORKSPACES[$((INDEX - 1))]:-}"
+      if [ -z "$TARGET" ]; then
+        exit 0
+      fi
+
+      case "$MODE" in
+        focus)
+          "$AEROSPACE" workspace "$TARGET"
+          ;;
+        move)
+          "$AEROSPACE" move-node-to-workspace "$TARGET"
+          "$AEROSPACE" workspace "$TARGET"
+          ;;
+      esac
+    '';
+  };
+  wsRel = "${aerospace-workspace-relative}/bin/aerospace-workspace-relative";
+
   format = pkgs.formats.toml { };
   baseConfigFile = format.generate "aerospace-base.toml" config.services.aerospace.settings;
 
@@ -121,62 +150,32 @@ in
             alt-shift-h = "move left";
             alt-shift-l = "move right";
 
-            alt-tab = "workspace-back-and-forth";
-            alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
+            alt-tab = "focus-monitor --wrap-around next";
+            alt-shift-tab = "move-node-to-monitor --wrap-around --focus-follows-window next";
 
             alt-shift-space = "layout floating tiling";
 
-            alt-1 = "workspace 1";
-            alt-2 = "workspace 2";
-            alt-3 = "workspace 3";
-            alt-4 = "workspace 4";
-            alt-5 = "workspace 5";
-            alt-6 = "workspace 6";
-            alt-7 = "workspace 7";
-            alt-8 = "workspace 8";
-            alt-9 = "workspace 9";
-            alt-0 = "workspace 10";
+            alt-1 = "exec-and-forget ${wsRel} 1 focus";
+            alt-2 = "exec-and-forget ${wsRel} 2 focus";
+            alt-3 = "exec-and-forget ${wsRel} 3 focus";
+            alt-4 = "exec-and-forget ${wsRel} 4 focus";
+            alt-5 = "exec-and-forget ${wsRel} 5 focus";
+            alt-6 = "exec-and-forget ${wsRel} 6 focus";
+            alt-7 = "exec-and-forget ${wsRel} 7 focus";
+            alt-8 = "exec-and-forget ${wsRel} 8 focus";
+            alt-9 = "exec-and-forget ${wsRel} 9 focus";
+            alt-0 = "exec-and-forget ${wsRel} 10 focus";
 
-            alt-shift-1 = [
-              "move-node-to-workspace 1"
-              "workspace 1"
-            ];
-            alt-shift-2 = [
-              "move-node-to-workspace 2"
-              "workspace 2"
-            ];
-            alt-shift-3 = [
-              "move-node-to-workspace 3"
-              "workspace 3"
-            ];
-            alt-shift-4 = [
-              "move-node-to-workspace 4"
-              "workspace 4"
-            ];
-            alt-shift-5 = [
-              "move-node-to-workspace 5"
-              "workspace 5"
-            ];
-            alt-shift-6 = [
-              "move-node-to-workspace 6"
-              "workspace 6"
-            ];
-            alt-shift-7 = [
-              "move-node-to-workspace 7"
-              "workspace 7"
-            ];
-            alt-shift-8 = [
-              "move-node-to-workspace 8"
-              "workspace 8"
-            ];
-            alt-shift-9 = [
-              "move-node-to-workspace 9"
-              "workspace 9"
-            ];
-            alt-shift-0 = [
-              "move-node-to-workspace 10"
-              "workspace 10"
-            ];
+            alt-shift-1 = "exec-and-forget ${wsRel} 1 move";
+            alt-shift-2 = "exec-and-forget ${wsRel} 2 move";
+            alt-shift-3 = "exec-and-forget ${wsRel} 3 move";
+            alt-shift-4 = "exec-and-forget ${wsRel} 4 move";
+            alt-shift-5 = "exec-and-forget ${wsRel} 5 move";
+            alt-shift-6 = "exec-and-forget ${wsRel} 6 move";
+            alt-shift-7 = "exec-and-forget ${wsRel} 7 move";
+            alt-shift-8 = "exec-and-forget ${wsRel} 8 move";
+            alt-shift-9 = "exec-and-forget ${wsRel} 9 move";
+            alt-shift-0 = "exec-and-forget ${wsRel} 10 move";
 
             alt-r = "mode resize";
           };
