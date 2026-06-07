@@ -144,11 +144,11 @@ in
       mode = {
         main = {
           binding = {
-            alt-h = "focus left";
-            alt-l = "focus right";
+            ctrl-alt-h = "focus left";
+            ctrl-alt-l = "focus right";
 
-            alt-shift-h = "move left";
-            alt-shift-l = "move right";
+            ctrl-alt-shift-h = "move left";
+            ctrl-alt-shift-l = "move right";
 
             alt-tab = "focus-monitor --wrap-around next";
             alt-shift-tab = "move-node-to-monitor --wrap-around --focus-follows-window next";
@@ -177,7 +177,7 @@ in
             alt-shift-9 = "exec-and-forget ${wsRel} 9 move";
             alt-shift-0 = "exec-and-forget ${wsRel} 10 move";
 
-            alt-r = "mode resize";
+            ctrl-alt-r = "mode resize";
           };
         };
 

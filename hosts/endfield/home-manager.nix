@@ -14,6 +14,7 @@
     ../../configs/home-manager/lazygit
     ../../configs/home-manager/neovim
     ../../configs/home-manager/starship
+    ../../configs/home-manager/tmux
     ../../configs/home-manager/wezterm
     ../../configs/home-manager/zsh
   ];
