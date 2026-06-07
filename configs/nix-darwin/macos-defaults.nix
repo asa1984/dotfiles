@@ -20,6 +20,7 @@
         ShowStatusBar = true;
       };
       NSGlobalDomain = {
+        ApplePressAndHoldEnabled = false; # Enable key repeat on press-and-hold instead of accent menu
         "com.apple.keyboard.fnState" = true; # Use function keys as standard function keys
         "com.apple.swipescrolldirection" = false; # Disable natural scrolling
         InitialKeyRepeat = 15;
