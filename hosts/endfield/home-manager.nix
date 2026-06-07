@@ -10,6 +10,7 @@
     ../../configs/home-manager/cli-utilities
     ../../configs/home-manager/direnv
     ../../configs/home-manager/gh
+    ../../configs/home-manager/ghostty
     ../../configs/home-manager/git
     ../../configs/home-manager/lazygit
     ../../configs/home-manager/neovim
