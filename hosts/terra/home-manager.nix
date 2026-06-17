@@ -20,8 +20,6 @@
     ../../configs/home-manager/zsh
   ];
 
-  development.enable = true;
-
   home.packages = with pkgs; [
     discord
     discord-ptb

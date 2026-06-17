@@ -12,5 +12,4 @@
     ../../configs/home-manager/zsh
   ];
 
-  development.enable = true;
 }
