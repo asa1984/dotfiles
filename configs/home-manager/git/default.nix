@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   programs.git = {
     enable = true;
     signing = {
@@ -47,4 +47,8 @@
     enable = true;
     git.enable = true;
   };
+
+  home.packages = with pkgs; [
+    git-wt
+  ];
 }
