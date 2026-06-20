@@ -11,6 +11,7 @@
     ripgrep # grep alternative
 
     # Utilities
+    beads # issue tracker
     ffmpeg # media manipulation
     fx # json viewer
     fzf # fazzy finder
