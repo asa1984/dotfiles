@@ -26,6 +26,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "hm-backup"; # Move pre-existing files aside instead of refusing to clobber
     users.${username} = import ./home-manager.nix;
     extraSpecialArgs = {
       inherit
