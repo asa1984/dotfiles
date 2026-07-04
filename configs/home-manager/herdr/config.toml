@@ -1,0 +1,104 @@
+# herdr config — tmux 風キーバインド (単体運用 / tmux の外で使用)
+# 対応する tmux 設定: ~/.dotfiles/configs/home-manager/tmux/tmux.conf
+# 反映: `herdr server reload-config`  もしくは prefix+shift+r
+#
+# 記法: "prefix+n" はプレフィックス経由 / "alt+n" は直接(prefixless)。
+# tmux 設定はほぼ M-(Alt)直接バインド主体なので、ここでも Alt 直接に寄せている。
+
+[keys]
+# --- プレフィックス (tmux: set -g prefix C-k) ---
+prefix = "ctrl+k"
+
+# --- タブ = tmux の window ---
+new_tab = "alt+n"          # M-n  new-window
+previous_tab = "alt+comma" # M-,  previous-window
+next_tab = "alt+."         # M-.  next-window   ※記号キー。効かなければ後述の代替へ
+rename_tab = "alt+r"       # M-r  rename-window
+close_tab = "alt+i"        # M-i  kill-window
+
+# --- ワークスペース = tmux の session ---
+new_workspace = "alt+shift+n" # M-N  new-session
+workspace_picker = "alt+s"    # M-s  choose-session
+goto = "alt+t"                # M-t  choose-tree
+
+# --- 分割 (tmux: M-/ 左右分割 / M-- 上下分割) ---
+split_vertical = "alt+/"       # M-/  split-window -h(左右)  ※記号キー、要検証
+split_horizontal = "alt+minus" # M--  split-window -v(上下)
+
+# --- ペイン移動 / リサイズ ---
+# herdr-splits.nvim プラグイン(git fetch のみ・ビルド無しで導入済み)経由。
+# ネイティブの focus_pane_* / resize_mode は使わず、下の [[keys.command]] で
+# プラグインアクションを叩く。nvim ペインでは nvim splits へキー転送し、
+# 端では herdr ペインへ委譲する「シームレス移動」になる。
+#
+# キー選択の理由:
+#   - nav を alt にしてシェルの Backspace(C-h)/改行(C-j)/クリア(C-l)を温存
+#   - prefix=ctrl+k と nav-up が衝突しない
+#   - 旧 tmux(M-=移動 / M-S-=リサイズ)と同じ操作感
+# スクリプトは物理キーに関係なく nvim へ ctrl+h(nav)/alt+h(resize) を転送するため、
+# nvim 側は herdr-splits.nvim を <C-h..l>=移動 / <M-h..l>=リサイズ で受ける(要 nvim 側導入)。
+
+# 移動: alt+h/j/k/l  (tmux: M-h/j/k/l select-pane)
+[[keys.command]]
+key = "alt+h"
+type = "plugin_action"
+command = "herdr-splits.nav-left"
+
+[[keys.command]]
+key = "alt+j"
+type = "plugin_action"
+command = "herdr-splits.nav-down"
+
+[[keys.command]]
+key = "alt+k"
+type = "plugin_action"
+command = "herdr-splits.nav-up"
+
+[[keys.command]]
+key = "alt+l"
+type = "plugin_action"
+command = "herdr-splits.nav-right"
+
+# リサイズ: alt+shift+h/j/k/l  (tmux: M-H/J/K/L resize-pane)
+[[keys.command]]
+key = "alt+shift+h"
+type = "plugin_action"
+command = "herdr-splits.resize-left"
+
+[[keys.command]]
+key = "alt+shift+j"
+type = "plugin_action"
+command = "herdr-splits.resize-down"
+
+[[keys.command]]
+key = "alt+shift+k"
+type = "plugin_action"
+command = "herdr-splits.resize-up"
+
+[[keys.command]]
+key = "alt+shift+l"
+type = "plugin_action"
+command = "herdr-splits.resize-right"
+
+# ---------------------------------------------------------------------------
+# 以下、tmux で使っていたが herdr の action が無く、そのままでは再現できないもの。
+# 必要なら下のカスタムコマンドで代替する(コメントアウト中)。
+# ---------------------------------------------------------------------------
+
+# tmux M->/M-< (swap-window): タブ入れ替えのキーバインドは無い。
+# API 経由で移動するカスタムコマンド例(CLI 挙動は要確認):
+# [[keys.command]]
+# key = "alt+shift+."
+# type = "shell"
+# command = "herdr tab move --direction next"
+# [[keys.command]]
+# key = "alt+shift+,"
+# type = "shell"
+# command = "herdr tab move --direction previous"
+
+# tmux C-f (tmux-file-picker ポップアップ): tmux 専用スクリプトなので流用不可。
+# 汎用ファイラをペインで開く例:
+# [[keys.command]]
+# key = "ctrl+f"
+# type = "pane"
+# command = "yazi"

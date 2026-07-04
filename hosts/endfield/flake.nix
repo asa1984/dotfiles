@@ -7,6 +7,10 @@
 
     asa1984-nvim.url = "github:asa1984/asa1984.nvim";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    herdr-splits = {
+      url = "github:lmilojevicc/herdr-splits.nvim";
+      flake = false;
+    };
     fenix.url = "github:nix-community/fenix";
     home-manager.url = "github:nix-community/home-manager";
     nix-darwin.url = "github:LnL7/nix-darwin";
