@@ -7,11 +7,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1781802202,
-        "narHash": "sha256-bDRdaWLsGrfJjWXenQFcPLNwju/OJB7uVJlr88ohEbA=",
+        "lastModified": 1783150081,
+        "narHash": "sha256-UUuznHT+zVkfozY7aSOx5Z1brXn5ib/Jo2tTvEHHiY4=",
         "owner": "asa1984",
         "repo": "asa1984.nvim",
-        "rev": "064ac389989c7150bca80c99651b4fe5da3995a0",
+        "rev": "ea336ee571ccf9fc4d460bc461cc5dbf7b55f74f",
         "type": "github"
       },
       "original": {
