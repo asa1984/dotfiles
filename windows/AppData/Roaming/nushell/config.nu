@@ -4,6 +4,15 @@
 
 $env.config.show_banner = false
 
+# 日時フォーマットのロケールを US に固定 (ja-JP だと %p が「午前/午後」になる)
+$env.LC_TIME = "en_US"
+
+# 右プロンプトの時刻。デフォルトはロケール依存 (%x %X) で ja-JP だと
+# 「2026年08月18日 01時04分06秒」になるため US 形式に固定する
+$env.PROMPT_COMMAND_RIGHT = {||
+    $"(ansi magenta)(date now | format date '%-m/%-d/%Y %-I:%M:%S %p')(ansi reset)"
+}
+
 # --- Git ---
 alias g = git
 alias ga = git add .
