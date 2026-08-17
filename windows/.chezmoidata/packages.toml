@@ -10,6 +10,12 @@ winget = [
     "Microsoft.DSC",
 ]
 
+# マシンスコープ (要管理者昇格) + インストーラ引数が必要なもの
+[[packages.winget_machine]]
+id = "Microsoft.VisualStudio.BuildTools" # VS 2026 Build Tools
+# Rust (MSVC) のリンクに必要な C++ ツールチェーン + Windows SDK
+override = "--passive --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
+
 [packages.scoop]
 # CLI 開発ツール (ユーザーランド・バージョン隔離)
 buckets = ["main", "versions"]

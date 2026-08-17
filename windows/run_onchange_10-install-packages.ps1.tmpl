@@ -14,6 +14,14 @@ function Install-WingetPackage([string]$Id) {
     if ($LASTEXITCODE -ne 0) { throw "winget install failed: $Id" }
 }
 
+function Install-WingetMachinePackage([string]$Id, [string]$Override) {
+    winget list --id $Id --exact --accept-source-agreements | Out-Null
+    if ($LASTEXITCODE -eq 0) { return }
+    Write-Host "winget: installing $Id (machine scope, UAC prompt will appear)"
+    winget install --id $Id --exact --accept-package-agreements --accept-source-agreements --override $Override
+    if ($LASTEXITCODE -ne 0) { throw "winget install failed: $Id" }
+}
+
 function Install-ScoopBucket([string]$Name) {
     if (Test-Path (Join-Path $env:USERPROFILE "scoop\buckets\$Name")) { return }
     Write-Host "scoop: adding bucket $Name"
@@ -34,6 +42,10 @@ Install-WingetPackage '{{ . }}'
 {{ end }}
 Update-SessionPath
 
+# --- winget (マシンスコープ、要昇格) ---
+{{ range .packages.winget_machine -}}
+Install-WingetMachinePackage '{{ .id }}' '{{ .override }}'
+{{ end }}
 # --- scoop 本体のブートストラップ (新マシン用) ---
 if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
     Write-Host 'scoop: bootstrapping'
