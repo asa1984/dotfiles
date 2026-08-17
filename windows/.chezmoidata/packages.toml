@@ -18,11 +18,12 @@ override = "--passive --wait --norestart --add Microsoft.VisualStudio.Workload.V
 
 [packages.scoop]
 # CLI 開発ツール (ユーザーランド・バージョン隔離)
-buckets = ["main", "versions"]
+buckets = ["main", "versions", "extras"]
 apps = [
     "gh",
     "ghq",
     "nu",
     "fzf",
     "wezterm-nightly", # stable が 2024 年で停止しているため nightly (versions バケット)
+    "zed", # winget 版はユーザースコープ非対応のため scoop (extras)
 ]

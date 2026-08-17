@@ -1,0 +1,29 @@
+// Zed 設定 (chezmoi 管理)
+{
+    // scoop 管理なので Zed 自身の自動更新は無効化 (更新は scoop update zed)
+    "auto_update": false,
+
+    "vim_mode": true,
+
+    // Font
+    "buffer_font_family": "HackGen Console NF",
+    "buffer_font_size": 15,
+    "ui_font_size": 15,
+
+    // Theme (tokyo-night 拡張。Moon バリアントは無いため Tokyo Night を使う)
+    "auto_install_extensions": {
+        "tokyo-night": true
+    },
+    "theme": {
+        "mode": "dark",
+        "light": "Tokyo Night Light",
+        "dark": "Tokyo Night"
+    },
+
+    "terminal": {
+        "font_family": "HackGen Console NF",
+        "shell": {
+            "program": "nu"
+        }
+    }
+}

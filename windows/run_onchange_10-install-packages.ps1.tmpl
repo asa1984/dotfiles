@@ -6,6 +6,10 @@ function Update-SessionPath {
     $env:Path = [Environment]::GetEnvironmentVariable('Path', 'User') + ';' + [Environment]::GetEnvironmentVariable('Path', 'Machine')
 }
 
+# pwsh 7 から呼ばれると PSModulePath が汚染され、5.1 のモジュール自動読み込み
+# (Get-FileHash 等、scoop が依存) が壊れるため、5.1 の既定値にリセットする
+$env:PSModulePath = "$env:USERPROFILE\Documents\WindowsPowerShell\Modules;$env:ProgramFiles\WindowsPowerShell\Modules;$env:SystemRoot\system32\WindowsPowerShell\v1.0\Modules"
+
 function Install-WingetPackage([string]$Id) {
     winget list --id $Id --exact --accept-source-agreements | Out-Null
     if ($LASTEXITCODE -eq 0) { return }
@@ -23,15 +27,21 @@ function Install-WingetMachinePackage([string]$Id, [string]$Override) {
 }
 
 function Install-ScoopBucket([string]$Name) {
-    if (Test-Path (Join-Path $env:USERPROFILE "scoop\buckets\$Name")) { return }
+    $dir = Join-Path $env:USERPROFILE "scoop\buckets\$Name"
+    if (Test-Path $dir) { return }
     Write-Host "scoop: adding bucket $Name"
     scoop bucket add $Name
+    # scoop は失敗しても exit code を返さないことがあるため実体を確認する
+    if (-not (Test-Path $dir)) { throw "scoop bucket add failed: $Name" }
 }
 
 function Install-ScoopApp([string]$Name) {
-    if (Test-Path (Join-Path $env:USERPROFILE "scoop\apps\$Name")) { return }
+    $dir = Join-Path $env:USERPROFILE "scoop\apps\$Name"
+    if (Test-Path $dir) { return }
     Write-Host "scoop: installing $Name"
     scoop install $Name
+    # scoop は失敗しても exit code を返さないことがあるため実体を確認する
+    if (-not (Test-Path (Join-Path $dir 'current'))) { throw "scoop install failed: $Name" }
 }
 
 Update-SessionPath
