@@ -1,0 +1,12 @@
+# mise グローバル設定 (chezmoi 管理)
+# プロジェクト毎の固定は各リポジトリの mise.toml で行う前提。ここは常用ツールチェーンのみ。
+
+[tools]
+node = "lts"
+rust = "latest"
+go = "latest"
+bun = "latest"
+
+# 注意: settings.node.corepack = true は Windows では壊れている
+# (corepack enable が PATH 上に corepack を見つけられない)。
+# 代わりに run_onchange_40-mise-install.ps1 が corepack enable を実行する。

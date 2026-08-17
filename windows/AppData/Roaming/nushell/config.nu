@@ -40,6 +40,10 @@ def --env ghq-cd [] {
     cd ([(ghq root | str trim), $repo] | path join)
 }
 
+# --- mise (言語ツールチェーン) ---
+# mise.nu は env.nu が起動毎に再生成している
+source ($nu.default-config-dir | path join "mise.nu")
+
 $env.config.keybindings ++= [
     {
         name: ghq_cd

@@ -1,0 +1,22 @@
+# mise のグローバルツールチェーンをインストールする。
+# 設定変更で再実行させるためのハッシュ: {{ include "dot_config/mise/config.toml" | sha256sum }}
+$ErrorActionPreference = 'Stop'
+
+mise install --yes
+if ($LASTEXITCODE -ne 0) { throw 'mise install failed' }
+
+# corepack を有効化する (pnpm/yarn のシムを node インストールディレクトリに作る)。
+# mise の settings.node.corepack は Windows で壊れているためここで行う。
+# chezmoi 実行環境では mise where の stdout が取れないため、
+# インストールディレクトリを直接列挙する
+$nodeInstalls = Join-Path $env:LOCALAPPDATA 'mise\installs\node'
+foreach ($v in (Get-ChildItem $nodeInstalls -Directory)) {
+    $corepack = Join-Path $v.FullName 'corepack.cmd'
+    if (-not (Test-Path $corepack)) { continue }
+    $env:Path = "$($v.FullName);$env:Path"
+    & $corepack enable
+    if ($LASTEXITCODE -ne 0) { throw "corepack enable failed for node $($v.Name)" }
+    Write-Host "corepack enabled for node $($v.Name)"
+}
+
+mise ls
