@@ -1,0 +1,45 @@
+[user]
+	name = asa1984
+	email = satoasa9913@gmail.com
+
+[init]
+	defaultBranch = main
+
+[commit]
+	gpgsign = false
+
+[fetch]
+	prune = true
+	pruneTags = true
+
+[merge]
+	conflictStyle = zdiff3
+
+[pull]
+	autoStash = true
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+
+[rerere]
+	enabled = true
+	autoupdate = true
+
+[core]
+	; Git for Windows のデフォルト (true) を上書き。改行は常に LF のまま扱う
+	autocrlf = false
+	excludesFile = ~/.config/git/ignore
+
+; gh auth setup-git 相当。空の helper で Git for Windows システム設定の GCM をリセットする
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential

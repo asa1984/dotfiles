@@ -1,0 +1,5 @@
+.DS_Store
+.claude/settings.local.json
+.devenv
+.direnv
+.neoconf.json
