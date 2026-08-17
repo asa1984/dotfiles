@@ -1,0 +1,22 @@
+# パッケージ宣言。run_onchange_10-install-packages.ps1.tmpl が冪等に収束させる。
+# 注意: 収束は追加のみ (apply-only)。ここから消してもアンインストールはされない。
+
+[packages]
+# GUI アプリ・ランタイム類 (ユーザースコープでインストール)
+winget = [
+    "Git.Git",
+    "twpayne.chezmoi",
+    "jdx.mise",
+    "Microsoft.DSC",
+]
+
+[packages.scoop]
+# CLI 開発ツール (ユーザーランド・バージョン隔離)
+buckets = ["main", "versions"]
+apps = [
+    "gh",
+    "ghq",
+    "nu",
+    "fzf",
+    "wezterm-nightly", # stable が 2024 年で停止しているため nightly (versions バケット)
+]

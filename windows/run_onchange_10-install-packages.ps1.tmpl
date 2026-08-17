@@ -1,0 +1,51 @@
+# .chezmoidata/packages.toml の宣言を冪等に収束させる (追加のみ、削除はしない)。
+# 宣言の変更はテンプレート展開結果に反映されるため、chezmoi が自動で再実行する。
+$ErrorActionPreference = 'Stop'
+
+function Update-SessionPath {
+    $env:Path = [Environment]::GetEnvironmentVariable('Path', 'User') + ';' + [Environment]::GetEnvironmentVariable('Path', 'Machine')
+}
+
+function Install-WingetPackage([string]$Id) {
+    winget list --id $Id --exact --accept-source-agreements | Out-Null
+    if ($LASTEXITCODE -eq 0) { return }
+    Write-Host "winget: installing $Id"
+    winget install --id $Id --exact --scope user --accept-package-agreements --accept-source-agreements --disable-interactivity
+    if ($LASTEXITCODE -ne 0) { throw "winget install failed: $Id" }
+}
+
+function Install-ScoopBucket([string]$Name) {
+    if (Test-Path (Join-Path $env:USERPROFILE "scoop\buckets\$Name")) { return }
+    Write-Host "scoop: adding bucket $Name"
+    scoop bucket add $Name
+}
+
+function Install-ScoopApp([string]$Name) {
+    if (Test-Path (Join-Path $env:USERPROFILE "scoop\apps\$Name")) { return }
+    Write-Host "scoop: installing $Name"
+    scoop install $Name
+}
+
+Update-SessionPath
+
+# --- winget ---
+{{ range .packages.winget -}}
+Install-WingetPackage '{{ . }}'
+{{ end }}
+Update-SessionPath
+
+# --- scoop 本体のブートストラップ (新マシン用) ---
+if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
+    Write-Host 'scoop: bootstrapping'
+    Invoke-RestMethod https://get.scoop.sh | Invoke-Expression
+    Update-SessionPath
+}
+
+# --- scoop ---
+{{ range .packages.scoop.buckets -}}
+Install-ScoopBucket '{{ . }}'
+{{ end }}
+{{ range .packages.scoop.apps -}}
+Install-ScoopApp '{{ . }}'
+{{ end }}
+Write-Host 'Package convergence complete.'
