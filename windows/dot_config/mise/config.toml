@@ -7,8 +7,8 @@ rust = "latest"
 go = "latest"
 bun = "latest"
 # herdr: 安定版レジストリ (aqua) は Windows 非対応のため、
-# Windows バイナリを含むプレビュータグを ubi でピン留めする
-"ubi:herdrdev/herdr" = "preview-2026-08-17-1147e60bc0a4"
+# Windows バイナリを含むプレビュータグを github バックエンドでピン留めする
+"github:herdrdev/herdr" = "preview-2026-08-17-1147e60bc0a4"
 
 # 注意: settings.node.corepack = true は Windows では壊れている
 # (corepack enable が PATH 上に corepack を見つけられない)。
