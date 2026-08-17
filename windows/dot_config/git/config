@@ -12,6 +12,10 @@
 	prune = true
 	pruneTags = true
 
+[diff]
+	; programs.difftastic.git.enable 相当
+	external = difft
+
 [merge]
 	conflictStyle = zdiff3
 

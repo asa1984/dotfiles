@@ -26,4 +26,19 @@ apps = [
     "fzf",
     "wezterm-nightly", # stable が 2024 年で停止しているため nightly (versions バケット)
     "zed", # winget 版はユーザースコープ非対応のため scoop (extras)
+
+    # Coreutils replacements
+    "bat", # cat alternative
+    "bottom", # top alternative
+    "dust", # du alternative
+    "duf", # df alternative
+    "eza", # ls alternative
+    "fd", # find alternative
+    "ripgrep", # grep alternative
+
+    # Utilities
+    "lazygit", # git tui (extras)
+    "just", # command runner
+    "difftastic", # structural diff
+    "unar", # archive extractor
 ]

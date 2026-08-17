@@ -7,8 +7,8 @@
 
     // Font
     "buffer_font_family": "HackGen Console NF",
-    "buffer_font_size": 15,
-    "ui_font_size": 15,
+    "buffer_font_size": 16.0,
+    "ui_font_size": 16.0,
 
     // Theme (tokyo-night 拡張。Moon バリアントは無いため Tokyo Night を使う)
     "auto_install_extensions": {

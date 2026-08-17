@@ -1,0 +1,5 @@
+# lazygit 設定 (chezmoi 管理)
+# configs/home-manager/lazygit と同じく difftastic を diff pager にする
+git:
+  paging:
+    externalDiffCommand: difft --color=always

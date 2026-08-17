@@ -17,6 +17,7 @@ alias gc = git commit
 alias gco = git checkout
 alias gsw = git switch
 alias gswc = git switch -c
+alias lgit = lazygit
 
 # nushell では外部コマンドの失敗が後続を止めるので `;` が zsh の `&&` 相当になる
 def gac [] { git add .; git commit }

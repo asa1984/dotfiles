@@ -1,0 +1,4 @@
+{{- /* herdr 設定の単一の真実の源は configs/home-manager/herdr。ここから取り込む。
+       注意: alt+hjkl のペイン移動は herdr-splits プラグイン (bash+lua) 前提で、
+       Windows では未導入のため当該バインドは動作しない可能性がある */ -}}
+{{ include "../configs/home-manager/herdr/config.toml" }}
