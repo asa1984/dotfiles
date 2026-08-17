@@ -29,8 +29,8 @@ return {
         bottom = 5,
     },
 
-    -- Window
-    window_decorations = "RESIZE",
+    -- Window (通常の Windows タイトルバーを表示する)
+    window_decorations = "TITLE | RESIZE",
 
     -- Tab
     use_fancy_tab_bar = false,
