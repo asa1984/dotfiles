@@ -1,0 +1,18 @@
+# dsc/os-settings.dsc.yaml を DSC v3 で適用する。
+# HKLM への書き込みがあるため管理者昇格 (UAC プロンプト) が発生する。
+# ドキュメントの変更で再実行させるためのハッシュ: {{ include "dsc/os-settings.dsc.yaml" | sha256sum }}
+$ErrorActionPreference = 'Stop'
+
+$doc = Join-Path '{{ .chezmoi.sourceDir }}' 'dsc/os-settings.dsc.yaml'
+
+Write-Host 'Applying OS settings via DSC v3 (UAC prompt will appear)...'
+Start-Process -FilePath 'dsc' -ArgumentList @('config', 'set', '--file', "`"$doc`"") -Verb RunAs -Wait
+
+# 適用結果を非昇格で検証する (レジストリの読み取りは管理者権限不要)
+$test = dsc config test --file $doc | ConvertFrom-Json
+$pending = @($test.results | Where-Object { -not $_.result.inDesiredState })
+if ($pending.Count -gt 0) {
+    $names = ($pending | ForEach-Object { $_.name }) -join ', '
+    throw "OS settings not in desired state: $names"
+}
+Write-Host 'All OS settings are in the desired state.'

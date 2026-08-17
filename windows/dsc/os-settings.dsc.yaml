@@ -1,0 +1,39 @@
+# Windows OS 設定の宣言 (DSC v3)
+# chezmoi の run_onchange_apply-os-settings.ps1 から適用される
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+resources:
+  # 開発者モード: 非管理者での symlink 作成に必要 (chezmoi / mise 等が使う)
+  - name: Developer Mode
+    type: Microsoft.Windows/Registry
+    properties:
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock
+      valueName: AllowDevelopmentWithoutDevLicense
+      valueData:
+        DWord: 1
+
+  # Git や Node 系がハマる 260 文字パス制限の解除
+  - name: Enable long paths
+    type: Microsoft.Windows/Registry
+    properties:
+      keyPath: HKLM\SYSTEM\CurrentControlSet\Control\FileSystem
+      valueName: LongPathsEnabled
+      valueData:
+        DWord: 1
+
+  # Explorer: ファイル拡張子を常に表示
+  - name: Explorer show file extensions
+    type: Microsoft.Windows/Registry
+    properties:
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+      valueName: HideFileExt
+      valueData:
+        DWord: 0
+
+  # Explorer: 隠しファイルを表示
+  - name: Explorer show hidden files
+    type: Microsoft.Windows/Registry
+    properties:
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+      valueName: Hidden
+      valueData:
+        DWord: 1
