@@ -1,5 +1,5 @@
 {
-  description = "nix-darwin configuration of endfield";
+  description = "nix-darwin configuration of gaul";
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -23,7 +23,13 @@
   };
 
   outputs =
-    inputs@{ self, ... }:
+    rawInputs@{ self, ... }:
+    let
+      # private-modules is intentionally not a locked input (private repo).
+      inputs = rawInputs // {
+        private-modules = builtins.getFlake "github:asa1984/private-modules/718b83e5ae0b0165ef340e3992aced8cae1afa74";
+      };
+    in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "aarch64-darwin" # 64-bit ARM macOS
@@ -36,9 +42,9 @@
 
         darwinModules.default = import ../../modules/nix-darwin;
         darwinConfigurations = {
-          endfield = self.lib.makeDarwinConfig {
+          gaul = self.lib.makeDarwinConfig {
             system = "aarch64-darwin";
-            hostname = "endfield";
+            hostname = "gaul";
             username = "asahi";
             theme = "tokyonight-moon";
             modules = [ ./nix-darwin.nix ];

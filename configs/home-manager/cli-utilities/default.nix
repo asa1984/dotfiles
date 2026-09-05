@@ -16,7 +16,6 @@
     fx # json viewer
     fzf # fazzy finder
     ghq # git repository manager
-    go-task # task runner
     httpie # http client
     imagemagick # image manipulation
     jq # json parser
@@ -47,7 +46,7 @@
 
     # Agents
     llm-agents.claude-code
-    llm-agents.codex
+    # llm-agents.codex
     llm-agents.copilot-cli
     llm-agents.cursor-agent
     llm-agents.opencode

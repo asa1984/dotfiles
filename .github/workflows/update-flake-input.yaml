@@ -3,6 +3,10 @@ name: Update flake input
 on:
   workflow_dispatch:
     inputs:
+      host:
+        description: "The host directory under hosts/ (per-host flake)"
+        required: true
+        type: string
       input:
         description: "The flake input to update"
         required: true
@@ -47,6 +51,7 @@ jobs:
       - name: Update flake input
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: hosts/${{ inputs.host }}
         run: |
           set +e
           set +o pipefail

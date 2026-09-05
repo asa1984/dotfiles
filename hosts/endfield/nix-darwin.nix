@@ -73,13 +73,6 @@
     ];
   };
 
-  # Auto-update
-  services.darwin-auto-update = {
-    enable = true;
-    dotfilesDir = "/Users/${username}/.dotfiles";
-    flakeDir = "/Users/${username}/.dotfiles/hosts/endfield";
-  };
-
   # Misc
   programs.gnupg.agent.enable = true;
   services.tailscale.enable = true;

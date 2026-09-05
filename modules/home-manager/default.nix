@@ -1,3 +1,5 @@
+# home-manager modules: option definitions (and external option sources) only.
+# Concrete settings live in ../../configs/home-manager/.
 { inputs, ... }:
 {
   imports = [
