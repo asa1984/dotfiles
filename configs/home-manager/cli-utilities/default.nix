@@ -50,5 +50,6 @@
     llm-agents.copilot-cli
     llm-agents.cursor-agent
     llm-agents.opencode
+    llm-agents.opencode2
   ];
 }
