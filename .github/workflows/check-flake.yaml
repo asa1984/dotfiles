@@ -1,0 +1,53 @@
+name: Check flake
+
+# PR / main push 時に darwin system 全体が評価できることを保証する。
+# toplevel.drvPath の eval は、nixpkgs 更新で起きがちな
+# 「削除・改名されたオプション参照」等の破壊を検出できる。
+# 注意: Linux runner ではビルドはできないため、ビルド破壊
+# (コンパイルエラー等) までは検出できない。完全な保証には
+# macOS runner での `nix build` が別途必要。
+
+on:
+  pull_request:
+    paths:
+      - "hosts/**"
+      - "configs/**"
+      - "modules/**"
+      - "lib/**"
+      - "overlays/**"
+      - "pkgs/**"
+      - "themes/**"
+  push:
+    branches: [main]
+    paths:
+      - "hosts/**"
+      - "configs/**"
+      - "modules/**"
+      - "lib/**"
+      - "overlays/**"
+      - "pkgs/**"
+      - "themes/**"
+  workflow_dispatch:
+
+jobs:
+  eval-darwin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        host: [endfield]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
+
+      - name: Evaluate darwin system (no build)
+        working-directory: hosts/${{ matrix.host }}
+        run: |
+          nix eval './#darwinConfigurations."${{ matrix.host }}".config.system.build.toplevel.drvPath' --show-trace

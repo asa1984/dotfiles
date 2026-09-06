@@ -8,3 +8,7 @@ update host input="":
 # nix-darwin: apply system configuration
 switch-darwin host:
     sudo nix run nix-darwin -- switch --flake ./hosts/{{ host }}#{{ host }}
+
+# CI相当の評価チェックをローカルで実行 (ビルドはしない)
+check host:
+    nix eval ./hosts/{{ host }}#darwinConfigurations."{{ host }}".config.system.build.toplevel.drvPath --show-trace

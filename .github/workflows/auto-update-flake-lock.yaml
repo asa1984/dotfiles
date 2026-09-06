@@ -1,0 +1,66 @@
+name: Auto-update flake.lock
+
+# 週次で flake.lock を更新し PR を開く。
+# check-flake.yaml の CI が通った PR は auto-merge され、
+# マージ後の main を comin が pull して自動 switch する。
+# フル自動化にはリポジトリ設定で Allow auto-merge の有効化が必要。
+# (Settings > General > Pull Requests > Allow auto-merge)
+
+on:
+  schedule:
+    - cron: "0 0 * * 1" # Monday 09:00 JST
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+    strategy:
+      matrix:
+        host: [endfield]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Update flake.lock and open PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOST: ${{ matrix.host }}
+        run: |
+          set -euo pipefail
+          BRANCH="auto-update/flake-lock-$HOST"
+          git fetch origin main
+          git checkout -B "$BRANCH" origin/main
+          (cd "hosts/$HOST" && nix flake update)
+          git add "hosts/$HOST/flake.lock"
+          if git diff --cached --quiet; then
+            echo "flake.lock is already up to date."
+            exit 0
+          fi
+          git commit --message "chore($HOST): update flake.lock" \
+            --message "Automated weekly update. CI must pass before merge; comin pulls main after merge."
+          git push --force-with-lease origin "$BRANCH"
+          if ! gh pr view "$BRANCH" --json number --quiet; then
+            gh pr create --base main --head "$BRANCH" \
+              --title "chore($HOST): update flake.lock" \
+              --body "Automated weekly flake.lock update. Merged automatically after CI passes; comin on $HOST pulls main within minutes."
+          fi
+          gh pr merge --auto --squash "$BRANCH" \
+            || echo "::warning::auto-merge could not be enabled; merge this PR manually."
