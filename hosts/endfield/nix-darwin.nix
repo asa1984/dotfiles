@@ -50,7 +50,6 @@
     casks = [
       "1password"
       "ableton-live-lite"
-      "autodesk-fusion"
       "arc"
       "azookey"
       "blender"
@@ -62,8 +61,6 @@
       "ghostty"
       "google-chrome"
       "kicad"
-      "minecraft"
-      "modrinth"
       "obs"
       "orbstack"
       "parsec"
