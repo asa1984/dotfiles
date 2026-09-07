@@ -6,6 +6,7 @@
       gh-dash
       gh-markdown-preview
       gh-q
+      gh-stack
     ];
   };
 }
