@@ -14,6 +14,7 @@
     ../../configs/nix-darwin/comin.nix
     ../../configs/nix-darwin/macos-defaults.nix
     ../../configs/nix-darwin/misc.nix
+    ../../configs/nix-darwin/nix-linux-builder.nix
     ../../configs/nix-darwin/nix.nix
   ];
 
