@@ -26,9 +26,12 @@ in
   # `plugin link` は [[build]] を実行しないので、Nix でビルド済みのディレクトリをリンクする。
   # [[startup]] は link では走らず server の起動時にだけ走るため、毎回リンクし直しても
   # インスタンスは増えない。反映には `herdr server stop` での再起動が要る。
+  # herdr 更新直後など、古い server が動いていると link は protocol_mismatch で拒否される。
+  # switch 自体は止めずに、やり直し方を表示する。
   home.activation.herdrAutoTitle = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run ${herdr}/bin/herdr plugin uninstall herdr.auto-title 2>/dev/null || true
     run ${herdr}/bin/herdr plugin unlink herdr.auto-title 2>/dev/null || true
-    run ${herdr}/bin/herdr plugin link ${pkgs.herdr-auto-title}/share/herdr-auto-title || true
+    run ${herdr}/bin/herdr plugin link ${pkgs.herdr-auto-title}/share/herdr-auto-title \
+      || echo "warning: herdr-auto-title の登録に失敗しました。'herdr server stop' で server を再起動してから switch し直してください" >&2
   '';
 }
