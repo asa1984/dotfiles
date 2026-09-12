@@ -68,6 +68,14 @@ let
     };
   };
 
+  # SKILL.md をこのリポジトリに複製すると、herdr を更新したときに内容が古いまま残る。
+  # そのため、インストールする herdr のバイナリから生成する。
+  herdrSkill = pkgs.runCommand "herdr-skill.md" { } ''
+    ${pkgs.llm-agents.herdr}/bin/herdr --skill > $out
+    # 出力が空でもビルドは成功するので、SKILL.md の体裁になっているかを確かめる
+    grep -q '^name: herdr$' $out
+  '';
+
   settingsFile = (pkgs.formats.json { }).generate "claude-code-settings.json" settings;
 
   mergeSettings = pkgs.writeShellApplication {
@@ -96,6 +104,13 @@ in
 
     skills = {
       japanese-tech-writing = ./skills/japanese-tech-writing;
+
+      # 上流 (github/gh-stack) が同梱している公式スキル。
+      # configs/home-manager/gh が入れる gh 拡張と同じソースから取るので、
+      # スキルの記述と実際に動く `gh stack` のバージョンがずれない。
+      gh-stack = "${pkgs.gh-stack.src}/skills/gh-stack";
+
+      herdr = "${herdrSkill}";
     };
 
     # LSP サーバー。settings.json ではなく `--plugin-dir` 経由の .lsp.json として
