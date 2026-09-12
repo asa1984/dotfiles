@@ -1,0 +1,20 @@
+--- a/main.swift	2026-09-12 21:16:55.187135056 +0900
++++ b/main.swift	2026-09-12 21:16:55.228452892 +0900
+@@ -109,7 +109,16 @@
+         // and it switches workspace and tab as needed to reveal the pane.
+         if let pane = info["pane_id"] as? String, !pane.isEmpty,
+            let herdrBin = resolveHerdrBinary(hint: info["herdr_bin"] as? String) {
+-            run(herdrBin, ["agent", "focus", pane])
++            let (status, out) = run(herdrBin, ["agent", "focus", pane])
++            // Herdr 0.9 lets each client show its own tab, so focusing the agent no
++            // longer switches the tab the client displays. Focus that tab as well.
++            if status == 0, let data = out.data(using: .utf8),
++               let root = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
++               let result = root["result"] as? [String: Any],
++               let agent = result["agent"] as? [String: Any],
++               let tab = agent["tab_id"] as? String, !tab.isEmpty {
++                run(herdrBin, ["tab", "focus", tab])
++            }
+         }
+ 
+         // Bring the terminal hosting Herdr to the front.

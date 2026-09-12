@@ -20,6 +20,10 @@ stdenv.mkDerivation rec {
     tag = "v${version}";
     hash = "sha256-pWjNe3dWNEiMJM4lbiExmOv+h9VLfAsvsh4I5z+prHc=";
   };
+  # Herdr 0.9 では agent focus だけだとクライアントの表示タブが切り替わらないので、
+  # 返ってきた tab_id で tab focus も行う
+  patches = [ ./herdr-0.9-tab-focus.patch ];
+
   nativeBuildInputs = [ swift ];
 
   buildPhase = ''
