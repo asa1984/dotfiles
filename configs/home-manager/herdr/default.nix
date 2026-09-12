@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   pkgs,
@@ -6,6 +7,9 @@
 }:
 let
   herdr = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.herdr;
+
+  # サイドバーのエージェント行を書き込む常駐プロセス (OCaml)。config.toml の $row_* を埋める
+  glance = pkgs.callPackage ./glance { };
 
   # デスクトップ通知は Herdr Notify.app (pkgs/herdr-notify) に出させる。
   # macOS は通知の許可も、通知をクリックしたときに起動するアプリも bundle id から引くので、
@@ -103,4 +107,18 @@ in
   home.activation.herdrNotify = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run ${lib.getExe installHerdrNotify}
   '';
+
+  # herdr-glance は herdr の socket を購読し続ける。herdr が落ちていても自分で再接続し、
+  # 終了時 (SIGTERM) には書いたトークンを消す。
+  launchd.agents.herdr-glance = {
+    enable = true;
+    config = {
+      ProgramArguments = [ (lib.getExe glance) ];
+      RunAtLoad = true;
+      KeepAlive = true;
+      ProcessType = "Background";
+      StandardOutPath = "${config.home.homeDirectory}/Library/Logs/herdr-glance.log";
+      StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/herdr-glance.log";
+    };
+  };
 }

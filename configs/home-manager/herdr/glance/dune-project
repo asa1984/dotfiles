@@ -1,0 +1,7 @@
+(lang dune 3.0)
+
+(name herdr-glance)
+
+(package
+ (name herdr-glance)
+ (depends ocaml dune eio eio_main yojson (alcotest :with-test)))

@@ -1,0 +1,4 @@
+(executable
+ (name main)
+ (public_name herdr-glance)
+ (libraries herdr_glance eio eio_main))

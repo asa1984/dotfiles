@@ -123,28 +123,21 @@ tab_bar_right = [
 [ui.toast]
 delivery = "system"
 
-# サイドバーの Agents 行。state_text を状態で、agent をエージェントの種類で色分けする。
-# 色は Tokyo Night Moon (ghostty のテーマ) に合わせている。
-# state_text は表示ラベルが付くことがあるので starts_with で判定する。
+# サイドバーの Agents 行。1 行目には herdr-glance (./glance) が書き込む $row_* のうち、
+# 今の状態のものが 1 つだけ入る (状態の記号 + エージェントのロゴ + 作業内容)。
+# トークンごとに状態の色を付けて、行全体を状態の色で塗る。idle は最後に動いてからの
+# 時間で 3 段階に分け、古いものは薄くする。色は Tokyo Night Moon (ghostty のテーマ) に合わせている。
+# herdr-glance が動いていないと 1 行目は出ない。
 [ui.sidebar.agents]
 rows = [
   [
-    "state_icon",
-    { token = "agent", rules = [
-      { contains = "claude", ignore_case = true, fg = "#d97757" },
-      { contains = "codex", ignore_case = true, fg = "#10a37f" },
-      { contains = "copilot", ignore_case = true, fg = "#a371f7" },
-      { contains = "cursor", ignore_case = true, fg = "#82aaff" },
-      { contains = "opencode", ignore_case = true, fg = "#86e1fc" },
-    ] },
-    { token = "state_text", rules = [
-      { starts_with = "blocked", fg = "#ff757f", bold = true },
-      { starts_with = "working", fg = "#ffc777" },
-      { starts_with = "done", fg = "#c3e88d" },
-      { starts_with = "idle", dim = true },
-      { starts_with = "unknown", fg = "#636da6", dim = true },
-    ] },
+    { token = "$row_working", fg = "#ffc777", bold = true },
+    { token = "$row_blocked", fg = "#ff757f", bold = true },
+    { token = "$row_done", fg = "#c3e88d" },
+    { token = "$row_idle_fresh", fg = "#c8d3f5" },
+    { token = "$row_idle", fg = "#828bb8" },
+    { token = "$row_idle_stale", fg = "#636da6", dim = true },
+    { token = "$row_unknown", fg = "#636da6", dim = true },
   ],
-  ["terminal_title_stripped"],
   [{ token = "workspace", dim = true }, { token = "tab", dim = true }],
 ]
