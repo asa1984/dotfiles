@@ -7,6 +7,7 @@
   imports = [
     ../../modules/home-manager
 
+    ../../configs/home-manager/claude-code
     ../../configs/home-manager/cli-utilities
     ../../configs/home-manager/direnv
     ../../configs/home-manager/gh

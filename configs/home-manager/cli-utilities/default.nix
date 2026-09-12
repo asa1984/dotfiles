@@ -45,8 +45,6 @@
     fastfetch
 
     # Agents
-    llm-agents.claude-code
-    # llm-agents.codex
     llm-agents.copilot-cli
     llm-agents.cursor-agent
     llm-agents.opencode

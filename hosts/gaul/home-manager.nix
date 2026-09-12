@@ -28,7 +28,7 @@
   };
 
   home.packages = with pkgs; [
-    vscode
+    llm-agents.claude-code
   ];
 
   programs.home-manager.enable = true;
