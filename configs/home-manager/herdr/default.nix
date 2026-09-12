@@ -21,4 +21,14 @@ in
     run ${herdr}/bin/herdr plugin unlink herdr-splits 2>/dev/null || true
     run ${herdr}/bin/herdr plugin link ${inputs.herdr-splits} 2>/dev/null || true
   '';
+
+  # herdr-auto-title はタブ名を作業内容に追従させる Go 製プラグイン (pkgs/herdr-auto-title)。
+  # `plugin link` は [[build]] を実行しないので、Nix でビルド済みのディレクトリをリンクする。
+  # [[startup]] は link では走らず server の起動時にだけ走るため、毎回リンクし直しても
+  # インスタンスは増えない。反映には `herdr server stop` での再起動が要る。
+  home.activation.herdrAutoTitle = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${herdr}/bin/herdr plugin uninstall herdr.auto-title 2>/dev/null || true
+    run ${herdr}/bin/herdr plugin unlink herdr.auto-title 2>/dev/null || true
+    run ${herdr}/bin/herdr plugin link ${pkgs.herdr-auto-title}/share/herdr-auto-title || true
+  '';
 }
