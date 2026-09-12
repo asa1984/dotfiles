@@ -102,3 +102,11 @@ command = "herdr-splits.resize-right"
 # key = "ctrl+f"
 # type = "pane"
 # command = "yazi"
+
+# ---------------------------------------------------------------------------
+# 通知: デスクトップ通知は Herdr Notify.app (UNUserNotification) に出させる。
+# herdr は terminal-notifier を呼ぶので、その名前のラッパーを home.packages に入れている
+# (configs/home-manager/herdr/default.nix)。通知をクリックすると該当ペインへフォーカスする。
+# ---------------------------------------------------------------------------
+[ui.toast]
+delivery = "system"
