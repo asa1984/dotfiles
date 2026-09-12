@@ -65,6 +65,31 @@ let
     '';
   };
 
+  # config.toml は herdr のサーバーが起動時か reload のときしか読まないので、switch のたびに読ませる。
+  # herdr は設定が壊れていても既定値で黙って起動するため、reload が返す diagnostics も出す。
+  reloadHerdrConfig = pkgs.writeShellApplication {
+    name = "herdr-reload-config";
+    runtimeInputs = [ pkgs.jq ];
+    bashOptions = [
+      "nounset"
+      "pipefail"
+    ];
+    text = ''
+      # サーバーが動いていなければ何もしない (次の起動で新しい設定を読む)
+      out=$(${herdr}/bin/herdr server reload-config 2>/dev/null) || exit 0
+      err=$(printf '%s' "$out" | jq -r '.error.message // empty')
+      if [ -n "$err" ]; then
+        # herdr を更新した直後など、本体とサーバーのバージョンが食い違うとここに来る
+        printf 'herdr: 設定の再読込を飛ばしました (%s)\n' "$err" >&2
+        exit 0
+      fi
+      diags=$(printf '%s' "$out" | jq -r '.result.diagnostics[]? | tostring')
+      if [ -n "$diags" ]; then
+        printf 'warning: herdr の設定に問題があります:\n%s\n' "$diags" >&2
+      fi
+    '';
+  };
+
   # herdr の `[ui.toast] delivery = "system"` は PATH 上の terminal-notifier を呼ぶので、
   # その名前で Herdr Notify.app を呼び出す
   terminalNotifierShim = pkgs.writeShellScriptBin "terminal-notifier" ''
@@ -121,4 +146,8 @@ in
       StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/herdr-glance.log";
     };
   };
+
+  home.activation.herdrReloadConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    run ${lib.getExe reloadHerdrConfig}
+  '';
 }
