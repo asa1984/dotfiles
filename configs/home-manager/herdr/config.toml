@@ -104,9 +104,47 @@ command = "herdr-splits.resize-right"
 # command = "yazi"
 
 # ---------------------------------------------------------------------------
+# UI
+# ---------------------------------------------------------------------------
+[ui]
+# エージェントの状態を色だけでなく記号の形でも見分ける
+status_indicators = "symbols"
+# Agents パネルを要対応の順 (blocked や done が上) に並べる。既定は "spaces" (スペースごと)
+agent_panel_sort = "priority"
+# タブバー右端に、アクティブなペインの cwd とブランチを出す。
+# コマンドは default.nix で herdr-tab-status の store パスに置き換える (PATH に頼らない)
+tab_bar_right = [
+  { type = "command", command = "@tabStatus@", interval_seconds = 2, timeout_seconds = 2 },
+]
+
 # 通知: デスクトップ通知は Herdr Notify.app (UNUserNotification) に出させる。
 # herdr は terminal-notifier を呼ぶので、その名前のラッパーを home.packages に入れている
 # (configs/home-manager/herdr/default.nix)。通知をクリックすると該当ペインへフォーカスする。
-# ---------------------------------------------------------------------------
 [ui.toast]
 delivery = "system"
+
+# サイドバーの Agents 行。state_text を状態で、agent をエージェントの種類で色分けする。
+# 色は Tokyo Night Moon (ghostty のテーマ) に合わせている。
+# state_text は表示ラベルが付くことがあるので starts_with で判定する。
+[ui.sidebar.agents]
+rows = [
+  [
+    "state_icon",
+    { token = "agent", rules = [
+      { contains = "claude", ignore_case = true, fg = "#d97757" },
+      { contains = "codex", ignore_case = true, fg = "#10a37f" },
+      { contains = "copilot", ignore_case = true, fg = "#a371f7" },
+      { contains = "cursor", ignore_case = true, fg = "#82aaff" },
+      { contains = "opencode", ignore_case = true, fg = "#86e1fc" },
+    ] },
+    { token = "state_text", rules = [
+      { starts_with = "blocked", fg = "#ff757f", bold = true },
+      { starts_with = "working", fg = "#ffc777" },
+      { starts_with = "done", fg = "#c3e88d" },
+      { starts_with = "idle", dim = true },
+      { starts_with = "unknown", fg = "#636da6", dim = true },
+    ] },
+  ],
+  ["terminal_title_stripped"],
+  [{ token = "workspace", dim = true }, { token = "tab", dim = true }],
+]

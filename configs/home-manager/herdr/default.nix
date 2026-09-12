@@ -33,6 +33,34 @@ let
     '';
   };
 
+  # タブバー右端 (config.toml の tab_bar_right) に出す、アクティブなペインの cwd とブランチ。
+  # herdr は右端が 1 桁でもはみ出すと丸ごと消すので、パスは末尾側を残して短く切る。
+  tabStatus = pkgs.writeShellApplication {
+    name = "herdr-tab-status";
+    runtimeInputs = with pkgs; [ git ];
+    bashOptions = [
+      "nounset"
+      "pipefail"
+    ];
+    text = ''
+      cwd="''${HERDR_ACTIVE_PANE_CWD:-$PWD}"
+      max=40
+      case "$cwd" in
+        "$HOME" | "$HOME"/*) label="~''${cwd#"$HOME"}" ;;
+        *) label="$cwd" ;;
+      esac
+      if [ "''${#label}" -gt "$max" ]; then
+        label="…''${label: -$((max - 1))}"
+      fi
+      branch=$(git -C "$cwd" --no-optional-locks branch --show-current 2>/dev/null) || branch=""
+      if [ -n "$branch" ]; then
+        printf '%s  %s %s\n' "$label" $'\xef\x90\x98' "$branch" # U+F418 nf-oct-git_branch
+      else
+        printf '%s\n' "$label"
+      fi
+    '';
+  };
+
   # herdr の `[ui.toast] delivery = "system"` は PATH 上の terminal-notifier を呼ぶので、
   # その名前で Herdr Notify.app を呼び出す
   terminalNotifierShim = pkgs.writeShellScriptBin "terminal-notifier" ''
@@ -45,7 +73,9 @@ in
     terminalNotifierShim
   ];
 
-  home.file.".config/herdr/config.toml".source = ./config.toml;
+  home.file.".config/herdr/config.toml".source = pkgs.replaceVars ./config.toml {
+    tabStatus = lib.getExe tabStatus;
+  };
 
   # herdr-splits プラグイン(herdr 側 / bash+lua でビルド不要)を flake input で pin し、
   # herdr 自身の `plugin link` で登録する。plugins.json は herdr が所有するため
