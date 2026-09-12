@@ -70,9 +70,11 @@ let mark ~now = function
   | V_idle Stale -> Glyph.idle_stale
   | V_unknown -> Glyph.unknown
 
-(* herdr はトークンの先頭の空白を削るので、字下げはゼロ幅スペースで守る *)
+(* herdr はトークンの先頭の空白を削るので、字下げはゼロ幅スペースで守る。
+   1 段あたりの空白の数はここで変える (ゼロ幅スペースは消さないこと)。 *)
 let zwsp = "\u{200B}"
-let indent depth = if depth <= 0 then "" else zwsp ^ String.make (depth * 2) ' '
+let indent_width = 1
+let indent depth = if depth <= 0 then "" else zwsp ^ String.make (depth * indent_width) ' '
 
 type layout = {
   depth : int; (* 行の字下げの深さ *)
