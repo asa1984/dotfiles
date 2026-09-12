@@ -13,8 +13,9 @@ let idle = utf8 0xF0766 (* nf-md-circle_outline *)
 let idle_stale = utf8 0xF4C3 (* nf-oct-dot *)
 let unknown = utf8 0xF468 (* nf-oct-circle_slash *)
 
-(* nf-md-circle_slice_1 .. 8: 円が 1/8 ずつ埋まっていく *)
-let spinner = Array.init 8 (fun i -> utf8 (0xF0A9E + i))
+(* 点字のスピナー (⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏)。Nerd Font ではなく Unicode の点字で、
+   HackGen には入っていないため Ghostty が別のフォントで補う。 *)
+let spinner = Array.map utf8 [| 0x280B; 0x2819; 0x2839; 0x2838; 0x283C; 0x2834; 0x2826; 0x2827; 0x2807; 0x280F |]
 
 let contains s sub =
   let n = String.length s and m = String.length sub in

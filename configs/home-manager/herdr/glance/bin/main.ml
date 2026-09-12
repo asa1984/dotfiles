@@ -35,9 +35,25 @@ let () =
         let orphans = List.filter (fun id -> not (List.mem id ids)) (Herdr.panes_with_our_tokens ~net ~path) in
         with_fx (fun () -> Engine.clear_panes orphans);
         log "connected to %s (%d agents)" path (List.length agents);
+        Herdr.set_view ~net ~path;
+        (* ワークスペースの名前と worktree の親子は滅多に変わらないので、5 秒ほど使い回す *)
+        let ws_cache = ref ([], 0.) in
+        let workspaces agents =
+          let cached, at = !ws_cache in
+          let unknown =
+            List.exists (fun (a : Model.agent) -> not (List.mem_assoc a.workspace_id cached)) agents
+          in
+          if unknown || Eio.Time.now clock -. at > 5. then begin
+            let ws = Herdr.workspaces ~net ~path in
+            ws_cache := (ws, Eio.Time.now clock);
+            ws
+          end
+          else cached
+        in
         let rec loop agents =
           if not (Atomic.get stop) then begin
-            with_fx (fun () -> Engine.sync engine agents);
+            let ws = workspaces agents in
+            with_fx (fun () -> Engine.sync engine ~workspaces:ws agents);
             failures := 0;
             let delay = if Engine.any_working engine then Model.spinner_period else heartbeat in
             Eio.Fiber.first (fun () -> Eio.Stream.take wake) (fun () -> Eio.Time.sleep clock delay);

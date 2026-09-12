@@ -33,10 +33,13 @@ let call ~net ~path meth params =
   Eio.Flow.copy_string (request_line "glance" meth params) flow;
   result_of_line (Eio.Buf_read.line (Eio.Buf_read.of_flow flow ~max_size:max_line))
 
+let str_of j k = match member k j with `String s -> Some s | _ -> None
+
 let agent_of_json j =
   let str k = match member k j with `String s -> Some s | _ -> None in
   {
     Model.pane_id = member "pane_id" j |> to_string;
+    workspace_id = member "workspace_id" j |> to_string;
     agent = str "agent";
     label = (match str "display_agent" with Some _ as s -> s | None -> str "agent");
     status = Model.status_of_string (Option.value (str "agent_status") ~default:"unknown");
@@ -45,6 +48,29 @@ let agent_of_json j =
   }
 
 let agents ~net ~path = call ~net ~path "agent.list" (`Assoc []) |> member "agents" |> to_list |> List.map agent_of_json
+
+let workspace_of_json j =
+  let str k = match member k j with `String s -> Some s | _ -> None in
+  let wt = member "worktree" j in
+  ( member "workspace_id" j |> to_string,
+    {
+      Engine.label = Option.value (str "label") ~default:(member "workspace_id" j |> to_string);
+      repo_key = (match wt with `Assoc _ -> str_of wt "repo_key" | _ -> None);
+      repo_name = (match wt with `Assoc _ -> str_of wt "repo_name" | _ -> None);
+      linked = (match wt with `Assoc _ -> (match member "is_linked_worktree" wt with `Bool b -> b | _ -> false) | _ -> false);
+    } )
+
+let workspaces ~net ~path =
+  call ~net ~path "workspace.list" (`Assoc []) |> member "workspaces" |> to_list |> List.map workspace_of_json
+
+(* サイドバーの並び順を、こちらが書いたキーで決める。サーバーが終わると消えるので接続ごとに入れ直す *)
+let set_view ~net ~path =
+  let by token order = `Assoc [ ("field", `Assoc [ ("token", `String token) ]); ("order", `String order) ] in
+  ignore
+    (call ~net ~path "agent.view.set"
+       (`Assoc
+         [ ("source", `String source); ("label", `String "glance");
+           ("sort", `List [ by "wkey" "desc"; by "skey" "desc" ]) ]))
 
 (* 前回の実行で書いたトークンが残っているペイン (エージェントが既にいないものの掃除用) *)
 let panes_with_our_tokens ~net ~path =

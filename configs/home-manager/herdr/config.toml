@@ -123,13 +123,19 @@ tab_bar_right = [
 [ui.toast]
 delivery = "system"
 
-# サイドバーの Agents 行。1 行目には herdr-glance (./glance) が書き込む $row_* のうち、
-# 今の状態のものが 1 つだけ入る (状態の記号 + エージェントのロゴ + 作業内容)。
-# トークンごとに状態の色を付けて、行全体を状態の色で塗る。idle は最後に動いてからの
-# 時間で 3 段階に分け、古いものは薄くする。色は Tokyo Night Moon (ghostty のテーマ) に合わせている。
-# herdr-glance が動いていないと 1 行目は出ない。
+# サイドバーの Agents 行。herdr-glance (./glance) が書き込むトークンで組み立てる。
+#   1 行目 $group_parent … 親のチェックアウトが開いていない worktree のリポジトリ名
+#   2 行目 $group        … ワークスペースの見出し (グループの先頭の行だけが持つ)
+#   3 行目 $row_*        … 状態の記号 + エージェントのロゴ + 作業内容 (状態ごとに色が変わる)
+#   4 行目 $gap          … グループの区切りの空行
+# トークンを持たない行は消えるので、見出しと空行はグループの境目にだけ出る。
+# idle は最後に動いてからの時間で 3 段階に分け、古いものは薄くする。
+# 色は Tokyo Night Moon (ghostty のテーマ) に合わせている。
+# herdr-glance が動いていないと、これらの行は出ない。
 [ui.sidebar.agents]
 rows = [
+  [{ token = "$group_parent", fg = "#636da6", bold = true, dim = true }],
+  [{ token = "$group", fg = "#828bb8", bold = true }],
   [
     { token = "$row_working", fg = "#ffc777", bold = true },
     { token = "$row_blocked", fg = "#ff757f", bold = true },
@@ -139,5 +145,5 @@ rows = [
     { token = "$row_idle_stale", fg = "#636da6", dim = true },
     { token = "$row_unknown", fg = "#636da6", dim = true },
   ],
-  [{ token = "workspace", dim = true }, { token = "tab", dim = true }],
+  ["$gap"],
 ]
