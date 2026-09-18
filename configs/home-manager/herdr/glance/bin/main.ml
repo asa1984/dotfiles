@@ -5,7 +5,8 @@ open Herdr_glance
    working からの変化はすぐ反映される。遅れるのは idle などから working になるときだけ。 *)
 let heartbeat = 1.0
 
-let log fmt = Printf.ksprintf (fun s -> Printf.eprintf "herdr-glance: %s\n%!" s) fmt
+let log fmt =
+  Printf.ksprintf (fun s -> Printf.eprintf "herdr-glance: %s\n%!" s) fmt
 
 let () =
   Eio_main.run @@ fun env ->
@@ -32,7 +33,11 @@ let () =
       (fun () ->
         let agents = Herdr.agents ~net ~path in
         let ids = List.map (fun (a : Model.agent) -> a.pane_id) agents in
-        let orphans = List.filter (fun id -> not (List.mem id ids)) (Herdr.panes_with_our_tokens ~net ~path) in
+        let orphans =
+          List.filter
+            (fun id -> not (List.mem id ids))
+            (Herdr.panes_with_our_tokens ~net ~path)
+        in
         with_fx (fun () -> Engine.clear_panes orphans);
         log "connected to %s (%d agents)" path (List.length agents);
         Herdr.set_view ~net ~path;
@@ -41,7 +46,10 @@ let () =
         let workspaces agents =
           let cached, at = !ws_cache in
           let unknown =
-            List.exists (fun (a : Model.agent) -> not (List.mem_assoc a.workspace_id cached)) agents
+            List.exists
+              (fun (a : Model.agent) ->
+                not (List.mem_assoc a.workspace_id cached))
+              agents
           in
           if unknown || Eio.Time.now clock -. at > 5. then begin
             let ws = Herdr.workspaces ~net ~path in
@@ -55,8 +63,13 @@ let () =
             let ws = workspaces agents in
             with_fx (fun () -> Engine.sync engine ~workspaces:ws agents);
             failures := 0;
-            let delay = if Engine.any_working engine then Model.spinner_period else heartbeat in
-            Eio.Fiber.first (fun () -> Eio.Stream.take wake) (fun () -> Eio.Time.sleep clock delay);
+            let delay =
+              if Engine.any_working engine then Model.spinner_period
+              else heartbeat
+            in
+            Eio.Fiber.first
+              (fun () -> Eio.Stream.take wake)
+              (fun () -> Eio.Time.sleep clock delay);
             loop (Herdr.agents ~net ~path)
           end
         in
@@ -69,9 +82,12 @@ let () =
       | exception (Eio.Cancel.Cancelled _ as e) -> raise e
       | exception e ->
           incr failures;
-          let backoff = Float.min 30. (0.5 *. (2. ** float_of_int (min !failures 6))) in
+          let backoff =
+            Float.min 30. (0.5 *. (2. ** float_of_int (min !failures 6)))
+          in
           if !failures = 1 || !failures mod 10 = 0 then
-            log "herdr unavailable (%s); retrying in %.1fs" (Printexc.to_string e) backoff;
+            log "herdr unavailable (%s); retrying in %.1fs"
+              (Printexc.to_string e) backoff;
           Eio.Time.sleep clock backoff);
       run ()
     end
@@ -79,4 +95,5 @@ let () =
   run ();
   (try with_fx (fun () -> Engine.clear_all engine)
    with e -> log "could not clear tokens on exit: %s" (Printexc.to_string e));
+  Runtime.flush ();
   log "stopped"
