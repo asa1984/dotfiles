@@ -31,6 +31,13 @@ let
     permissions.defaultMode = "auto";
     skipDangerousModePermissionPrompt = true;
 
+    env = {
+      # auto モードで Read/Edit/Write より bash を優先させ、その分ツール説明を
+      # 短縮版に差し替えてトークンを節約する feature flag を無効化する。
+      # デフォルトで有効化されているが、挙動が不安定になる。
+      CLAUDE_CODE_THRIFTY_SONIC = "false";
+    };
+
     tui = "fullscreen";
     editorMode = "vim";
     agentPushNotifEnabled = true;
