@@ -123,6 +123,11 @@ in
   services.aerospace = {
     enable = true;
     settings = {
+      # config-version 2 では persistent-workspaces がキーバインドから推論されなくなるため、
+      # 明示的に列挙する (workspace-to-monitor-force-assignment と同じ 1-10)。
+      config-version = 2;
+      persistent-workspaces = map toString (lib.range 1 10);
+
       enable-normalization-flatten-containers = true;
       enable-normalization-opposite-orientation-for-nested-containers = true;
       accordion-padding = 0;
