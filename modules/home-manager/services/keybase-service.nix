@@ -21,7 +21,7 @@ in
       home.packages = [ cfg.package ];
     }
 
-    (mkIf pkgs.stdenv.isLinux {
+    (mkIf pkgs.stdenv.hostPlatform.isLinux {
       systemd.user.services.keybase = {
         Unit.Description = "Keybase service";
         Service = {
@@ -33,7 +33,7 @@ in
       };
     })
 
-    (mkIf pkgs.stdenv.isDarwin {
+    (mkIf pkgs.stdenv.hostPlatform.isDarwin {
       launchd.agents.keybase = {
         enable = true;
         config = {
