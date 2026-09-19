@@ -25,10 +25,6 @@
       # Enable aliases to be sudo’ed
       sudo = "sudo ";
 
-      # Confirm before execute
-      rm = "rm -i";
-      cp = "cp -i";
-
       # Core
       cat = "bat";
       grep = "rg";
@@ -62,6 +58,7 @@
 
       # Docker
       dci = "docker run --rm -it";
+      ldocker = "lazydocker";
 
       # Clipboard
       clip = "xclip -selection clipboard";
