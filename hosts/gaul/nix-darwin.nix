@@ -11,6 +11,7 @@
     inputs.home-manager.darwinModules.home-manager
     inputs.private-modules.darwinModules.gaul
 
+    ../../configs/nix-darwin/homebrew.nix
     ../../configs/nix-darwin/macos-defaults.nix
     ../../configs/nix-darwin/misc.nix
     ../../configs/nix-darwin/nix.nix

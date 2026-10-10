@@ -16,6 +16,7 @@
     ../../configs/home-manager/gnu-userland
     ../../configs/home-manager/herdr
     ../../configs/home-manager/lazygit
+    ../../configs/home-manager/nh
     ../../configs/home-manager/neovim
     ../../configs/home-manager/starship
     ../../configs/home-manager/tmux
