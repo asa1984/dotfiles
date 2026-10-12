@@ -1,65 +1,102 @@
-name: Update flake input
-
 on:
   workflow_dispatch:
     inputs:
-      host:
-        description: "The host directory under hosts/ (per-host flake)"
-        required: true
-        type: string
       input:
         description: "The flake input to update"
         required: true
         type: string
+      host:
+        description: "The host directory under hosts/ (empty: every host that has the input)"
+        required: false
+        default: ""
+        type: string
       title:
-        description: "The commit title"
-        required: true
+        description: "The commit and PR title (default: chore(deps): update <input>)"
+        required: false
+        default: ""
         type: string
       body:
         description: "The commit body"
         required: false
         default: ""
         type: string
-      base:
-        description: "The base branch to create the PR against"
-        required: false
-        default: "main"
-        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.input }}
 
 jobs:
-  update-flake-input:
+  update:
+    # lock の更新だけなので Linux で足りる。ビルドは PR 上の check-flake が行う
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
+    timeout-minutes: 30
 
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.SWAMPMAN_CLIENT_ID }}
+          private-key: ${{ secrets.SWAMPMAN_PRIVATE_KEY }}
+
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
-
-      - name: Setup Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
 
       - name: Configure git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Update flake input
+      - name: Update flake input and open PR
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: hosts/${{ inputs.host }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          INPUT: ${{ inputs.input }}
+          HOST: ${{ inputs.host }}
+          TITLE: ${{ inputs.title }}
+          BODY: ${{ inputs.body }}
         run: |
-          set +e
-          set +o pipefail
+          set -euo pipefail
+          title="${TITLE:-chore(deps): update $INPUT}"
+          branch="update-flake-input/$INPUT"
 
-          nix flake update "${{ inputs.input }}"
+          if [ -n "$HOST" ]; then
+            hosts="$HOST"
+          else
+            hosts=""
+            for lock in hosts/*/flake.lock; do
+              if jq -e --arg i "$INPUT" '.nodes.root.inputs | has($i)' "$lock" > /dev/null; then
+                hosts="$hosts $(basename "$(dirname "$lock")")"
+              fi
+            done
+          fi
+          if [ -z "$hosts" ]; then
+            echo "::error::No host has the flake input '$INPUT'."
+            exit 1
+          fi
 
-          branch="update-flake-input/${{ inputs.input }}"
-          git switch -c "$branch"
-          git commit --all --message "${{ inputs.title }}" --message "${{ inputs.body }}"
-          git push --force-with-lease origin "$branch"
-          gh pr create --fill --base "${{ inputs.base }}"
+          # 前回の PR が残っていても main から作り直す
+          git switch -C "$branch"
+          for host in $hosts; do
+            (cd "hosts/$host" && nix flake update "$INPUT")
+          done
+          if git diff --quiet; then
+            echo "'$INPUT' is already up to date."
+            exit 0
+          fi
+
+          if [ -n "$BODY" ]; then
+            git commit --all --message "$title" --message "$BODY"
+          else
+            git commit --all --message "$title"
+          fi
+          git push --force origin "$branch"
+
+          if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
+            gh pr create --base main --head "$branch" --title "$title" \
+              --body "Updates the \`$INPUT\` flake input of:$hosts. Merged automatically after check-flake passes."
+          fi
+          gh pr merge "$branch" --auto --squash

@@ -1,22 +1,5 @@
-name: Check flake
-
-# PR / main push 時に darwin system 全体が評価できることを保証する。
-# toplevel.drvPath の eval は、nixpkgs 更新で起きがちな
-# 「削除・改名されたオプション参照」等の破壊を検出できる。
-# 注意: Linux runner ではビルドはできないため、ビルド破壊
-# (コンパイルエラー等) までは検出できない。完全な保証には
-# macOS runner での `nix build` が別途必要。
-
 on:
   pull_request:
-    paths:
-      - "hosts/**"
-      - "configs/**"
-      - "modules/**"
-      - "lib/**"
-      - "overlays/**"
-      - "pkgs/**"
-      - "themes/**"
   push:
     branches: [main]
     paths:
@@ -27,12 +10,17 @@ on:
       - "overlays/**"
       - "pkgs/**"
       - "themes/**"
+      - ".github/workflows/check-flake.yaml"
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  eval-darwin:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+  build:
+    runs-on: macos-latest # aarch64-darwin
+    timeout-minutes: 90
     strategy:
       matrix:
         host: [endfield]
@@ -43,11 +31,19 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+        with:
+          # configs/nix-darwin/nix.nix と同じ substituter (llm-agents 等のビルド済みバイナリ)
+          extra-conf: |
+            extra-substituters = https://nix-community.cachix.org https://cache.numtide.com
+            extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
 
       - name: Setup Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
+        with:
+          use-flakehub: false
 
-      - name: Evaluate darwin system (no build)
+      - name: Build darwin system
         working-directory: hosts/${{ matrix.host }}
         run: |
-          nix eval './#darwinConfigurations."${{ matrix.host }}".config.system.build.toplevel.drvPath' --show-trace
+          nix build './#darwinConfigurations."${{ matrix.host }}".config.system.build.toplevel' \
+            --no-link --print-build-logs --show-trace
