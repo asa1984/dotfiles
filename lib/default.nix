@@ -1,5 +1,7 @@
 inputs:
 let
+  inherit (inputs.nixpkgs) lib;
+
   defaultOverlays = [
     inputs.self.overlays.default
     inputs.fenix.overlays.default
@@ -15,9 +17,10 @@ in
       system, # "x86_64-darwin" | "aarch64-darwin"
       theme, # String
       username, # String
+      extraSpecialArgs ? { }, # AttrSet
     }:
     inputs.nix-darwin.lib.darwinSystem {
-      specialArgs = {
+      specialArgs = extraSpecialArgs // {
         inherit
           hostname
           inputs
@@ -42,4 +45,12 @@ in
       ++ [ inputs.self.darwinModules.default ]
       ++ modules;
     };
+
+  # dir 直下のモジュールを { <name> = <path>; } にする (foo.nix と foo/ はどちらも foo)。
+  # configs/ を他の flake から import できるように export するのに使う。
+  modulesIn =
+    dir: # Path
+    lib.mapAttrs' (name: _: lib.nameValuePair (lib.removeSuffix ".nix" name) (dir + "/${name}")) (
+      builtins.readDir dir
+    );
 }

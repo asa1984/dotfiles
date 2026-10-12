@@ -37,7 +37,18 @@
 
         overlays = import ../../overlays inputs;
 
-        darwinModules.default = import ../../modules/nix-darwin;
+        # configs/ も export する。仕事用リポジトリの gaul は
+        # `github:asa1984/dotfiles?dir=hosts/endfield` を input にして、
+        # lib.makeDarwinConfig とこれらのモジュールを endfield と同じ lock で使う。
+        darwinModules = {
+          default = import ../../modules/nix-darwin;
+        }
+        // self.lib.modulesIn ../../configs/nix-darwin;
+        homeModules = {
+          default = import ../../modules/home-manager;
+        }
+        // self.lib.modulesIn ../../configs/home-manager;
+
         darwinConfigurations = {
           endfield = self.lib.makeDarwinConfig {
             system = "aarch64-darwin";
