@@ -1,6 +1,5 @@
 {
   stdenv,
-  fetchFromGitHub,
   swift,
   ...
 }:
@@ -8,21 +7,14 @@
 # herdr の `[ui.toast] delivery = "system"` から terminal-notifier として呼ばれ、
 # 通知をクリックすると、直前に状態が変わったエージェントのペインへ `herdr agent focus` する。
 # terminal-notifier や alerter が使う NSUserNotification は、今の macOS ではバナーが出ない。
+# 元にしていた ntheanh201/herdr-notify が GitHub から消えたので、ソースはここで持つ。
 #
 # ここで作るのは .app の中身まで。署名と LaunchServices への登録は書き込める場所に
 # 置いてからでないとできないので、home-manager の activation で行う。
 stdenv.mkDerivation rec {
   pname = "herdr-notify";
-  version = "1.1.0";
-  src = fetchFromGitHub {
-    owner = "ntheanh201";
-    repo = "herdr-notify";
-    tag = "v${version}";
-    hash = "sha256-pWjNe3dWNEiMJM4lbiExmOv+h9VLfAsvsh4I5z+prHc=";
-  };
-  # Herdr 0.9 では agent focus だけだとクライアントの表示タブが切り替わらないので、
-  # 返ってきた tab_id で tab focus も行う
-  patches = [ ./herdr-0.9-tab-focus.patch ];
+  version = "2.0.0";
+  src = ./src;
 
   nativeBuildInputs = [ swift ];
 

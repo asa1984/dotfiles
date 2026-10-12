@@ -14,7 +14,7 @@ let
   # デスクトップ通知は Herdr Notify.app (pkgs/herdr-notify) に出させる。
   # macOS は通知の許可も、通知をクリックしたときに起動するアプリも bundle id から引くので、
   # store の .app (読み取り専用で署名し直せない) を ~/Applications に複製してから
-  # アドホック署名し、LaunchServices に登録する (upstream の build.sh と同じ手順)。
+  # アドホック署名し、LaunchServices に登録する。
   # 同じ store パスから複製済みなら何もしない。
   herdrNotifyApp = "${pkgs.herdr-notify}/Applications/Herdr Notify.app";
   installHerdrNotify = pkgs.writeShellApplication {
