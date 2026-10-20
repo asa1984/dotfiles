@@ -11,6 +11,8 @@
 #      so repeated selections need zero network requests.
 #   4. A stale cache is served instantly while a refresh runs in the
 #      background (stale-while-revalidate).
+#   5. When fetching from the network, results are streamed into fzf page by
+#      page, so filtering works before all repositories have been fetched.
 #
 usage() {
   cat <<'EOF'
@@ -128,44 +130,52 @@ refresh_cache_bg() {
   ( trap '' HUP; fetch_repos >"$tmp" 2>/dev/null && mv "$tmp" "$CACHE_FILE" ) >/dev/null 2>&1 &
 }
 
-LIST=""
-if [ "$NO_CACHE" -eq 0 ] && [ "$REFRESH" -eq 0 ] && [ -f "$CACHE_FILE" ]; then
+stream_repos_bg() {
+  # Stream the list into the FIFO $WORK/fifo while fetching. This runs in the
+  # background so the script does not wait for the remaining pages once a
+  # repository is selected; `tee -p` keeps filling the cache after fzf exits.
+  if [ "$NO_CACHE" -eq 0 ]; then
+    mkdir -p "$CACHE_BASE"
+  fi
+  tmp="$CACHE_FILE.tmp.$$"
+  (
+    trap '' HUP
+    if [ "$NO_CACHE" -eq 1 ]; then
+      fetch_repos 2>"$WORK/err" >"$WORK/fifo" || true
+    elif fetch_repos 2>"$WORK/err" | tee -p "$tmp" >"$WORK/fifo"; then
+      mv "$tmp" "$CACHE_FILE"
+    else
+      rm -f "$tmp"
+    fi
+    # Keep the error log for the foreground to report.
+    [ -s "$WORK/err" ] || rm -rf "$WORK"
+  ) &
+}
+
+select_repo() {
+  fzf --prompt "gh-q($OWNER)> " || true
+}
+
+if [ "$NO_CACHE" -eq 0 ] && [ "$REFRESH" -eq 0 ] && [ -s "$CACHE_FILE" ]; then
   AGE="$(cache_age "$CACHE_FILE")"
-  if [ "$AGE" != "unknown" ] && [ "$AGE" -lt "$TTL" ]; then
-    LIST="$(cat "$CACHE_FILE")"
-  else
+  if [ "$AGE" = "unknown" ] || [ "$AGE" -ge "$TTL" ]; then
     # Stale (or unknown age) cache: select from it instantly, refresh behind the scenes.
-    LIST="$(cat "$CACHE_FILE")"
     refresh_cache_bg
   fi
-fi
-
-if [ -z "$LIST" ]; then
-  if [ "$NO_CACHE" -eq 1 ] || [ "$REFRESH" -eq 1 ]; then
-    LIST="$(fetch_repos)"
-    if [ "$NO_CACHE" -eq 0 ] && [ -n "$LIST" ]; then
-      mkdir -p "$CACHE_BASE"
-      tmp="$CACHE_FILE.tmp.$$"
-      printf '%s\n' "$LIST" >"$tmp"
-      mv "$tmp" "$CACHE_FILE"
-    fi
-  else
-    # Cold cache: fetch synchronously, then populate the cache.
-    mkdir -p "$CACHE_BASE"
-    tmp="$CACHE_FILE.tmp.$$"
-    fetch_repos >"$tmp"
-    mv "$tmp" "$CACHE_FILE"
-    LIST="$(cat "$CACHE_FILE")"
+  REPO="$(select_repo <"$CACHE_FILE")"
+else
+  # Cold cache, --refresh or --no-cache: stream from the network.
+  WORK="$(mktemp -d)"
+  mkfifo "$WORK/fifo"
+  stream_repos_bg
+  REPO="$(select_repo <"$WORK/fifo")"
+  if [ -z "$REPO" ] && [ -s "$WORK/err" ]; then
+    cat "$WORK/err" >&2
+    rm -rf "$WORK"
   fi
 fi
 
-if [ -z "$LIST" ]; then
-  echo "gh-q: no repositories found for owner '$OWNER'" >&2
-  exit 1
-fi
-
-REPO="$(printf '%s\n' "$LIST" | fzf --prompt "gh-q($OWNER)> " || true)"
-if [ -z "${REPO:-}" ]; then
+if [ -z "$REPO" ]; then
   exit 1
 fi
 
