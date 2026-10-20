@@ -112,7 +112,9 @@ fetch_repos() {
 
 cache_age() {
   # Echo age of $1 in seconds, or "unknown" when it cannot be determined.
-  mtime="$(stat -f %m "$1" 2>/dev/null || stat -c %Y "$1" 2>/dev/null || true)"
+  # GNU stat is pinned via runtimeInputs; BSD `stat -f %m` must not be used
+  # because GNU `stat -f` prints file system info instead of failing cleanly.
+  mtime="$(stat -c %Y "$1" 2>/dev/null || true)"
   case "$mtime" in
     '' | *[!0-9]*) printf 'unknown\n' && return 0 ;;
   esac
@@ -121,17 +123,18 @@ cache_age() {
 
 refresh_cache_bg() {
   # Stale-while-revalidate: update the cache without blocking the user.
+  # Ignore SIGHUP so the refresh survives this script and its terminal exiting.
   tmp="$CACHE_FILE.tmp.$$"
-  ( fetch_repos >"$tmp" 2>/dev/null && mv "$tmp" "$CACHE_FILE" ) >/dev/null 2>&1 &
+  ( trap '' HUP; fetch_repos >"$tmp" 2>/dev/null && mv "$tmp" "$CACHE_FILE" ) >/dev/null 2>&1 &
 }
 
 LIST=""
 if [ "$NO_CACHE" -eq 0 ] && [ "$REFRESH" -eq 0 ] && [ -f "$CACHE_FILE" ]; then
   AGE="$(cache_age "$CACHE_FILE")"
-  if [ "$AGE" = "unknown" ] || [ "$AGE" -lt "$TTL" ]; then
+  if [ "$AGE" != "unknown" ] && [ "$AGE" -lt "$TTL" ]; then
     LIST="$(cat "$CACHE_FILE")"
   else
-    # Stale cache: select from it instantly, refresh behind the scenes.
+    # Stale (or unknown age) cache: select from it instantly, refresh behind the scenes.
     LIST="$(cat "$CACHE_FILE")"
     refresh_cache_bg
   fi
