@@ -7,12 +7,11 @@ asa1984's dotfiles managed by Nix (nix-darwin, home-manager).
 ```
 .
 ├── hosts/                      # Per-host configurations, each with its own flake
-│   ├── endfield/               # Primary macOS (nix-darwin)
-│   │   ├── flake.nix
-│   │   ├── flake.lock
-│   │   ├── home-manager.nix
-│   │   └── nix-darwin.nix
-│   └── gaul/                   # Sub macOS (nix-darwin)
+│   └── endfield/               # Primary macOS (nix-darwin)
+│       ├── flake.nix
+│       ├── flake.lock
+│       ├── home-manager.nix
+│       └── nix-darwin.nix
 ├── configs/                    # Shared concrete settings across hosts
 │   ├── home-manager/
 │   └── nix-darwin/

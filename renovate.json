@@ -5,7 +5,6 @@
   "nix": {
     "enabled": true
   },
-  "ignorePaths": ["hosts/gaul/**"],
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,

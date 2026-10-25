@@ -19,7 +19,6 @@ Per-host configurations
 
 | Name     | Description    |
 | -------- | -------------- |
-| gaul     | M1 Macbook Air |
 | endfield | My primary macOS |
 
 ### `modules`
