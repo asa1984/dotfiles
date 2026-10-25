@@ -13,13 +13,13 @@
       url = "github:lmilojevicc/herdr-splits.nvim";
       flake = false;
     };
-    fenix.url = "github:nix-community/fenix";
     home-manager.url = "github:nix-community/home-manager";
     nix-darwin.url = "github:LnL7/nix-darwin";
     comin.url = "github:nlewo/comin";
     nix-linux-builder.url = "github:input-output-hk/nix-linux-builder";
 
-    fenix.inputs.nixpkgs.follows = "nixpkgs";
+    # asa1984.nvim の IDE はこちらの pkgs で組まれるので、nixpkgs も揃えておく。
+    asa1984-nvim.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     comin.inputs.nixpkgs.follows = "nixpkgs";

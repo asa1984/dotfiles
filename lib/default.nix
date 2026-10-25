@@ -4,7 +4,6 @@ let
 
   defaultOverlays = [
     inputs.self.overlays.default
-    inputs.fenix.overlays.default
     inputs.llm-agents.overlays.shared-nixpkgs
   ];
 in
