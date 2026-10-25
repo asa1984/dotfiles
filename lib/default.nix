@@ -3,6 +3,7 @@ let
   inherit (inputs.nixpkgs) lib;
 
   defaultOverlays = [
+    inputs.self.overlays.bumps
     inputs.self.overlays.default
     inputs.llm-agents.overlays.shared-nixpkgs
   ];
