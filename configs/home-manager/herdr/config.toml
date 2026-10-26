@@ -5,6 +5,9 @@
 # 記法: "prefix+n" はプレフィックス経由 / "alt+n" は直接(prefixless)。
 # tmux 設定はほぼ M-(Alt)直接バインド主体なので、ここでも Alt 直接に寄せている。
 
+# 起動時の初回通知セットアップ。下の [ui.toast] で配信方法を宣言済みなので出さない。
+onboarding = false
+
 [keys]
 # --- プレフィックス (tmux: set -g prefix C-k) ---
 prefix = "ctrl+k"
