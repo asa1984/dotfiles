@@ -1,26 +1,23 @@
-inputs:
 let
-  inherit (inputs.nixpkgs) lib;
-
-  defaultOverlays = [
-    inputs.self.overlays.bumps
-    inputs.self.overlays.default
-    inputs.llm-agents.overlays.shared-nixpkgs
-  ];
+  dotfilesOverlays = import ../overlays;
 in
 {
   makeDarwinConfig =
     {
+      inputs, # AttrSet: inputs of the host's flake
       hostname, # String
       modules, # List<Module>
-      overlays ? defaultOverlays, # List<Overlay> | null
+      overlays ? [
+        dotfilesOverlays.bumps
+        dotfilesOverlays.default
+        inputs.llm-agents.overlays.shared-nixpkgs
+      ], # List<Overlay> | null
       system, # "x86_64-darwin" | "aarch64-darwin"
       theme, # String
       username, # String
-      extraSpecialArgs ? { }, # AttrSet
     }:
     inputs.nix-darwin.lib.darwinSystem {
-      specialArgs = extraSpecialArgs // {
+      specialArgs = {
         inherit
           hostname
           inputs
@@ -42,15 +39,7 @@ in
           };
         }
       ]
-      ++ [ inputs.self.darwinModules.default ]
+      ++ [ ../modules/nix-darwin ]
       ++ modules;
     };
-
-  # dir 直下のモジュールを { <name> = <path>; } にする (foo.nix と foo/ はどちらも foo)。
-  # configs/ を他の flake から import できるように export するのに使う。
-  modulesIn =
-    dir: # Path
-    lib.mapAttrs' (name: _: lib.nameValuePair (lib.removeSuffix ".nix" name) (dir + "/${name}")) (
-      builtins.readDir dir
-    );
 }

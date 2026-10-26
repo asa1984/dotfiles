@@ -6,6 +6,7 @@ asa1984's dotfiles managed by Nix (nix-darwin, home-manager).
 
 ```
 .
+├── flake.nix                   # Exports lib, overlays and modules to other flakes (no inputs)
 ├── hosts/                      # Per-host configurations, each with its own flake
 │   └── endfield/               # Primary macOS (nix-darwin)
 │       ├── flake.nix
@@ -28,3 +29,4 @@ Conventions:
 
 - `modules/` defines options only; concrete settings go in `configs/`.
 - Each host is self-contained: `just switch-darwin endfield`.
+- The root flake has no inputs. A host outside this repository takes it as an input and passes its own `inputs` to `lib.makeDarwinConfig`, so every host keeps its own lock.

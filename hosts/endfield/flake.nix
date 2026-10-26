@@ -26,31 +26,16 @@
   };
 
   outputs =
-    inputs@{ self, ... }:
+    inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "aarch64-darwin" # 64-bit ARM macOS
       ];
 
       flake = {
-        lib = import ../../lib inputs;
-
-        overlays = import ../../overlays inputs;
-
-        # configs/ も export する。仕事用リポジトリの gaul は
-        # `github:asa1984/dotfiles?dir=hosts/endfield` を input にして、
-        # lib.makeDarwinConfig とこれらのモジュールを endfield と同じ lock で使う。
-        darwinModules = {
-          default = import ../../modules/nix-darwin;
-        }
-        // self.lib.modulesIn ../../configs/nix-darwin;
-        homeModules = {
-          default = import ../../modules/home-manager;
-        }
-        // self.lib.modulesIn ../../configs/home-manager;
-
         darwinConfigurations = {
-          endfield = self.lib.makeDarwinConfig {
+          endfield = (import ../../lib).makeDarwinConfig {
+            inherit inputs;
             system = "aarch64-darwin";
             hostname = "endfield";
             username = "asahi";
