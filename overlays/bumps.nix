@@ -132,14 +132,6 @@ let
 in
 {
   # nodejs_2x と nodejs はこれらの symlink ラッパー。
-  nodejs-slim_22 = nodejsBin prev.nodejs-slim_22 {
-    version = "22.23.4";
-    hashes = {
-      aarch64-darwin = "037650d0839f457747396f052073fb48333d31bf5abd3c98b74da20d89ebb1ad";
-      aarch64-linux = "6287aa46b6c375d816e63ae66d024fbbfd70404825aabdfdf898a970871d2f4b";
-      x86_64-linux = "1805bcd35e6815559bd2eb97db438d3fdb0eb3a5e6a977b7c1badca76337e9ce";
-    };
-  };
   nodejs-slim_24 = nodejsBin prev.nodejs-slim_24 {
     version = "24.22.1";
     hashes = {
@@ -148,41 +140,4 @@ in
       x86_64-linux = "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6";
     };
   };
-
-  bun = bump prev.bun "1.4.4" (
-    p:
-    let
-      sources =
-        lib.mapAttrs
-          (
-            _:
-            { name, hash }:
-            final.fetchurl {
-              url = "https://github.com/oven-sh/bun/releases/download/bun-v1.4.4/${name}";
-              inherit hash;
-            }
-          )
-          {
-            aarch64-darwin = {
-              name = "bun-darwin-aarch64.zip";
-              hash = "sha256-wkDX8My5DCY6hJ/NsJt+5iYw2SE0jtaq/ahrnVd7xRA=";
-            };
-            aarch64-linux = {
-              name = "bun-linux-aarch64.zip";
-              hash = "sha256-uqa7NvUdblhWHgK76oJQOKnfRU9nPW13bou/hvjHhQ4=";
-            };
-            x86_64-linux = {
-              name = "bun-linux-x64-baseline.zip";
-              hash = "sha256-4ERutVmVdy65iUvrrppr42jZhai5Jx7hJEhvmUbu3XY=";
-            };
-          };
-    in
-    p.overrideAttrs (old: {
-      version = "1.4.4";
-      src = sources.${final.stdenvNoCC.hostPlatform.system};
-      passthru = old.passthru // {
-        inherit sources;
-      };
-    })
-  );
 }
