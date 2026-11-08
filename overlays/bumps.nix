@@ -133,11 +133,11 @@ in
 {
   # nodejs_2x と nodejs はこれらの symlink ラッパー。
   nodejs-slim_24 = nodejsBin prev.nodejs-slim_24 {
-    version = "24.22.1";
+    version = "24.22.2";
     hashes = {
-      aarch64-darwin = "654ba79de6155647e22321932b45f2a1ccb705976cc337c9b8e278beb085a628";
-      aarch64-linux = "dbabf7a1cbf947e6059ffad2c27b80041db97dea1e553b62afdee7f13fca336e";
-      x86_64-linux = "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6";
+      aarch64-darwin = "1f5ac075be50bed4780ea3be19a007fda95ea4d527d28d76d0b91de47d915115";
+      aarch64-linux = "eb187837a2230d4047161ac0be008584e16b46f726e9c9490ee35dc6b17d9ba8";
+      x86_64-linux = "48cc0e21e048790e54c0cf5749c2725005313d652651c40b7a21feb9697aaf75";
     };
   };
 }
