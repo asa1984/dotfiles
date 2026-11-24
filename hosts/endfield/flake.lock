@@ -10,11 +10,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1794329749,
-        "narHash": "sha256-x1GRHuF2n1auPLTIOzgLgccs+ZcIfkjWtYa+Ak+UlXs=",
+        "lastModified": 1795116091,
+        "narHash": "sha256-lBXPqmc8ZoiFWjbOIDdMgqYN2Ux2GGyI+SFdGEp6Mv0=",
         "owner": "asa1984",
         "repo": "asa1984.nvim",
-        "rev": "84af691d242c0ce344edfab6799d625380c49895",
+        "rev": "1cb81b91230785ee387d9607b9debaaef4ce2633",
         "type": "github"
       },
       "original": {
