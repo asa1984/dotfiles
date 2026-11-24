@@ -96,8 +96,7 @@ let
           "$AEROSPACE" workspace "$TARGET"
           ;;
         move)
-          "$AEROSPACE" move-node-to-workspace "$TARGET"
-          "$AEROSPACE" workspace "$TARGET"
+          "$AEROSPACE" move-node-to-workspace --focus-follows-window "$TARGET"
           ;;
       esac
     '';
@@ -198,18 +197,24 @@ in
         };
       };
 
-      workspace-to-monitor-force-assignment = {
-        "1" = "main";
-        "2" = "main";
-        "3" = "main";
-        "4" = "main";
-        "5" = "secondary";
-        "6" = "secondary";
-        "7" = "secondary";
-        "8" = "secondary";
-        "9" = "secondary";
-        "10" = "secondary";
-      };
+      # 外部モニターに若い番号を割り当てる。
+      # 切断時は全ワークスペースが内蔵ディスプレイに集まり、aerospace-workspace-relative は
+      # 番号順に数えるため、外部モニターで alt-1, alt-2, ... だったワークスペースが
+      # そのまま alt-1, alt-2, ... に残る。
+      #
+      # main/secondary ではなくモニター名で指定する。secondary はモニターがちょうど 2 枚の
+      # ときしか解決されず、main は macOS のメインディスプレイ設定で入れ替わるため。
+      # パターンは大文字小文字を無視した部分一致の正規表現で、配列は先頭から順に試される。
+      workspace-to-monitor-force-assignment =
+        let
+          external = [ "^(?!built-in)" ]; # 内蔵以外のうち左端のモニター
+          builtin = [
+            "built-in"
+            "main" # クラムシェル時は外部モニターへ
+          ];
+        in
+        lib.genAttrs (map toString (lib.range 1 6)) (_: external)
+        // lib.genAttrs (map toString (lib.range 7 10)) (_: builtin);
     };
   };
 
