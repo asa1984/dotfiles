@@ -9,6 +9,7 @@ in
       modules, # List<Module>
       overlays ? [
         dotfilesOverlays.bumps
+        dotfilesOverlays.fixes
         dotfilesOverlays.default
         inputs.llm-agents.overlays.shared-nixpkgs
       ], # List<Overlay> | null
